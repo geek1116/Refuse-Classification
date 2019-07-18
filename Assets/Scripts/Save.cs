@@ -9,23 +9,6 @@ using System.IO;
 using System.Text;
 using System;
 
-public class PlayerData
-{
-    public int gold{get; set; }
-    public Hashtable gate;
-    
-    public PlayerData()
-    {
-        gold = 0;
-        gate = new Hashtable();
-    }
-}
-
-public class GlobalData
-{
-    public static PlayerData playerData = new PlayerData();
-}
-
 public class DataHelper
 {    //加密;
     public static string EncryptString(string str, string key)
