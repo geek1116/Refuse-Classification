@@ -22,7 +22,6 @@ public class GarbageMove : MonoBehaviour
             {
                 Vector2 temp = Vector2.MoveTowards(transform.position, arrPath[curIndex], speed*Time.deltaTime);
                 GetComponent<Rigidbody2D>().MovePosition(temp);
-                Debug.Log(curIndex);
             }
             else
             {

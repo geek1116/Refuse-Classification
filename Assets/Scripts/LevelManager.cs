@@ -34,6 +34,12 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GenerateGarbage();
+        ProcessInput();
+    }
+
+    void GenerateGarbage()
+    {
         curTime = Time.time;
         if(curGarbageCount < garbageCount && curTime - preTime >= intervalTime)
         {
@@ -42,6 +48,15 @@ public class LevelManager : MonoBehaviour
             GameObject.Instantiate(garbage, startPos, Quaternion.identity);
             preTime = curTime;
             curGarbageCount++;
+        }
+    }
+
+    void ProcessInput()
+    {
+        if(Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            Debug.Log(touch.position);
         }
     }
 }
