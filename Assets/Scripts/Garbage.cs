@@ -28,13 +28,12 @@ public class GarbageData
 public class Garbage : MonoBehaviour
 {
     public GarbageData garbageData;
-    public int speed;
     public int buff;
+    public static int speed;
 
-    Garbage(GarbageData _garbageData, int _speed, int _buff)
+    Garbage(GarbageData _garbageData,int _buff)
     {
         garbageData = _garbageData;
-        speed = _speed;
         buff = _buff;
     }
 
