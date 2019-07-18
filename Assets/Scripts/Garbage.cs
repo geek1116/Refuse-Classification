@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//垃圾的类型定义 居右
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +10,8 @@ public class GarbageData
     public string name;
     public int type;
     public int imageId;
-    Garbage(int _code, string _name, int _type, int _imageId){
+    GarbageData(int _code, string _name, int _type, int _imageId)
+    {
         code = _code;
         name = _name;
         type = _type;
@@ -18,15 +21,15 @@ public class GarbageData
 
 public class Garbage : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GarbageData garbageData;
+    public int speed;
+    public int buff;
+
+    Garbage(GarbageData _garbageData, int _speed, int _buff)
     {
-        
+        garbageData = _garbageData;
+        speed = _speed;
+        buff = _buff;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
