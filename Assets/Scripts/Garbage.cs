@@ -16,7 +16,7 @@ public class GarbageData
         Recyclable, Dry, Wet, Pernicious, Mysterious
     }
 
-    GarbageData(int _code, string _name, int _type, int _imageId)
+    public GarbageData(int _code, string _name, int _type, int _imageId)
     {
         code = _code;
         name = _name;
@@ -31,7 +31,7 @@ public class Garbage : MonoBehaviour
     public int buff;
     public static int speed;
 
-    Garbage(GarbageData _garbageData,int _buff)
+    public Garbage(GarbageData _garbageData,int _buff)
     {
         garbageData = _garbageData;
         buff = _buff;
