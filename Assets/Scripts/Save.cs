@@ -5,11 +5,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleJson;
 using System.Security.Cryptography;
+using System.IO;
+using System.Text;
+using System;
 
 public class PlayerData
 {
     public int gold{get; set; }
-    public int[] gate{get; set; };
+    public Hashtable gate;
+    
+    public PlayerData()
+    {
+        gold = 0;
+        gate = new Hashtable();
+    }
 }
 
 public class GlobalData
@@ -73,6 +82,31 @@ public class DataHelper
             provider.Clear();
         }
         return encoding.GetString(buffer);
+    }
+
+    //读取TXT文件
+    public static string ReadText(string fileName)
+    {
+        string str = "";
+        using(StreamReader sr = new StreamReader(fileName))
+        {
+            string line;
+            while((line = sr.ReadLine()) != null)
+            {
+                str = str + line;
+            }
+        }
+        return str;
+    }
+
+    //写入TXT文件
+    public static bool WriteText(string fileName, string jsd)
+    {
+        using(StreamWriter sw = new StreamWriter(fileName))
+        {
+            sw.WriteLine(jsd);
+        }
+        return true;
     }
 }
 

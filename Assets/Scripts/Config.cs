@@ -7,11 +7,14 @@ using UnityEngine;
 
 public class Config
 {
-    public Hashtable garbageData = new Hashtable(); // value: GarbageData
-    public Hashtable map = new Hashtable(); // value: Map
+    public Hashtable garbageData; // value: GarbageData
+    public Hashtable map; // value: Map
     
     private void Awake() 
     {
+        garbageData = new Hashtable();
+        map = new Hashtable();
+        
         garbageData.Add(1, new GarbageData(1, "Recyclable", 0, 1));
         garbageData.Add(2, new GarbageData(2, "Dry", 1, 2));
         garbageData.Add(3, new GarbageData(3, "Wet", 2, 3));
