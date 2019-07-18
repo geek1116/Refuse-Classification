@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Config : MonoBehaviour
+public class Config
 {
     public Hashtable garbageData = new Hashtable(); // value: GarbageData
     public Hashtable map = new Hashtable(); // value: Map

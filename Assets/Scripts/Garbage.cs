@@ -25,11 +25,11 @@ public class GarbageData
     }
 }
 
-public class Garbage : MonoBehaviour
+public class Garbage
 {
     public GarbageData garbageData;
     public int buff;
-    public static int speed;
+    //public static int speed;
 
     public Garbage(GarbageData _garbageData,int _buff)
     {
