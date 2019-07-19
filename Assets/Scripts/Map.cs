@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Map
 {
-<<<<<<< HEAD
-=======
     private List<Vector3> arrPath = new List<Vector3>();
     private List<GarbageData> garbageDatas = new List<GarbageData>();
     private int star;
@@ -41,7 +39,6 @@ public class Map
     {
         return star;
     }
->>>>>>> 2da1cc9b02587525fd652f3a8aeea7a99efcdbcd
 }
 
 
