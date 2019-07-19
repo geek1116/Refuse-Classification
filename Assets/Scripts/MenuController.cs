@@ -18,9 +18,9 @@ public class MenuController : MonoBehaviour
             instance = this;
         }
 
-        mainMenu.SetActive(false);
+        mainMenu.SetActive(true);
         levelMenu.SetActive(false);
-        level.SetActive(true);
+        level.SetActive(false);
     }
 
     private void Update()

@@ -8,10 +8,10 @@ public class TrashCan : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+            Debug.Log("Enter Garbage Can!");
         if (collision.gameObject.CompareTag(garbageTag))
         {
             collision.gameObject.GetComponent<GarbageMove>().SetGarbagePosStatus(true);
-            Debug.Log("Enter Garbage Can!");
         }
     }
 

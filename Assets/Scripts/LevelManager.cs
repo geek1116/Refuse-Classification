@@ -11,20 +11,21 @@ public class LevelManager : MonoBehaviour
     public GameObject conveyor;
 
 
-    public static float speed = 1f;
+    public static float speed = 2f;
     [Header("Level Config")]
+    public float intervalTime = 6.0f;
     public int garbageCount = 5;
-    public float intervalTime = 3.0f;
+
 
     private Map map;
 
     public static List<Vector3> arrPath = new List<Vector3>();
-    private float curTime = 0.0f, preTime = -3.0f;
-    private int curGarbageCount = 0;
+    private float timer = 0.0f;
 
     void Awake() {
         map = GameData.config.GetMapConfig(1);
         arrPath = map.GetArrPath();
+        garbageCount = map.GetGarbageDatas().Count;
     }
 
     // Update is called once per frame
@@ -35,14 +36,13 @@ public class LevelManager : MonoBehaviour
 
     void GenerateGarbage()
     {
-        curTime = Time.time;
-        if(curGarbageCount < garbageCount && curTime - preTime >= intervalTime)
+        timer -= Time.deltaTime;
+        if(timer < 0.0f)
         {
             int index = Random.Range(0, garbageCount);
             GameObject garbage = Instantiate(garbagePrefab, arrPath[0], Quaternion.identity);
             garbage.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(map.GetGarbageDatas()[index].imageUrl);
-            preTime = curTime;
-            curGarbageCount++;
+            timer = intervalTime;
         }
     }
 

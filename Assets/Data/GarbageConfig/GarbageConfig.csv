@@ -1,7 +1,6 @@
 code name type imageUrl splitCode
-1,Recyclable,1,1,0
-2,Dry,2,2,0
-3,Wet,3,3,0
-4,Pernicious,4,4,0
-5,Mysterious,5,5,0
-6,Mixed,6,6,1|2|3
+1,Recyclable,1,Sprites/Recyclable/key,0
+2,Recyclable,1,Sprites/Recyclable/mouse,0
+3,Recyclable,1,Sprites/Recyclable/key,0
+4,Recyclable,1,Sprites/Recyclable/newspaper,0
+5,Recyclable,1,Sprites/Recyclable/bank_card,0
