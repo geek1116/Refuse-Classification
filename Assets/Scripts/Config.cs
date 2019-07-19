@@ -31,10 +31,10 @@ public class Config
             int code = int.Parse(attribute[0]);
             string name = attribute[1];
             int type = int.Parse(attribute[2]);
-            string imageId = attribute[3];
+            string imageUrl = attribute[3];
             string splitCode = attribute[4];
 
-            garbageData.Add(code, new GarbageData(code, name, type, imageId,splitCode));
+            garbageData.Add(code, new GarbageData(code, name, type, imageUrl,splitCode));
         }
     }
 

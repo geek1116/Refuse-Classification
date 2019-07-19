@@ -9,7 +9,7 @@ public class GarbageData
     public int code;
     public string name;
     public int type;
-    public string imageId;
+    public string imageUrl;
     public string splitCode;
 
     public enum GarbageType
@@ -17,12 +17,12 @@ public class GarbageData
         Recyclable, Dry, Wet, Pernicious, Mysterious,Mixed
     }
 
-    public GarbageData(int _code, string _name, int _type, string _imageId, string _splitCode)
+    public GarbageData(int _code, string _name, int _type, string _imageUrl, string _splitCode)
     {
         code = _code;
         name = _name;
         type = _type;
-        imageId = _imageId;
+        imageUrl = _imageUrl;
         splitCode = _splitCode;
     }
 }
