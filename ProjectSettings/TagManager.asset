@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Garbage
   layers:
   - Default
   - TransparentFX
@@ -41,7 +42,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Grid
+  - name: Game
     uniqueID: 4010782273
     locked: 0
   - name: Item

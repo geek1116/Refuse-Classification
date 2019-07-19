@@ -12,8 +12,8 @@ public class Config
 {
     private Dictionary<int, GarbageData> garbageData; // 垃圾数据
 
-    private static string levelMapConfigPath = Application.dataPath + "Data/LevelMapConfig/";
-    private static string garbageConfigPath = Application.dataPath + "Data/GarbageConfig/";
+    private static string levelMapConfigPath = Application.dataPath + "/Data/LevelMapConfig/";
+    private static string garbageConfigPath = Application.dataPath + "/Data/GarbageConfig/";
     
     public Config() 
     {
@@ -52,7 +52,7 @@ public class Config
     {
         Map map = new Map();
 
-        string mapFileName = "LevelMapConfig" + level.ToString() + ".csv";
+        string mapFileName = "LevelMap" + level.ToString() + ".csv";
         string path = levelMapConfigPath + mapFileName;
 
         StreamReader sr = File.OpenText(path);

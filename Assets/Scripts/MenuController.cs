@@ -6,6 +6,7 @@ public class MenuController : MonoBehaviour
     public static MenuController instance;
 
     // node of Game Scene
+    [Header("Don't change variable: ")]
     public GameObject mainMenu;
     public GameObject levelMenu;
     public GameObject level;
@@ -17,9 +18,9 @@ public class MenuController : MonoBehaviour
             instance = this;
         }
 
-        mainMenu.SetActive(true);
+        mainMenu.SetActive(false);
         levelMenu.SetActive(false);
-        level.SetActive(false);
+        level.SetActive(true);
     }
 
     private void Update()
