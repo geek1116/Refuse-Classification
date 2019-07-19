@@ -13,8 +13,8 @@ using System;
 
 public class SaveData
 {
-    private static string fileName = "data.txt";
-    private static string key = "this key";
+    private static string fileName = Application.dataPath + "Data/PlayerData.txt";
+    private static string key = "Beautiful Girls and Strong Men";
 
     // 游戏开始时加载
     public static bool Reader()
