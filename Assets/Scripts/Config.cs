@@ -12,8 +12,8 @@ public class Config
 {
     private Dictionary<int, GarbageData> garbageData; // 垃圾数据
 
-    private static string levelMapConfigPath = Application.dataPath + "Data/LevelMapConfig/";
-    private static string garbageConfigPath = Application.dataPath + "Data/GarbageConfig/";
+    private static string levelMapConfigPath = Application.dataPath + "/Data/LevelMapConfig/";
+    private static string garbageConfigPath = Application.dataPath + "/Data/GarbageConfig/";
     
     public Config() 
     {
@@ -30,11 +30,11 @@ public class Config
 
             int code = int.Parse(attribute[0]);
             string name = attribute[1];
-            int type = int.Parse(attribute[2]);
+            int carType = int.Parse(attribute[2]);
             string imageUrl = attribute[3];
             string splitCode = attribute[4];
 
-            garbageData.Add(code, new GarbageData(code, name, type, imageUrl,splitCode));
+            garbageData.Add(code, new GarbageData(code, name, carType, imageUrl,splitCode));
         }
     }
 
@@ -51,28 +51,45 @@ public class Config
     public Map GetMapConfig(int level)
     {
         Map map = new Map();
+        int star, carType;
+        List<GarbageData> garbageDatas = new List<GarbageData>();
+        List<Vector3> arrPath = new List<Vector3>();
 
         string mapFileName = "LevelMapConfig" + level.ToString() + ".csv";
         string path = levelMapConfigPath + mapFileName;
 
         StreamReader sr = File.OpenText(path);
-        
-        map.SetStar(int.Parse(sr.ReadLine()));
-
         string line;
+        
         line = sr.ReadLine();
-        string[] garbageCode = line.Split(',');
-        foreach (string code in garbageCode)
+        string[] starStr = line.Split(',');
+        star = int.Parse(starStr[0]);
+
+        line = sr.ReadLine();
+        string[] carTypeStr = line.Split(',');
+        carType = int.Parse(carTypeStr[0]);
+
+
+        line = sr.ReadLine();
+        string[] garbageCodes = line.Split(',');
+        foreach (string garbageCode in garbageCodes)
         {
-            map.AddGarbageDatas(garbageData[int.Parse(code)]);
+            string[] code = garbageCode.Split('|');
+            for(int i = int.Parse(code[0]); i <= int.Parse(code[1]); i++)
+            {
+                garbageDatas.Add(garbageData[i]);
+            }
         }
         
-
-        while((line = sr.ReadLine()) != null)
+        line = sr.ReadLine();
+        string[] points = line.Split(',');
+        foreach (string point in points)
         {
-            string[] pos = line.Split(',');
-            map.AddArrPath(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
+            string[] pos = point.Split('|');
+            arrPath.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
         }
+
+        map.SetMap(star, carType, garbageDatas, arrPath);
 
         return map;
     }

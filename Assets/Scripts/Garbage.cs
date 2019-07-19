@@ -14,7 +14,7 @@ public class GarbageData
 
     public enum GarbageType
     {
-        Recyclable, Dry, Wet, Pernicious, Mysterious,Mixed
+        Recyclable = 1, Dry = 2, Wet = 3, Pernicious = 4, Mixed = 5, Mysterious = 6
     }
 
     public GarbageData(int _code, string _name, int _type, string _imageUrl, string _splitCode)
