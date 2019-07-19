@@ -50,10 +50,12 @@ public class Config
     public Map GetMapConfig(int level)
     {
         Map map = new Map();
-        int star, carType;
 
+        int star;
+        List<int> carType = new List<int>();
         List<GarbageData> garbageDatas = new List<GarbageData>();
         List<Vector3> arrPath = new List<Vector3>();
+        List<int> count = new List<int>();
 
         string mapFileName = "LevelMap" + level.ToString();
         string path = levelMapConfigPath + mapFileName;
@@ -67,9 +69,12 @@ public class Config
         star = int.Parse(starStr[0]);
 
         line = lines[1];
-        string[] carTypeStr = line.Split(',');
-        carType = int.Parse(carTypeStr[0]);
-
+        string[] carTypeStrs = line.Split(',');
+        foreach (string carTypeStr in carTypeStrs)
+        {
+            carType.Add(int.Parse(carTypeStr));
+        }
+    
 
         line = lines[2];
         string[] garbageCodes = line.Split(',');
@@ -92,7 +97,14 @@ public class Config
             arrPath.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
         }
 
-        map.SetMap(star, carType, garbageDatas, arrPath);
+        line = lines[4];
+        string[] countStrs = line.Split(',');
+        foreach (string countStr in countStrs)
+        {
+            count.Add(int.Parse(countStr));
+        }
+
+        map.SetMap(star, carType, garbageDatas, arrPath, count);
 
         return map;
     }

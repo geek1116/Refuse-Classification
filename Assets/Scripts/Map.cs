@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class Map
 {
+    private int star;
+    private List<int> carType = new List<int>();
     private List<Vector3> arrPath = new List<Vector3>();
     private List<GarbageData> garbageDatas = new List<GarbageData>();
-    private int star;
-    private int carType;
+    private List<int> count =  new List<int>(); //0-carType对应常规垃圾的数量 1-carType不对应常规垃圾的树立 2-混合垃圾数量 3-神秘垃圾数量
 
     public List<Vector3> GetArrPath()
     {
@@ -21,12 +22,13 @@ public class Map
         return garbageDatas;
     }
 
-    public void SetMap(int _star, int _carType, List<GarbageData> _garbageDatas, List<Vector3> _arrPath)
+    public void SetMap(int _star, List<int> _carType, List<GarbageData> _garbageDatas, List<Vector3> _arrPath, List<int> _count)
     {
         star = _star;
         carType = _carType;
         garbageDatas = _garbageDatas;
         arrPath = _arrPath;
+        count = _count;
     }
 
     public int GetStar()
@@ -34,7 +36,7 @@ public class Map
         return star;
     }
 
-    public int GetCarType()
+    public List<int> GetCarType()
     {
         return carType;
     }
