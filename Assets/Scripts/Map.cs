@@ -9,20 +9,11 @@ public class Map
     private List<Vector3> arrPath = new List<Vector3>();
     private List<GarbageData> garbageDatas = new List<GarbageData>();
     private int star;
-
-    public void AddArrPath(Vector3 vector)
-    {
-        arrPath.Add(vector);
-    }
+    private int carType;
 
     public List<Vector3> GetArrPath()
     {
         return arrPath;
-    }
-
-     public void AddGarbageDatas(GarbageData garbageData)
-    {
-        garbageDatas.Add(garbageData);
     }
 
     public List<GarbageData> GetGarbageDatas()
@@ -30,14 +21,22 @@ public class Map
         return garbageDatas;
     }
 
-    public void SetStar(int _star)
+    public void SetMap(int _star, int _carType, List<GarbageData> _garbageDatas, List<Vector3> _arrPath)
     {
         star = _star;
+        carType = _carType;
+        garbageDatas = _garbageDatas;
+        arrPath = _arrPath;
     }
 
     public int GetStar()
     {
         return star;
+    }
+
+    public int GetCarType()
+    {
+        return carType;
     }
 }
 
