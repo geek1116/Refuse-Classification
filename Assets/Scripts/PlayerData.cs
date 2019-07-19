@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿// 玩家数据 居右
+// void AddGold(int); 增加金币
+// bool CostGold(int); 消费
+// bool SetLevelStar(int,int); 设置关卡通过星级
+// int GetLevelStar(int); 获取该关卡星级
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,9 +57,4 @@ public class PlayerData
         if(levelStar.Count < _level ||  _level < 1) Debug.Log("PlayerData_GetLevelStat: _level is invalid!");
         return levelStar[_level-1];
     }
-}
-
-public class GlobalData
-{
-    public static PlayerData playerData = new PlayerData();
 }

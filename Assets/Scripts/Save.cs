@@ -1,4 +1,6 @@
 ﻿// 保存数据 居右
+// bool Save.Reader();
+// bool Save.Writer();
 
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +10,39 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Text;
 using System;
+
+public class SaveData
+{
+    private static string fileName = "data.txt";
+    private static string key = "this key";
+
+    // 游戏开始时加载
+    public static bool Reader()
+    {
+        string txt = DataHelper.ReadText(fileName);
+        if (string.IsNullOrEmpty(txt))
+        {
+            GameData.playerData = new PlayerData();
+            Debug.LogWarning("login first time.");
+            return false;
+        }
+        txt = DataHelper.DecryptString(txt, key);
+        GameData.playerData  = SimpleJson.SimpleJson.DeserializeObject<PlayerData>(txt);
+        return true;
+    }
+
+    // 游戏结束和数据改变的时候保存
+    public static bool Writer()
+    {
+        if (GameData.playerData == null)
+        {
+            return false;
+        }
+        string jsd = SimpleJson.SimpleJson.SerializeObject(GameData.playerData);
+        jsd = DataHelper.EncryptString(jsd, key);
+        return DataHelper.WriteText(fileName, jsd);
+    }
+}
 
 public class DataHelper
 {    //加密;
@@ -90,39 +125,6 @@ public class DataHelper
             sw.WriteLine(jsd);
         }
         return true;
-    }
-}
-
-public class SaveData
-{
-    private static string fileName = "data.txt";
-    private static string key = "this key";
-
-    // 游戏开始时加载
-    public static bool Reader()
-    {
-        string txt = DataHelper.ReadText(fileName);
-        if (string.IsNullOrEmpty(txt))
-        {
-            GlobalData.playerData = new PlayerData();
-            Debug.LogWarning("login first time.");
-            return false;
-        }
-        txt = DataHelper.DecryptString(txt, key);
-        GlobalData.playerData  = SimpleJson.SimpleJson.DeserializeObject<PlayerData>(txt);
-        return true;
-    }
-
-    // 游戏结束和数据改变的时候保存
-    public static bool Writer()
-    {
-        if (GlobalData.playerData == null)
-        {
-            return false;
-        }
-        string jsd = SimpleJson.SimpleJson.SerializeObject(GlobalData.playerData);
-        jsd = DataHelper.EncryptString(jsd, key);
-        return DataHelper.WriteText(fileName, jsd);
     }
 }
 
