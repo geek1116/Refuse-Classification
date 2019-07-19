@@ -9,19 +9,21 @@ public class GarbageData
     public int code;
     public string name;
     public int type;
-    public int imageId;
+    public string imageId;
+    public string splitCode;
 
     public enum GarbageType
     {
-        Recyclable, Dry, Wet, Pernicious, Mysterious
+        Recyclable, Dry, Wet, Pernicious, Mysterious,Mixed
     }
 
-    public GarbageData(int _code, string _name, int _type, int _imageId)
+    public GarbageData(int _code, string _name, int _type, string _imageId, string _splitCode)
     {
         code = _code;
         name = _name;
         type = _type;
         imageId = _imageId;
+        splitCode = _splitCode;
     }
 }
 
