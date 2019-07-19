@@ -12,22 +12,21 @@ public class Config
 {
     private Dictionary<int, GarbageData> garbageData; // 垃圾数据
 
-    private static string levelMapConfigPath = Application.dataPath + "/Data/LevelMapConfig/";
-    private static string garbageConfigPath = Application.dataPath + "/Data/GarbageConfig/";
+    private static string levelMapConfigPath = "LevelMapConfig/";
+    private static string garbageConfigPath = "GarbageConfig/";
     
     public Config() 
     {
         //读取GarbageData配置
         garbageData = new Dictionary<int, GarbageData>();
-        string path = garbageConfigPath + "GarbageConfig.csv";
+        string path = garbageConfigPath + "GarbageConfig";
 
-        StreamReader sr = File.OpenText(path);
-        sr.ReadLine();
-        string line;
-        while((line = sr.ReadLine()) != null)
+        string res = Resources.Load(path).ToString();
+        string[] lines = res.Split('\n');
+
+        for(int i = 1; i < lines.Length; i++)
         {
-            string[] attribute = line.Split(',');
-
+            string[] attribute = lines[i].Split(',');
             int code = int.Parse(attribute[0]);
             string name = attribute[1];
             int carType = int.Parse(attribute[2]);
@@ -52,25 +51,27 @@ public class Config
     {
         Map map = new Map();
         int star, carType;
+
         List<GarbageData> garbageDatas = new List<GarbageData>();
         List<Vector3> arrPath = new List<Vector3>();
 
-        string mapFileName = "LevelMap" + level.ToString() + ".csv";
+        string mapFileName = "LevelMap" + level.ToString();
         string path = levelMapConfigPath + mapFileName;
 
-        StreamReader sr = File.OpenText(path);
-        string line;
+        string res = Resources.Load(path).ToString();
+        string[] lines = res.Split('\n');
         
-        line = sr.ReadLine();
+        string line;
+        line = lines[0];
         string[] starStr = line.Split(',');
         star = int.Parse(starStr[0]);
 
-        line = sr.ReadLine();
+        line = lines[1];
         string[] carTypeStr = line.Split(',');
         carType = int.Parse(carTypeStr[0]);
 
 
-        line = sr.ReadLine();
+        line = lines[2];
         string[] garbageCodes = line.Split(',');
         foreach (string garbageCode in garbageCodes)
         {
@@ -82,7 +83,7 @@ public class Config
             }
         }
         
-        line = sr.ReadLine();
+        line = lines[3];
         string[] points = line.Split(',');
         foreach (string point in points)
         {
