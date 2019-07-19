@@ -6,5 +6,6 @@ using UnityEngine;
 
 public class Map
 {
-    public List<Vector3> arrPath = new List<Vector3>();
 }
+
+
