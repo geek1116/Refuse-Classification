@@ -74,6 +74,7 @@ public class Config
         string[] garbageCodes = line.Split(',');
         foreach (string garbageCode in garbageCodes)
         {
+            if(string.IsNullOrEmpty(garbageCode)) break;
             string[] code = garbageCode.Split('|');
             for(int i = int.Parse(code[0]); i <= int.Parse(code[1]); i++)
             {
@@ -85,6 +86,7 @@ public class Config
         string[] points = line.Split(',');
         foreach (string point in points)
         {
+            if(string.IsNullOrEmpty(point)) break;
             string[] pos = point.Split('|');
             arrPath.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
         }
