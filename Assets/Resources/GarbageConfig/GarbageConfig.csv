@@ -1,6 +1,7 @@
-code name type imageUrl splitCode
-1,Recyclable,1,Sprites/Recyclable/key,0
-2,Recyclable,1,Sprites/Recyclable/mouse,0
-3,Recyclable,1,Sprites/Recyclable/key,0
-4,Recyclable,1,Sprites/Recyclable/newspaper,0
-5,Recyclable,1,Sprites/Recyclable/bank_card,0
+code name type imageUrl splitCode buff
+1,Recyclable,1,Sprites/Recyclable/bank_card,0,0
+2,Recyclable,2,Sprites/Recyclable/clamp,0,0
+3,Recyclable,3,Sprites/Recyclable/hire_drier,0,0
+4,Recyclable,4,Sprites/Recyclable/key,0,0
+5,Recyclable,5,Sprites/Recyclable/mouse,0,0
+6,Recyclable,6,Sprites/Recyclable/school_bag,0,0

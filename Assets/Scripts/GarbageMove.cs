@@ -123,4 +123,5 @@ public class GarbageMove : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    
 }

@@ -10,7 +10,8 @@ using System.IO;
 
 public class Config
 {
-    private Dictionary<int, GarbageData> garbageData; // 垃圾数据
+    private Dictionary<int, GarbageData> garbageData = new Dictionary<int, GarbageData>(); // 垃圾数据
+    private Dictionary<int, Sprite> image = new Dictionary<int, Sprite>();// 美术资源 垃圾code-object
 
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
@@ -18,7 +19,6 @@ public class Config
     public Config() 
     {
         //读取GarbageData配置
-        garbageData = new Dictionary<int, GarbageData>();
         string path = garbageConfigPath + "GarbageConfig";
 
         string res = Resources.Load(path).ToString();
@@ -32,9 +32,12 @@ public class Config
             int carType = int.Parse(attribute[2]);
             string imageUrl = attribute[3];
             string splitCode = attribute[4];
+            int buff = int.Parse(attribute[5]);
 
-            garbageData.Add(code, new GarbageData(code, name, carType, imageUrl,splitCode));
+            garbageData.Add(code, new GarbageData(code, name, carType, imageUrl,splitCode,buff));
+            image.Add(code, Resources.Load<Sprite>(imageUrl));
         }
+
     }
 
     public GarbageData GetGarbageData(int code)
@@ -42,9 +45,9 @@ public class Config
         return garbageData[code];
     }
 
-    public int GetGarbageDataCount()
+    public Sprite GetImage(int code)
     {
-        return garbageData.Count;
+        return image[code];
     }
 
     public Map GetMapConfig(int level)
@@ -53,7 +56,7 @@ public class Config
 
         int star;
         List<int> carType = new List<int>();
-        List<GarbageData> garbageDatas = new List<GarbageData>();
+        List<int> garbageCodes = new List<int>();
         List<Vector3> arrPath = new List<Vector3>();
         List<int> count = new List<int>();
         int rewardGold;
@@ -73,19 +76,20 @@ public class Config
         string[] carTypeStrs = line.Split(',');
         foreach (string carTypeStr in carTypeStrs)
         {
+            if(string.IsNullOrEmpty(carTypeStr)) break;
             carType.Add(int.Parse(carTypeStr));
         }
     
 
         line = lines[2];
-        string[] garbageCodes = line.Split(',');
-        foreach (string garbageCode in garbageCodes)
+        string[] garbageCodeRanges = line.Split(',');
+        foreach (string garbageRange in garbageCodeRanges)
         {
-            if(string.IsNullOrEmpty(garbageCode)) break;
-            string[] code = garbageCode.Split('|');
+            if(string.IsNullOrEmpty(garbageRange)) break;
+            string[] code = garbageRange.Split('|');
             for(int i = int.Parse(code[0]); i <= int.Parse(code[1]); i++)
             {
-                garbageDatas.Add(garbageData[i]);
+                garbageCodes.Add(i);
             }
         }
         
@@ -98,18 +102,18 @@ public class Config
             arrPath.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
         }
 
-        // line = lines[4];
-        // string[] countStrs = line.Split(',');
-        // foreach (string countStr in countStrs)
-        // {
-        //     count.Add(int.Parse(countStr));
-        // }
+        line = lines[4];
+        string[] countStrs = line.Split(',');
+        foreach (string countStr in countStrs)
+        {
+            count.Add(int.Parse(countStr));
+        }
 
         line = lines[5];
         string[] rewardGoldStr = line.Split(',');
         rewardGold = int.Parse(rewardGoldStr[0]);
 
-        map.SetMap(star, carType, garbageDatas, arrPath, count, rewardGold);
+        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold);
 
         return map;
     }
