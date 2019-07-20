@@ -98,12 +98,12 @@ public class Config
             arrPath.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
         }
 
-        line = lines[4];
-        string[] countStrs = line.Split(',');
-        foreach (string countStr in countStrs)
-        {
-            count.Add(int.Parse(countStr));
-        }
+        // line = lines[4];
+        // string[] countStrs = line.Split(',');
+        // foreach (string countStr in countStrs)
+        // {
+        //     count.Add(int.Parse(countStr));
+        // }
 
         line = lines[5];
         string[] rewardGoldStr = line.Split(',');
