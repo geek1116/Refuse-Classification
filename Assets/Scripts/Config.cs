@@ -56,6 +56,7 @@ public class Config
         List<GarbageData> garbageDatas = new List<GarbageData>();
         List<Vector3> arrPath = new List<Vector3>();
         List<int> count = new List<int>();
+        int rewardGold;
 
         string mapFileName = "LevelMap" + level.ToString();
         string path = levelMapConfigPath + mapFileName;
@@ -104,7 +105,11 @@ public class Config
             count.Add(int.Parse(countStr));
         }
 
-        map.SetMap(star, carType, garbageDatas, arrPath, count);
+        line = lines[5];
+        string[] rewardGoldStr = line.Split(',');
+        rewardGold = int.Parse(rewardGoldStr[0]);
+
+        map.SetMap(star, carType, garbageDatas, arrPath, count, rewardGold);
 
         return map;
     }
