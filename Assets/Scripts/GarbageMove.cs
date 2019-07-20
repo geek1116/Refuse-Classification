@@ -80,28 +80,28 @@ public class GarbageMove : MonoBehaviour
                         isDragingMove = true;
                         // restrict some rigidbody properties so it moves
                         // more  smoothly and correctly
-                        rb.velocity = new Vector2(0, 0);
-                        rb.gravityScale = 0;
+                        // rb.velocity = new Vector2(0, 0);
+                        // rb.gravityScale = 0;
                     }
                     break;
                 // you move your finger
                 case TouchPhase.Moved:
                     // if you touches the ball and movement is allowed then move
-                    if (GetComponent<CircleCollider2D>() == Physics2D.OverlapPoint(touchPos) && isDragingMove)
+                    // OverlapPoint() consume to much if we call it each frame, especially when multiple objects overlap (also cause jamming)
+                    if (/*GetComponent<CircleCollider2D>() == Physics2D.OverlapPoint(touchPos) && */isDragingMove)
                         rb.MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
                     break;
                 // you release your finger
                 case TouchPhase.Ended:
                     // restore initial parameters
                     // when touch is ended
-                    isDragingMove = false;
-                    rb.MovePosition(logalPos);
-
                     if (isInTrashCan)
                     {
                         ThrowGarbage();
                         return;
                     }
+                    isDragingMove = false;
+                    rb.MovePosition(logalPos);
 
                     break;
             }

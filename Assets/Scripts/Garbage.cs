@@ -11,6 +11,7 @@ public class GarbageData
     public int type;
     public string imageUrl;
     public string splitCode;
+    public int buff;
 
     public enum GarbageType
     {
@@ -33,10 +34,10 @@ public class Garbage
     public int buff;
     //public static int speed;
 
-    public Garbage(GarbageData _garbageData,int _buff)
+    public Garbage(GarbageData _garbageData)
     {
         garbageData = _garbageData;
-        buff = _buff;
+        buff = _garbageData.buff;
     }
 
 }
