@@ -11,7 +11,7 @@ public class TrashCan : MonoBehaviour
             Debug.Log("Enter Garbage Can!");
         if (collision.gameObject.CompareTag(garbageTag))
         {
-            collision.gameObject.GetComponent<GarbageMove>().SetGarbagePosStatus(true);
+            collision.gameObject.GetComponent<Garbage>().SetGarbagePosStatus(true);
         }
     }
 
@@ -19,7 +19,7 @@ public class TrashCan : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(garbageTag))
         {
-            collision.gameObject.GetComponent<GarbageMove>().SetGarbagePosStatus(false);
+            collision.gameObject.GetComponent<Garbage>().SetGarbagePosStatus(false);
             Debug.Log("Exit Garbage Can!");
         }
     }

@@ -10,22 +10,29 @@ public class LevelManager : MonoBehaviour
     public GameObject background;
     public GameObject conveyor;
 
+    public float speed = 8f;//4
+    private float speedCopy;
 
-    public static float speed = 8f;//4
-    [Header("Level Config")]
+    public static LevelManager instance;
+    private GarbageManager garbageManager;
+
+    // Level Config
     private float intervalTime = 1f;//3
-
-    private Map map;
-    public static List<Vector3> arrPath;
-    private Dictionary< int, List<int> > garbageCodes = new Dictionary< int, List<int> >();
-    private List<int> count = new List<int>();
-    private int countSum;
-    private int[] print = {0, 0, 0, 0, 0, 0};
-
     private float timer = 0.0f;
+    private Map map;
+    public List<Vector3> arrPath;
+    private Dictionary< int, List<int> > garbageCodes = new Dictionary< int, List<int> >();
+    private List<int> counts = new List<int>();
+    private int countSum;
 
     void Awake() {
+        if(instance == null)
+        {
+            instance = this;
+        }
+
         SetLevelConfig(1);
+        garbageManager = new GarbageManager();
     }
 
     // Update is called once per frame
@@ -33,13 +40,6 @@ public class LevelManager : MonoBehaviour
     {
         CalCountSum();
         if(countSum > 0) GenerateGarbage();
-        else
-        {
-            foreach (int item in print)
-            {
-                Debug.Log(item.ToString());
-            }
-        } 
     }
 
     private void SetLevelConfig(int level)
@@ -52,10 +52,16 @@ public class LevelManager : MonoBehaviour
             if(!garbageCodes.ContainsKey(type)) garbageCodes.Add(type, new List<int>());
             garbageCodes[type].Add(code);
         }
-        count = map.GetCount();
+        counts = map.GetCount();
         CalCountSum();
     }
 
+    public void OnGarbageArrailCar(GameObject garbage)
+    {
+        garbageManager.RemoveGarbage(garbage);
+    }
+
+    #region Garbage Generation
     private void GenerateGarbage()
     {
         timer -= Time.deltaTime;
@@ -66,15 +72,17 @@ public class LevelManager : MonoBehaviour
             GameObject garbage = Instantiate(garbagePrefab, arrPath[0], Quaternion.identity);
             garbage.GetComponent<SpriteRenderer>().sprite = GameData.config.GetImage(code);
             garbage.GetComponent<Garbage>().Set(garbageData);
-            timer = intervalTime;
 
+            garbageManager.AddGarbage(garbage);
+
+            timer = intervalTime;
         }
     }
 
     private void CalCountSum()
     {
         countSum = 0;
-        foreach (int countIndex in count)
+        foreach (int countIndex in counts)
         {
             countSum += countIndex;
         }
@@ -86,9 +94,9 @@ public class LevelManager : MonoBehaviour
         int sum = 0;
         int typeIndex = 0;
 
-        for(int i = 0; i < count.Count; i++)
+        for(int i = 0; i < counts.Count; i++)
         {
-            sum += count[i];
+            sum += counts[i];
             if(randNum < sum)
             {
                 typeIndex = i + 1;
@@ -99,14 +107,42 @@ public class LevelManager : MonoBehaviour
         int codeIndex = Random.Range(0, garbageCodes[typeIndex].Count);
         int code = garbageCodes[typeIndex][codeIndex];
 
-        count[typeIndex - 1]--;
-        print[typeIndex - 1]++; 
-        if(count[typeIndex - 1] < 1)
+        counts[typeIndex - 1]--;
+        if(counts[typeIndex - 1] < 1)
         {
             garbageCodes.Remove(typeIndex);
         }
 
         return code;
     }
+    #endregion
 
+
+    #region Prop Method
+
+    public void OnSlowDown(float _duration, float _speed)
+    {
+        speedCopy = speed;
+        speed = _speed;
+        garbageManager.ChangeGarbagesSpeed(_speed);
+        Invoke("ResetSpeed", _duration);
+    }
+
+    private void ResetSpeed()
+    {
+        speed = speedCopy;
+        garbageManager.ChangeGarbagesSpeed(speed);
+    }
+    
+    public void OnRemind()
+    {
+        garbageManager.RemindLastUnmatchGarbage(map.GetCarType());
+    }
+
+    public void OnEliminate()
+    {
+        garbageManager.EliminateLastUnmatchGarbage(map.GetCarType());
+    }
+
+    #endregion
 }
