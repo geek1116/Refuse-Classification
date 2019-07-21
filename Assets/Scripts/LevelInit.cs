@@ -35,11 +35,12 @@ public class LevelInit : MonoBehaviour
     void Awake()
     {
         Exit.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
-        TryAgain.onClick.AddListener(() => MenuController.instance.ShowLevel());
+        TryAgain.onClick.AddListener(() => MenuController.instance.Restart());
     }
 
     void OnEnable()
     {
+        Debug.Log("kkkk");
         Defeat.SetActive(false);
         Success.SetActive(false);
 
@@ -80,6 +81,7 @@ public class LevelInit : MonoBehaviour
             GameObject level = GameObject.Find("Level");
             level.GetComponent<LevelManager>().ClearGarbages();
             Defeat.SetActive(true);
+            level.GetComponent<LevelManager>().SetNeedGenerateGarbage(false);
             //level.SetActive(false);
         }
     }

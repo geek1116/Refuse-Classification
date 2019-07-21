@@ -25,19 +25,31 @@ public class LevelManager : MonoBehaviour
     private List<int> counts = new List<int>();
     private int countSum;
 
+    private bool needGenerateGarbage;
+
     void Awake() {
         if(instance == null)
         {
             instance = this;
         }
+    }
 
+    void OnEnable()
+    {
+        needGenerateGarbage = true;
         SetLevelConfig(1);
         garbageManager = new GarbageManager();
+    }
+
+    public void SetNeedGenerateGarbage(bool need)
+    {
+        needGenerateGarbage = need;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!needGenerateGarbage) return;
         CalCountSum();
         if(countSum > 0) GenerateGarbage();
     }

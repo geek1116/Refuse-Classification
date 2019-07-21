@@ -62,4 +62,10 @@ public class MenuController : MonoBehaviour
 
         level.SetActive(true);
     }
+
+    public void Restart()
+    {
+        level.SetActive(false);
+        level.SetActive(true);
+    }
 }
