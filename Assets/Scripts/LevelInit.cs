@@ -18,7 +18,7 @@ public class LevelInit : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("kkkkk!!!");
+        float x = trashcanX, y = trashcanY;
         map = GameData.config.GetMapConfig(1);
         List<int> carType = map.GetCarType();
         int[] temp = {1,1,1,1,1};
@@ -29,10 +29,10 @@ public class LevelInit : MonoBehaviour
         {
             if(temp[i]==1)
             {
-                GameObject trashcan = Instantiate(trashcanPrefab, new Vector3(trashcanX,trashcanY), Quaternion.identity);
+                GameObject trashcan = Instantiate(trashcanPrefab, new Vector3(x,y), Quaternion.identity);
                 trashcan.GetComponent<SpriteRenderer>().sprite = config.GetTrashCanImage(i);
                 trashcan.GetComponent<TrashCan>().SetType(i);
-                trashcanX += interval;
+                x += interval;
                 trashcans.Add(trashcan);
             }
         }

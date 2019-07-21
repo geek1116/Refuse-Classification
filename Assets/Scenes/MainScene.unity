@@ -849,7 +849,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 10.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1828,6 +1828,7 @@ GameObject:
   - component: {fileID: 1951685586}
   - component: {fileID: 1951685585}
   - component: {fileID: 1951685587}
+  - component: {fileID: 1951685588}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -1883,6 +1884,20 @@ MonoBehaviour:
   conveyor: {fileID: 483351371}
   speed: 8
   arrPath: []
+--- !u!114 &1951685588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951685584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b259184b4e2eb0b4e808d16f81d00168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trashcanPrefab: {fileID: 2189662296113747191, guid: 2cf1680a37501384585c30338c5da66a,
+    type: 3}
 --- !u!1 &1992792813
 GameObject:
   m_ObjectHideFlags: 0
