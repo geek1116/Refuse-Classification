@@ -29,6 +29,16 @@ public class GarbageManager
         garbage.GetComponent<Garbage>().Eliminate();
     }
 
+    public void ClearGarbages()
+    {
+        foreach(GameObject garbage in garbages)
+        {
+            garbage.GetComponent<Garbage>().Eliminate();
+        }
+
+        garbages.Clear();
+    }
+
     public void RemindLastUnmatchGarbage(List<int> carType)
     {
         GameObject unmatchGarbage = FindLastNotMatchGarbage(carType);
@@ -73,4 +83,21 @@ public class GarbageManager
         }
         return unmatchGarbage;
     }
+
+    public void EliminateBothSizeGarbage(GameObject garbage)
+    {
+        LinkedListNode<GameObject> node = garbages.Find(garbage);
+
+        LinkedListNode<GameObject> next = node.Next;
+        LinkedListNode<GameObject> previous = node.Previous;
+
+        garbages.Remove(node);
+        garbages.Remove(next);
+        garbages.Remove(previous);
+
+        node.Value.GetComponent<Garbage>().Eliminate();
+        next.Value.GetComponent<Garbage>().Eliminate();
+        previous.Value.GetComponent<Garbage>().Eliminate();
+    }
+
 }
