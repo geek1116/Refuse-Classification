@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class BaseProp
 {
@@ -41,6 +40,7 @@ public class RemindProp : BaseProp
         LevelManager.instance.OnRemind();
     }
 }
+
 public class EliminateProp : BaseProp
 {
     public EliminateProp(float _cd, int _price) : base(_cd, _price) { }
@@ -50,40 +50,3 @@ public class EliminateProp : BaseProp
         LevelManager.instance.OnEliminate();
     }
 }
-
-public class Prop : MonoBehaviour
-{
-
-    [Header("Props Button Refs:")]
-    public Button slowDownBtn;
-    public Button remindBtn;
-    public Button eliminateBtn;
-
-    [Header("Props CD and PRICE:")]
-    public float slowDownCD;
-    public int slowDownPrice;
-
-    public float remindCD;
-    public int remindPrice;
-
-    public float eliminateCD;
-    public int eliminatePrice;
-
-    private BaseProp slowDownProp;
-    private BaseProp remindProp;
-    private BaseProp eliminateProp;
-
-    private void Awake()
-    {
-        slowDownProp = new SlowDownProp(slowDownCD, slowDownPrice);
-        slowDownBtn.GetComponent<PropButton>().SetProp(slowDownProp);
-
-        remindProp = new RemindProp(remindCD, remindPrice);
-        remindBtn.GetComponent<PropButton>().SetProp(remindProp);
-
-        eliminateProp = new EliminateProp(eliminateCD, eliminatePrice);
-        eliminateBtn.GetComponent<PropButton>().SetProp(eliminateProp);
-    }
-
-}
-

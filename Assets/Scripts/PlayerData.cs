@@ -15,9 +15,11 @@ public class PlayerData
     
     public PlayerData()
     {
-        gold = 0;
+        gold = 50;
         levelStar = new List<int>();
     }
+
+    public int GetGold() { return gold; }
 
     public void AddGold(int _gold)
     {
