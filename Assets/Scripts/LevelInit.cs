@@ -7,7 +7,17 @@ public class LevelInit : MonoBehaviour
 {
     public GameObject trashcanPrefab;
 
-    public Text starText;
+    public GameObject Defeat;
+
+    public GameObject Success;
+
+    public Button Exit;
+
+    public Button TryAgain;
+
+    public Button Confirm;
+
+    public Button Next;
 
     private Map map;
 
@@ -18,17 +28,25 @@ public class LevelInit : MonoBehaviour
 
     private float interval = 3f; // 垃圾桶间隔
 
-    private int GameingStar = 5; // 游戏中的星星数
+    private int GamingStar = 5; // 游戏中的星星数
 
     private List<GameObject> trashcans = new List<GameObject>();
 
+    void Awake()
+    {
+        Exit.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
+        TryAgain.onClick.AddListener(() => MenuController.instance.ShowLevel());
+    }
+
     void OnEnable()
-    {        
+    {
+        Defeat.SetActive(false);
+        Success.SetActive(false);
+
         float x = trashcanX, y = trashcanY;
         map = GameData.config.GetMap();
         if(map == null) map = GameData.config.GetMapConfig(1);
-        GameingStar = map.GetStar();
-        Debug.Log(GameingStar);
+        GamingStar = map.GetStar();
         
         List<int> carType = map.GetCarType();
         int[] temp = {1,1,1,1,1};
@@ -50,20 +68,33 @@ public class LevelInit : MonoBehaviour
 
     public int GetGamingStar()
     {
-        return GameingStar;
+        return GamingStar;
     }
 
     public void SubStar()
     {
-        GameingStar--;
+        GamingStar--;
+        if(GamingStar <= 0)
+        {
+            //DestoryAllTrashCan();
+            GameObject level = GameObject.Find("Level");
+            level.GetComponent<LevelManager>().ClearGarbages();
+            Defeat.SetActive(true);
+            //level.SetActive(false);
+        }
     }
 
-    void OnDisable()
+    public void DestoryAllTrashCan()
     {
         foreach (GameObject item in trashcans)
         {
             Destroy(item);
         }
+    }
+
+    void OnDisable()
+    {
+        DestoryAllTrashCan();
     }
 
 }
