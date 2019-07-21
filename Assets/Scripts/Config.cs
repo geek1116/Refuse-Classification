@@ -16,7 +16,7 @@ public class Config
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
 
-    private string trashcanImageUrl = "TrashCan/";
+    private string trashcanImageUrl = "Sprites/TrashCan/";
 
     private string[] trashcanImageName = {"", "Recyclable", "Dry", "Wet", "Harmful", "Marvel"};
 

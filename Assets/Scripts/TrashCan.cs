@@ -6,6 +6,13 @@ public class TrashCan : MonoBehaviour
 {
     private string garbageTag = "Garbage";
 
+    private int type;
+
+    public void SetType(int type)
+    {
+        this.type = type;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
             Debug.Log("Enter Garbage Can!");
