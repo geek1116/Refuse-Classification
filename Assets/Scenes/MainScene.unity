@@ -573,6 +573,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5687289237119530141, guid: 5b81a181265bc3e4a947ee6a73bbf56b,
+        type: 3}
+      propertyPath: m_Text
+      value: "\u63D0\u9192"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b81a181265bc3e4a947ee6a73bbf56b, type: 3}
 --- !u!224 &363513057 stripped
@@ -849,7 +854,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10.5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1047,11 +1052,11 @@ MonoBehaviour:
   slowDownBtn: {fileID: 363513060}
   remindBtn: {fileID: 1699475200}
   eliminateBtn: {fileID: 1942019605}
-  slowDownCD: 10
+  slowDownCD: 5
   slowDownPrice: 0
-  remindCD: 8
+  remindCD: 3
   remindPrice: 0
-  eliminateCD: 8
+  eliminateCD: 2
   eliminatePrice: 0
 --- !u!1 &1153946337
 GameObject:
@@ -1268,6 +1273,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687289237119530141, guid: 5b81a181265bc3e4a947ee6a73bbf56b,
+        type: 3}
+      propertyPath: m_Text
+      value: "\u6D88\u9664"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b81a181265bc3e4a947ee6a73bbf56b, type: 3}

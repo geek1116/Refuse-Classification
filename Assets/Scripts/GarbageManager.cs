@@ -34,7 +34,6 @@ public class GarbageManager
         GameObject unmatchGarbage = FindLastNotMatchGarbage(carType);
         if(unmatchGarbage != null)
         {
-            garbages.Remove(unmatchGarbage);
             unmatchGarbage.GetComponent<Garbage>().Remind();
         }
 
