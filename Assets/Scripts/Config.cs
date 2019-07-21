@@ -15,6 +15,12 @@ public class Config
 
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
+
+    private string trashcanImageUrl = "TrashCan/";
+
+    private string[] trashcanImageName = {"", "Recyclable", "Dry", "Wet", "Harmful", "Marvel"};
+
+    private Dictionary<int, Sprite> trashcanImage = new Dictionary<int, Sprite>();// 垃圾桶图片资源
     
     public Config() 
     {
@@ -38,6 +44,16 @@ public class Config
             image.Add(code, Resources.Load<Sprite>(imageUrl));
         }
 
+        for(int i=1;i<=5;i++)
+        {
+            trashcanImage.Add(i, Resources.Load<Sprite>(trashcanImageUrl + trashcanImageName[i]));
+        }
+
+    }
+
+    public Sprite GetTrashCanImage(int code)
+    {
+        return trashcanImage[code];
     }
 
     public GarbageData GetGarbageData(int code)
