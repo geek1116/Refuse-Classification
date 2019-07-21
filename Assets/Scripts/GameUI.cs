@@ -24,6 +24,8 @@ public class GameUI : MonoBehaviour
     [Header("Top UI Refs:")]
     public Text goldText;
 
+    public Text starText;
+
     private BaseProp slowDownProp;
     private BaseProp remindProp;
     private BaseProp eliminateProp;
@@ -45,6 +47,10 @@ public class GameUI : MonoBehaviour
     public void Update()
     {
         goldText.text = string.Format("${0}", GameData.playerData.GetGold());
+        string temp = "";
+        int starCount = GameObject.Find("Level").GetComponent<LevelInit>().GetGamingStar();
+        for(int i=0;i<starCount;i++) temp += "★";
+        starText.text = temp;
     }
 
 }

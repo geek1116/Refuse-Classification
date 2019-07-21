@@ -10,6 +10,8 @@ using System.IO;
 
 public class Config
 {
+    private Map map = null;
+
     private Dictionary<int, GarbageData> garbageData = new Dictionary<int, GarbageData>(); // 垃圾数据
     private Dictionary<int, Sprite> image = new Dictionary<int, Sprite>();// 美术资源 垃圾code-object
 
@@ -68,7 +70,7 @@ public class Config
 
     public Map GetMapConfig(int level)
     {
-        Map map = new Map();
+        map = new Map();
 
         int star;
         List<int> carType = new List<int>();
@@ -131,6 +133,11 @@ public class Config
 
         map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold);
 
+        return map;
+    }
+
+    public Map GetMap()
+    {
         return map;
     }
 }

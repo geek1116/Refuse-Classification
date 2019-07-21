@@ -135,11 +135,11 @@ public class Garbage : MonoBehaviour
                     if (/*GetComponent<CircleCollider2D>() == Physics2D.OverlapPoint(touchPos) && */isDragingMove)
                         rb.MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
 
-                    if (isInTrashCan)
-                    {
-                        ThrowGarbage();
-                        return;
-                    }
+                    // if (isInTrashCan)
+                    // {
+                    //     ThrowGarbage();
+                    //     return;
+                    // }
                     break;
                 // you release your finger
                 case TouchPhase.Ended:
@@ -161,7 +161,17 @@ public class Garbage : MonoBehaviour
 
     private void ArrivalEndPoint()
     {
+        JudgeCollectType();
         LevelManager.instance.OnGarbageArrailCar(gameObject);
+    }
+
+    private void JudgeCollectType()
+    {
+        Map map = GameData.config.GetMap();
+        List<int> carType = map.GetCarType();
+        bool flag = true;
+        foreach (int item in carType) if(item == type) flag = false;
+        if(flag) GameObject.Find("Level").GetComponent<LevelInit>().SubStar();
     }
 
     private void ThrowGarbage()
