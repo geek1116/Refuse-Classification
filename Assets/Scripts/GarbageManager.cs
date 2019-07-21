@@ -8,7 +8,7 @@ public class GarbageManager
 
     public void ChangeGarbagesSpeed(float _speed)
     {
-        foreach(GameObject go in garbages)
+        foreach (GameObject go in garbages)
         {
             go.GetComponent<Garbage>().SetSpeed(_speed);
         }

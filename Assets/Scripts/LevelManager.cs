@@ -145,4 +145,9 @@ public class LevelManager : MonoBehaviour
     }
 
     #endregion
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+    }
 }
