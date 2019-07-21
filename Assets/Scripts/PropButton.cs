@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PropButton : MonoBehaviour
 {
     private BaseProp prop;
+    private Button btn;
+    private Image image;
 
     public void SetProp(BaseProp _prop)
     {
@@ -14,7 +16,9 @@ public class PropButton : MonoBehaviour
 
     void Start()
     {
-        GetComponent<Button>().onClick.AddListener(OnClick);
+        image = GetComponent<Image>();
+        btn = GetComponent<Button>();
+        btn.onClick.AddListener(OnClick);
     }
 
     private void OnClick()
@@ -24,14 +28,21 @@ public class PropButton : MonoBehaviour
             if (GameData.playerData.CostGold(prop.price))
             {
                 prop.Trigger();
-                prop.isActive = false;
+                InactiveProp();
                 Invoke("ActiveProp", prop.cd);
             }
         }
     }
 
+    private void InactiveProp()
+    {
+        image.color = Color.gray;
+        prop.isActive = false;
+    }
+
     private void ActiveProp()
     {
+        image.color = Color.white;
         prop.isActive = true;
     }
 

@@ -26,47 +26,83 @@ public class GarbageManager
     public void RemoveGarbage(GameObject garbage)
     {
         garbages.Remove(garbage);
-        garbage.GetComponent<Garbage>().Eliminate();
+        garbage.GetComponent<Garbage>().Destroy();
+    }
+
+    private void RemoveGarbage(LinkedListNode<GameObject> node)
+    {
+        garbages.Remove(node);
+        node.Value.GetComponent<Garbage>().Destroy();
     }
 
     public void ClearGarbages()
     {
         foreach(GameObject garbage in garbages)
         {
-            garbage.GetComponent<Garbage>().Eliminate();
+            garbage.GetComponent<Garbage>().Destroy();
         }
-
         garbages.Clear();
     }
 
     public void RemindLastUnmatchGarbage(List<int> carType)
     {
-        GameObject unmatchGarbage = FindLastNotMatchGarbage(carType);
-        if(unmatchGarbage != null)
+        LinkedListNode<GameObject> unmatchNode = FindLastNotMatchNode(carType);
+        if(unmatchNode != null)
         {
-            unmatchGarbage.GetComponent<Garbage>().Remind();
+            unmatchNode.Value.GetComponent<Garbage>().Remind();
         }
-
     }
 
     public void EliminateLastUnmatchGarbage(List<int> carType)
     {
-        GameObject unmatchGarbage = FindLastNotMatchGarbage(carType);
-        if (unmatchGarbage != null)
+        LinkedListNode<GameObject> unmatchNode = FindLastNotMatchNode(carType);
+        if (unmatchNode != null)
         {
-            garbages.Remove(unmatchGarbage);
-            unmatchGarbage.GetComponent<Garbage>().Eliminate();
+            garbages.Remove(unmatchNode);
+            unmatchNode.Value.GetComponent<Garbage>().Destroy();
         }
     }
 
-    private GameObject FindLastNotMatchGarbage(List<int> carType)
+    public void EliminateBothSizeGarbage(GameObject garbage)
     {
-        GameObject unmatchGarbage = null;
+        LinkedListNode<GameObject> node = garbages.Find(garbage);
+        if(node == null) { Debug.LogError("This garbage does not added to scene."); }
+        LinkedListNode<GameObject> next = node.Next;
+        LinkedListNode<GameObject> previous = node.Previous;
+
+        RemoveGarbage(node);
+        RemoveGarbage(next);
+        RemoveGarbage(previous);
+    }
+
+    public void EliminateLastPerniciousGarbage()
+    {
+        LinkedListNode<GameObject> perniciousNode = FindLastSpecificBuffNode(GarbageData.GarbageType.Pernicious);
+        RemoveGarbage(perniciousNode);
+    }
+
+    public void CopyBeforeGarbage(GameObject _garbage)
+    {
+        LinkedListNode<GameObject> node = garbages.Find(_garbage);
+        if (node == null) { Debug.LogError("This garbage does not added to scene."); }
+        LinkedListNode<GameObject> beforeNode = node.Previous;
+        if(beforeNode != null)
+        {
+            Garbage garbage = node.Value.GetComponent<Garbage>();
+            garbage.Reset(beforeNode.Value.GetComponent<Garbage>().garbageData);
+            garbage.MoveToLogicPos();
+        }
+    }
+
+    private LinkedListNode<GameObject> FindLastNotMatchNode(List<int> carType)
+    {
+        LinkedListNode<GameObject> unmatchNode = null;
         // forward iteration
-        foreach (GameObject go in garbages)
+        LinkedListNode<GameObject> node = garbages.First;
+        while(node != null)
         {
             bool isMatch = false;
-            int garbageType = go.GetComponent<Garbage>().type;
+            int garbageType = node.Value.GetComponent<Garbage>().type;
             foreach (int type in carType)
             {
                 if (garbageType == type)
@@ -77,27 +113,30 @@ public class GarbageManager
             }
             if (!isMatch)
             {
-                unmatchGarbage = go;
+                unmatchNode = node;
                 break;
             }
+            node = node.Next;
         }
-        return unmatchGarbage;
+        return unmatchNode;
     }
 
-    public void EliminateBothSizeGarbage(GameObject garbage)
+    private LinkedListNode<GameObject> FindLastSpecificBuffNode(GarbageData.GarbageType type)
     {
-        LinkedListNode<GameObject> node = garbages.Find(garbage);
+        LinkedListNode<GameObject> buffNode = null;
 
-        LinkedListNode<GameObject> next = node.Next;
-        LinkedListNode<GameObject> previous = node.Previous;
-
-        garbages.Remove(node);
-        garbages.Remove(next);
-        garbages.Remove(previous);
-
-        node.Value.GetComponent<Garbage>().Eliminate();
-        next.Value.GetComponent<Garbage>().Eliminate();
-        previous.Value.GetComponent<Garbage>().Eliminate();
+        // forward iteration
+        LinkedListNode<GameObject> node = garbages.First;
+        while(node != null)
+        {
+            if(node.Value.GetComponent<Garbage>().type == (int)type)
+            {
+                buffNode = node;
+                break;
+            }
+            node = node.Next;
+        }
+        return buffNode;
     }
 
 }

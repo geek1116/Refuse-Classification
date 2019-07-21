@@ -18,6 +18,11 @@ public class GarbageData
         Recyclable = 1, Dry = 2, Wet = 3, Pernicious = 4, Mixed = 5, Mysterious = 6
     }
 
+    public enum Buff
+    {
+        BadBoy = 1, GreenTeaGirl = 2, AcademicTrash = 3, KeyboardMan = 4
+    }
+
     public GarbageData(int _code, string _name, int _type, string _imageUrl, string _splitCode, int _buff)
     {
         code = _code;
@@ -29,6 +34,7 @@ public class GarbageData
     }
 }
 
+[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Garbage : MonoBehaviour
@@ -37,11 +43,13 @@ public class Garbage : MonoBehaviour
     public int type;
     public int buff;
     
-    public void Set(GarbageData _garbageData)
+    public void Reset(GarbageData _garbageData)
     {
         garbageData = _garbageData;
         type = _garbageData.type;
         buff = _garbageData.buff;
+        GetComponent<SpriteRenderer>().sprite = GameData.config.GetImage(garbageData.code);
+
     }
 
     private List<Vector3> arrPath;
@@ -51,7 +59,7 @@ public class Garbage : MonoBehaviour
 
     // touch offset allows ball not to shake when it starts moving
     float deltaX, deltaY;
-    private Vector2 logalPos;
+    private Vector2 logicPos;
     private Rigidbody2D rb;
 
     // ball movement not allowed if you touches not the ball at the first time
@@ -68,12 +76,27 @@ public class Garbage : MonoBehaviour
         speed = _speed;
     }
 
+    public void Remind()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
+    public void MoveToLogicPos()
+    {
+        rb.MovePosition(logicPos);
+    }
+
     void Start()
     {
         arrPath = LevelManager.instance.arrPath;
         speed = LevelManager.instance.speed;
         arrCount = arrPath.Count;
-        logalPos = transform.position;
+        logicPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -83,10 +106,10 @@ public class Garbage : MonoBehaviour
         // logically move
         if (curIndex < arrCount)
         {
-            if ((logalPos - (Vector2)arrPath[curIndex]).magnitude > 0.1f)
+            if ((logicPos - (Vector2)arrPath[curIndex]).magnitude > 0.1f)
             {
-                Vector2 dir = (Vector2)arrPath[curIndex] - logalPos;
-                logalPos += dir.normalized * (speed * Time.deltaTime);
+                Vector2 dir = (Vector2)arrPath[curIndex] - logicPos;
+                logicPos += dir.normalized * (speed * Time.deltaTime);
             }
             else
             {
@@ -146,7 +169,7 @@ public class Garbage : MonoBehaviour
                     // restore initial parameters
                     // when touch is ended
                     isDragingMove = false;
-                    rb.MovePosition(logalPos);
+                    rb.MovePosition(logicPos);
 
                     break;
             }
@@ -154,7 +177,7 @@ public class Garbage : MonoBehaviour
 
         if (!isDragingMove)
         {
-            rb.MovePosition(logalPos);
+            rb.MovePosition(logicPos);
         }
 
     }
@@ -179,13 +202,4 @@ public class Garbage : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Remind()
-    {
-        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-    }
-
-    public void Eliminate()
-    {
-        Destroy(gameObject);
-    }
 }
