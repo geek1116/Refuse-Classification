@@ -17,12 +17,28 @@ public class TrashCan : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(garbageTag))
         {
-            collision.gameObject.GetComponent<Garbage>().SetGarbagePosStatus(true);
-            if(collision.gameObject.GetComponent<Garbage>().type != type)
+            Garbage garbage = collision.gameObject.GetComponent<Garbage>();
+            garbage.SetGarbagePosStatus(true);
+            // mysterious can might be use the garbage for buff effect
+            if (type == (int)GarbageData.GarbageType.Mysterious)
             {
-                GameObject.Find("Level").GetComponent<LevelInit>().SubStar();
+                if(garbage.type == type)
+                {
+                    LevelManager.instance.OnBuff(garbage);
+                }
+                else
+                {
+                    Debug.Log(garbage.garbageData.name.ToString() + " is not a mysterious garbage.");
+                }
             }
-            Destroy(collision.gameObject);
+            else // other trash can just compare type and destroy that garbage
+            {
+                if (garbage.type != type)
+                {
+                    LevelManager.instance.gameObject.GetComponent<LevelInit>().SubStar();
+                }
+                garbage.Destroy();
+            }
         }
     }
 

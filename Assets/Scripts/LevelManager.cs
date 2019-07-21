@@ -70,8 +70,7 @@ public class LevelManager : MonoBehaviour
             int code = GetRandGarbageCode();
             GarbageData garbageData = GameData.config.GetGarbageData(code);
             GameObject garbage = Instantiate(garbagePrefab, arrPath[0], Quaternion.identity);
-            garbage.GetComponent<SpriteRenderer>().sprite = GameData.config.GetImage(code);
-            garbage.GetComponent<Garbage>().Set(garbageData);
+            garbage.GetComponent<Garbage>().Reset(garbageData);
 
             garbageManager.AddGarbage(garbage);
 
@@ -142,6 +141,51 @@ public class LevelManager : MonoBehaviour
     public void OnEliminate()
     {
         garbageManager.EliminateLastUnmatchGarbage(map.GetCarType());
+    }
+
+    #endregion
+
+    #region Buffer Method
+
+    public void OnBuff(Garbage garbage)
+    {
+        switch ((GarbageData.Buff)garbage.buff)
+        {
+            case GarbageData.Buff.BadBoy:
+                OnBadBoy(garbage.gameObject);
+                break;
+            case GarbageData.Buff.GreenTeaGirl:
+                OnGreenTeaGirl(garbage.gameObject);
+                break;
+            case GarbageData.Buff.AcademicTrash:
+                OnAcademicTrash(garbage.gameObject);
+                break;
+            case GarbageData.Buff.KeyboardMan:
+                OnKeyboardMan(garbage.gameObject);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnBadBoy(GameObject garbage)
+    {
+        garbageManager.EliminateBothSizeGarbage(garbage);
+    }
+
+    private void OnGreenTeaGirl(GameObject garbage)
+    {
+        garbageManager.EliminateLastPerniciousGarbage();
+    }
+
+    private void OnAcademicTrash(GameObject garbage)
+    {
+        garbageManager.CopyBeforeGarbage(garbage);
+    }
+
+    private void OnKeyboardMan(GameObject garbage)
+    {
+        //TODO: implement in garbageManager
     }
 
     #endregion
