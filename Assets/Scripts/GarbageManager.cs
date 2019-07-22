@@ -44,6 +44,11 @@ public class GarbageManager
         garbages.Clear();
     }
 
+    public bool IsEmpty()
+    {
+        return garbages.Count < 1;
+    }
+
     public void RemindLastUnmatchGarbage(List<int> carType)
     {
         LinkedListNode<GameObject> unmatchNode = FindLastNotMatchNode(carType);

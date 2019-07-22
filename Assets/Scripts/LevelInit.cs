@@ -32,15 +32,19 @@ public class LevelInit : MonoBehaviour
 
     private List<GameObject> trashcans = new List<GameObject>();
 
+    private GameObject level;
+
     void Awake()
     {
         Exit.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
         TryAgain.onClick.AddListener(() => MenuController.instance.Restart());
+        Confirm.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
+        //Next.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
     }
 
     void OnEnable()
     {
-        Debug.Log("kkkk");
+        level = GameObject.Find("Level");
         Defeat.SetActive(false);
         Success.SetActive(false);
 
@@ -78,12 +82,17 @@ public class LevelInit : MonoBehaviour
         if(GamingStar <= 0)
         {
             //DestoryAllTrashCan();
-            GameObject level = GameObject.Find("Level");
             level.GetComponent<LevelManager>().ClearGarbages();
             Defeat.SetActive(true);
             level.GetComponent<LevelManager>().SetNeedGenerateGarbage(false);
             //level.SetActive(false);
         }
+    }
+
+    public void HasSuccess()
+    {
+        Success.SetActive(true);
+        level.GetComponent<LevelManager>().SetNeedGenerateGarbage(false);
     }
 
     public void DestoryAllTrashCan()
