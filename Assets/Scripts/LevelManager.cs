@@ -10,14 +10,15 @@ public class LevelManager : MonoBehaviour
     public GameObject background;
     public GameObject conveyor;
 
-    public float speed = 8f;//4
-    private float speedCopy;
 
     public static LevelManager instance;
     private GarbageManager garbageManager;
 
     // Level Config
+    public float speed = 8f;//4
+    private float speedCopy;
     private float intervalTime = 1f;//3
+    private float intervalTimeCopy;
     private float timer = 0.0f;
     private Map map;
     public List<Vector3> arrPath;
@@ -137,11 +138,15 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 
-
     #region Prop Method
 
     public void OnSlowDown(float _duration, float _speed)
     {
+        float cycleUsed = timer / intervalTime;
+        intervalTimeCopy = intervalTime;
+        intervalTime = speed / _speed * intervalTime;
+        timer = intervalTime * cycleUsed;
+
         speedCopy = speed;
         speed = _speed;
         garbageManager.ChangeGarbagesSpeed(_speed);
@@ -150,6 +155,10 @@ public class LevelManager : MonoBehaviour
 
     private void ResetSpeed()
     {
+        float cycleUsed = timer / intervalTime;
+        intervalTime = intervalTimeCopy;
+        timer = intervalTime * cycleUsed;
+
         speed = speedCopy;
         garbageManager.ChangeGarbagesSpeed(speed);
     }

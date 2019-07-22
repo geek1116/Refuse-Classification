@@ -82,7 +82,7 @@ public class GarbageManager
 
     public void EliminateLastPerniciousGarbage()
     {
-        LinkedListNode<GameObject> perniciousNode = FindLastSpecificBuffNode(GarbageData.GarbageType.Pernicious);
+        LinkedListNode<GameObject> perniciousNode = FindLastSpecificTypeNode(GarbageData.GarbageType.Pernicious);
         RemoveGarbage(perniciousNode);
     }
 
@@ -126,7 +126,7 @@ public class GarbageManager
         return unmatchNode;
     }
 
-    private LinkedListNode<GameObject> FindLastSpecificBuffNode(GarbageData.GarbageType type)
+    private LinkedListNode<GameObject> FindLastSpecificTypeNode(GarbageData.GarbageType type)
     {
         LinkedListNode<GameObject> buffNode = null;
 
