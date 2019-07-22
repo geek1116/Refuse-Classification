@@ -144,4 +144,9 @@ public class GarbageManager
         return buffNode;
     }
 
+    private void MoveNodeForward(LinkedListNode<GameObject> nodeToMove, float distance)
+    {
+        nodeToMove.Value.GetComponent<Garbage>().MoveForward(distance);
+    }
+
 }

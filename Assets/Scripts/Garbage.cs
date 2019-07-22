@@ -18,6 +18,8 @@ public class GarbageData
         Recyclable = 1, Dry = 2, Wet = 3, Pernicious = 4, Mixed = 5, Mysterious = 6
     }
 
+    public static readonly string[] typeTitle = { "", "可回收垃圾", "干垃圾", "湿垃圾", "有害垃圾", "混合垃圾", "神秘垃圾" };
+
     public enum Buff
     {
         BadBoy = 1, GreenTeaGirl = 2, AcademicTrash = 3, KeyboardMan = 4
@@ -42,6 +44,11 @@ public class GarbageData
             ret.Add(int.Parse(str));
         }
         return ret;
+    }
+
+    public override string ToString()
+    {
+        return string.Format("{0}属于{1}", name, typeTitle[type]);
     }
 }
 
@@ -99,6 +106,38 @@ public class Garbage : MonoBehaviour
 
     public void MoveToLogicPos()
     {
+        rb.MovePosition(logicPos);
+    }
+
+    public void MoveForward(float distance)
+    {
+        if (curIndex >= arrCount) return;
+
+        float remainDistance = distance;
+        while(remainDistance > 0.0f)
+        {
+            float logicToNextPoint = (logicPos - (Vector2)arrPath[curIndex]).magnitude;
+            if(remainDistance > logicToNextPoint)
+            {
+                remainDistance -= logicToNextPoint;
+                // Update logicPos when we havn't reach EndPoint.
+                if(++curIndex < arrCount)
+                {
+                    logicPos = arrPath[curIndex];
+                }
+                else // but if reached EndPoint we just move it to EndPoint AND let Update() method handle the OutOfRange Index.
+                {
+                    rb.MovePosition(arrPath[arrCount - 1]);
+                    return;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+        Vector2 dir = (Vector2)arrPath[curIndex] - logicPos;
+        logicPos += dir.normalized * remainDistance;
         rb.MovePosition(logicPos);
     }
 
@@ -205,7 +244,7 @@ public class Garbage : MonoBehaviour
         List<int> carType = map.GetCarType();
         bool flag = true;
         foreach (int item in carType) if(item == type) flag = false;
-        if(flag) GameObject.Find("Level").GetComponent<LevelInit>().SubStar();
+        if(flag) LevelManager.instance.gameObject.GetComponent<LevelInit>().SubStar();
     }
 
     private void ThrowGarbage()

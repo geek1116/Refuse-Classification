@@ -14,8 +14,6 @@ public class Map
     private int rewardGold;
     private string backgroundUrl;
 
-    private static string[] typeTitle = {"", "可回收垃圾", "干垃圾", "湿垃圾", "有害垃圾", "混合垃圾", "神秘垃圾"};
-
     public void SetMap(int _star, List<int> _carType, List<int> _garbageCodes, List<Vector3> _arrPath, List<int> _count, int _rewardGold, string _backgroundUrl)
     {
         star = _star;
@@ -32,7 +30,7 @@ public class Map
         List<string> mapTitle = new List<string>();
         foreach (int type in carType)
         {
-            mapTitle.Add(typeTitle[type]);
+            mapTitle.Add(GarbageData.typeTitle[type]);
         }
         return mapTitle;
     }
