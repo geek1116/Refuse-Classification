@@ -8,9 +8,16 @@ public class TrashCan : MonoBehaviour
 
     private int type;
 
+    private LevelManager levelManager;
+
     public void SetType(int type)
     {
         this.type = type;
+    }
+
+    void OnEnable()
+    {
+        levelManager = GameObject.Find("Level").GetComponent<LevelManager>();    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,7 +44,7 @@ public class TrashCan : MonoBehaviour
                 {
                     LevelManager.instance.gameObject.GetComponent<LevelInit>().SubStar();
                 }
-                garbage.Destroy();
+                levelManager.GetComponent<LevelManager>().RemoveGarbage(collision.gameObject);
             }
         }
     }

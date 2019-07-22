@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
 
     void OnEnable()
     {
+        timer = 0f;
         levelInit = GetComponent<LevelInit>();
         needGenerateGarbage = true;
         SetLevelConfig(1);
@@ -56,10 +57,10 @@ public class LevelManager : MonoBehaviour
         CalCountSum();
         if(countSum > 0) GenerateGarbage();
         
-        // if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0)
-        // {
-        //     levelInit.HasSuccess();
-        // }
+        if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0)
+        {
+            levelInit.HasSuccess();
+        }
     }
 
     private void SetLevelConfig(int level)
@@ -218,6 +219,11 @@ public class LevelManager : MonoBehaviour
     public void ClearGarbages()
     {
         garbageManager.ClearGarbages();
+    }
+
+    public void RemoveGarbage(GameObject garbage)
+    {
+        garbageManager.RemoveGarbage(garbage);
     }
 
 }
