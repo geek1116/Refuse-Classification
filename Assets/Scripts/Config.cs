@@ -23,6 +23,7 @@ public class Config
     private string[] trashcanImageName = {"", "Recyclable", "Dry", "Wet", "Harmful", "Marvel"};
 
     private Dictionary<int, Sprite> trashcanImage = new Dictionary<int, Sprite>();// 垃圾桶图片资源
+
     
     public Config() 
     {
@@ -121,6 +122,7 @@ public class Config
         }
 
         line = lines[4];
+        count.Add(0);
         string[] countStrs = line.Split(',');
         foreach (string countStr in countStrs)
         {

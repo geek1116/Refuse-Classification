@@ -19,7 +19,10 @@ public class PlayerData
         levelStar = new List<int>();
     }
 
-    public int GetGold() { return gold; }
+    public int GetGold() 
+    { 
+        return gold; 
+    }
 
     public void AddGold(int _gold)
     {
