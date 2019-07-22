@@ -19,9 +19,9 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         playButton.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
-        shopButton.onClick.AddListener(OnClickShop);
-        garbageGuideButton.onClick.AddListener(OnClickGuide);
-        quitButton.onClick.AddListener(OnClickQuit);
+        //shopButton.onClick.AddListener(OnClickShop);
+        //garbageGuideButton.onClick.AddListener(OnClickGuide);
+        //quitButton.onClick.AddListener(OnClickQuit);
     }
 
     private void OnEnable()
