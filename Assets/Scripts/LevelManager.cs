@@ -25,6 +25,8 @@ public class LevelManager : MonoBehaviour
     private List<int> counts = new List<int>();
     private int countSum;
 
+    private LevelInit levelInit;
+
     private bool needGenerateGarbage;
 
     void Awake() {
@@ -36,6 +38,7 @@ public class LevelManager : MonoBehaviour
 
     void OnEnable()
     {
+        levelInit = GetComponent<LevelInit>();
         needGenerateGarbage = true;
         SetLevelConfig(1);
         garbageManager = new GarbageManager();
@@ -52,6 +55,11 @@ public class LevelManager : MonoBehaviour
         if(!needGenerateGarbage) return;
         CalCountSum();
         if(countSum > 0) GenerateGarbage();
+        
+        // if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0)
+        // {
+        //     levelInit.HasSuccess();
+        // }
     }
 
     private void SetLevelConfig(int level)
@@ -211,4 +219,5 @@ public class LevelManager : MonoBehaviour
     {
         garbageManager.ClearGarbages();
     }
+
 }
