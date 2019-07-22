@@ -17,12 +17,16 @@ public class Config
 
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
+    private static string backgroundPath = "Sprites/Background/";
 
-    private string trashcanImageUrl = "Sprites/TrashCan/";
+    private static string[] garbageImagePath = {"", "Sprites/Recyclable/", "Sprites/Dry/", "Sprites/Wet/", "Sprites/Pernicious/", "Sprites/Mixed/", "Sprites/Mysterious/"};
 
-    private string[] trashcanImageName = {"", "Recyclable", "Dry", "Wet", "Harmful", "Marvel"};
+    private string trashCanImagePath = "Sprites/TrashCan/";
 
-    private Dictionary<int, Sprite> trashcanImage = new Dictionary<int, Sprite>();// 垃圾桶图片资源
+    private string[] trashCanImageName = {"", "Recyclable", "Dry", "Wet", "Harmful", "Marvel"};
+
+
+    private Dictionary<int, Sprite> trashCanImage = new Dictionary<int, Sprite>();// 垃圾桶图片资源
 
     
     public Config() 
@@ -38,25 +42,25 @@ public class Config
             string[] attribute = lines[i].Split(',');
             int code = int.Parse(attribute[0]);
             string name = attribute[1];
-            int carType = int.Parse(attribute[2]);
-            string imageUrl = attribute[3];
+            int type = int.Parse(attribute[2]);
+            string imageUrl = garbageImagePath[type] + attribute[3];
             string splitCode = attribute[4];
             int buff = int.Parse(attribute[5]);
 
-            garbageData.Add(code, new GarbageData(code, name, carType, imageUrl,splitCode,buff));
+            garbageData.Add(code, new GarbageData(code, name, type, imageUrl,splitCode,buff));
             image.Add(code, Resources.Load<Sprite>(imageUrl));
         }
 
         for(int i=1;i<=5;i++)
         {
-            trashcanImage.Add(i, Resources.Load<Sprite>(trashcanImageUrl + trashcanImageName[i]));
+            trashCanImage.Add(i, Resources.Load<Sprite>(trashCanImagePath + trashCanImageName[i]));
         }
 
     }
 
     public Sprite GetTrashCanImage(int code)
     {
-        return trashcanImage[code];
+        return trashCanImage[code];
     }
 
     public GarbageData GetGarbageData(int code)
@@ -79,6 +83,7 @@ public class Config
         List<Vector3> arrPath = new List<Vector3>();
         List<int> count = new List<int>();
         int rewardGold;
+        string backgroundUrl;
 
         string mapFileName = "LevelMap" + level.ToString();
         string path = levelMapConfigPath + mapFileName;
@@ -133,7 +138,11 @@ public class Config
         string[] rewardGoldStr = line.Split(',');
         rewardGold = int.Parse(rewardGoldStr[0]);
 
-        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold);
+        line = lines[6];
+        string[] backgroundName = line.Split(',');
+        backgroundUrl = backgroundPath + backgroundName[0];
+
+        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundUrl);
 
         return map;
     }
