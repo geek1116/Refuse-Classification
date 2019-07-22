@@ -11,9 +11,12 @@ public class Map
     private List<Vector3> arrPath = new List<Vector3>();
     private List<int> garbageCodes = new List<int>();
     private List<int> count =  new List<int>(); //0-carType对应常规垃圾的数量 1-carType不对应常规垃圾的树立 2-混合垃圾数量 3-神秘垃圾数量
-    private int rewardGold = 0;
+    private int rewardGold;
+    private string backgroundUrl;
 
-    public void SetMap(int _star, List<int> _carType, List<int> _garbageCodes, List<Vector3> _arrPath, List<int> _count, int _rewardGold)
+    private static string[] typeTitle = {"", "可回收垃圾", "干垃圾", "湿垃圾", "有害垃圾", "混合垃圾", "神秘垃圾"};
+
+    public void SetMap(int _star, List<int> _carType, List<int> _garbageCodes, List<Vector3> _arrPath, List<int> _count, int _rewardGold, string _backgroundUrl)
     {
         star = _star;
         carType = _carType;
@@ -21,6 +24,17 @@ public class Map
         arrPath = _arrPath;
         count = _count;
         rewardGold = _rewardGold;
+        backgroundUrl = _backgroundUrl;
+    }
+
+    public List<string> GetMapTitle()
+    {
+        List<string> mapTitle = new List<string>();
+        foreach (int type in carType)
+        {
+            mapTitle.Add(typeTitle[type]);
+        }
+        return mapTitle;
     }
 
     public List<Vector3> GetArrPath()
@@ -52,6 +66,11 @@ public class Map
     public int GetRewardGold()
     {
         return rewardGold;
+    }
+
+    public string GetBackgroundUrl()
+    {
+        return backgroundUrl;
     }
 
 }

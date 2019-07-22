@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour
             sum += counts[i];
             if(randNum < sum)
             {
-                typeIndex = i + 1;
+                typeIndex = i;
                 break;
             }
         }
@@ -126,8 +126,8 @@ public class LevelManager : MonoBehaviour
         int codeIndex = Random.Range(0, garbageCodes[typeIndex].Count);
         int code = garbageCodes[typeIndex][codeIndex];
 
-        counts[typeIndex - 1]--;
-        if(counts[typeIndex - 1] < 1)
+        counts[typeIndex]--;
+        if(counts[typeIndex] < 1)
         {
             garbageCodes.Remove(typeIndex);
         }
