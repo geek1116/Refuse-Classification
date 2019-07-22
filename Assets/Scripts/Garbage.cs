@@ -32,6 +32,17 @@ public class GarbageData
         splitCode = _splitCode;
         buff = _buff;
     }
+
+    public List<int> OnSplitCode()
+    {
+        List<int> ret = new List<int>();
+        string[] splitCodeStr = splitCode.Split('|');
+        foreach (string str in splitCodeStr)
+        {
+            ret.Add(int.Parse(str));
+        }
+        return ret;
+    }
 }
 
 [RequireComponent(typeof(SpriteRenderer))]
