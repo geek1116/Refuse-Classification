@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     public GameObject garbagePrefab;
     public GameObject background;
     public GameObject conveyor;
+
+    public Text titleText;
 
 
     public static LevelManager instance;
@@ -76,6 +78,14 @@ public class LevelManager : MonoBehaviour
         }
         counts = map.GetCount();
         CalCountSum();
+
+        List<string> carType = map.GetMapTitle();
+        string temp = "";
+        foreach(string item in carType)
+        {
+            temp += item + " ";
+        }
+        titleText.text = temp;
     }
 
     public void OnGarbageArrailCar(GameObject garbage)
