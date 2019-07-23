@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2189662295801775715}
   - component: {fileID: 2189662295801775714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 2189662296113747187}
   - component: {fileID: 2189662296113747189}
   - component: {fileID: 2189662296113747188}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrashCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}

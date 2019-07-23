@@ -8,16 +8,9 @@ public class TrashCan : MonoBehaviour
 
     private int type;
 
-    private LevelManager levelManager;
-
     public void SetType(int type)
     {
         this.type = type;
-    }
-
-    void OnEnable()
-    {
-        levelManager = GameObject.Find("Level").GetComponent<LevelManager>();    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +18,6 @@ public class TrashCan : MonoBehaviour
         if (collision.gameObject.CompareTag(garbageTag))
         {
             Garbage garbage = collision.gameObject.GetComponent<Garbage>();
-            garbage.SetGarbagePosStatus(true);
             // mysterious can might be use the garbage for buff effect
             if (type == (int)GarbageData.GarbageType.Mysterious)
             {
@@ -39,27 +31,26 @@ public class TrashCan : MonoBehaviour
                     Debug.Log(garbage.garbageData.name.ToString() + " is not a mysterious garbage.");
                 }
             }
-            else // other trash can just compare type and destroy that garbage
+            else // normal trash can just compare type and destroy that garbage
             {
                 if (garbage.type != type)
                 {
-                    LevelManager.instance.gameObject.GetComponent<LevelInit>().SubStar();
+                    LevelManager.instance.GetComponent<LevelInit>().SubStar();
+                    LevelManager.instance.RemoveButNotDestory(garbage.gameObject);
+                    SpitGarbage(garbage);
                 }
                 else
                 {
                     GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
+                    LevelManager.instance.GetComponent<LevelManager>().RemoveGarbage(collision.gameObject);
                 }
-                levelManager.GetComponent<LevelManager>().RemoveGarbage(collision.gameObject);
             }
         }
     }
 
-    // private void OnTriggerExit2D(Collider2D collision)
-    // {
-    //     if (collision.gameObject.CompareTag(garbageTag))
-    //     {
-    //         collision.gameObject.GetComponent<Garbage>().SetGarbagePosStatus(false);
-    //         Debug.Log("Exit Garbage Can!");
-    //     }
-    // }
+    private void SpitGarbage(Garbage garbage)
+    {
+        garbage.OnSpitByTrashCan(transform);
+    }
+
 }

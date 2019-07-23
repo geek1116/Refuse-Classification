@@ -29,6 +29,11 @@ public class GarbageManager
         garbage.GetComponent<Garbage>().Destroy();
     }
 
+    public void RemoveButNotDestory(GameObject garbage)
+    {
+        garbages.Remove(garbage);
+    }
+
     private void RemoveGarbage(LinkedListNode<GameObject> node)
     {
         garbages.Remove(node);
@@ -47,6 +52,16 @@ public class GarbageManager
     public bool IsEmpty()
     {
         return garbages.Count < 1;
+    }
+
+    public void ChangeGarbageTypeRandomly(GameObject garbage)
+    {
+        garbage.GetComponent<Garbage>().Reset(GameData.config.GetGarbageData(Random.Range(1, GameData.config.GetGarbageDataCount())));
+    }
+
+    public void TransferNodeTo(Vector2 target)
+    {
+        // TODO: reference a arrPoint in Scene, and find out the node before this point.
     }
 
     public void RemindLastUnmatchGarbage(List<int> carType)
