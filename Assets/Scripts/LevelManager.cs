@@ -245,4 +245,8 @@ public class LevelManager : MonoBehaviour
         garbageManager.RemoveGarbage(garbage);
     }
 
+    public void RemoveButNotDestory(GameObject garbage)
+    {
+        garbageManager.RemoveButNotDestory(garbage);
+    }
 }

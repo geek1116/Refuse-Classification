@@ -29,6 +29,11 @@ public class GarbageManager
         garbage.GetComponent<Garbage>().Destroy();
     }
 
+    public void RemoveButNotDestory(GameObject garbage)
+    {
+        garbages.Remove(garbage);
+    }
+
     private void RemoveGarbage(LinkedListNode<GameObject> node)
     {
         garbages.Remove(node);
