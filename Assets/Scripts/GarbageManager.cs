@@ -49,6 +49,16 @@ public class GarbageManager
         return garbages.Count < 1;
     }
 
+    public void ChangeGarbageTypeRandomly(GameObject garbage)
+    {
+        garbage.GetComponent<Garbage>().Reset(GameData.config.GetGarbageData(Random.Range(1, GameData.config.GetGarbageDataCount())));
+    }
+
+    public void TransferNodeTo(Vector2 target)
+    {
+        // TODO: reference a arrPoint in Scene, and find out the node before this point.
+    }
+
     public void RemindLastUnmatchGarbage(List<int> carType)
     {
         LinkedListNode<GameObject> unmatchNode = FindLastNotMatchNode(carType);

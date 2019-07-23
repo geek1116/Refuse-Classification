@@ -68,6 +68,11 @@ public class Config
         return garbageData[code];
     }
 
+    public int GetGarbageDataCount()
+    {
+        return garbageData.Count;
+    }
+
     public Sprite GetImage(int code)
     {
         return image[code];

@@ -244,7 +244,7 @@ public class Garbage : MonoBehaviour
         List<int> carType = map.GetCarType();
         bool flag = true;
         foreach (int item in carType) if(item == type) flag = false;
-        if(flag) LevelManager.instance.gameObject.GetComponent<LevelInit>().SubStar();
+        if(flag) LevelManager.instance.GetComponent<LevelInit>().SubStar();
     }
 
     private void ThrowGarbage()
