@@ -7,6 +7,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class PlayerData
 {
@@ -14,11 +16,41 @@ public class PlayerData
     private List<int> levelStar;
     private List<int> handbook;
     
+    private string fileName = Application.persistentDataPath + "/playerData.txt";
+
+    public void WriteData()
+    {
+        if (this == null) return;
+        SaveData saveData = new SaveData();
+        saveData.gold = gold;
+        saveData.levelStar = levelStar;
+        saveData.handbook = handbook;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream fs = new FileStream(fileName, FileMode.Create);
+        bf.Serialize(fs, saveData);
+        fs.Close();
+    }
+    
+    public void ReadData()
+    {
+        if(!File.Exists(fileName)) return;
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream fs = File.Open(fileName, FileMode.Open);
+        SaveData saveData = (SaveData)bf.Deserialize(fs);
+        fs.Close();
+
+        gold = saveData.gold;
+        levelStar = saveData.levelStar;
+        handbook = saveData.handbook;
+    }
+
     public PlayerData()
     {
         gold = 50;
         levelStar = new List<int>();
         handbook = new List<int>();
+        ReadData();
     }
 
     public int GetGold() 
@@ -49,23 +81,24 @@ public class PlayerData
         if(level < _level) levelStar.Add(_star);
         else 
         {
-            if(levelStar[_level-1] >= _star ) 
+            if(levelStar[_level - 1] >= _star ) 
             {
                 Debug.Log("PlayerData_SetLevelStat: _star is invalid!");
                 return false;
             }
-            levelStar[_level-1] = _star;
+            levelStar[_level - 1] = _star;
         }
+        //WriteData();
         return true;
     }
 
     public int GetLevelStar(int _level)
     {
         if(levelStar.Count < _level ||  _level < 1) Debug.Log("PlayerData_GetLevelStat: _level is invalid!");
-        return levelStar[_level-1];
+        return levelStar[_level - 1];
     }
 
-    public int GetLevel()
+    public int GetLevelCount()
     {
         return levelStar.Count;
     }
@@ -80,4 +113,11 @@ public class PlayerData
     {
         return handbook;
     }
+}
+
+[System.Serializable]
+public class SaveData{
+    public int gold;
+    public List<int> levelStar;
+    public List<int> handbook;
 }

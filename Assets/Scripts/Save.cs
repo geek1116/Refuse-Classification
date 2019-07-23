@@ -11,7 +11,7 @@ using System.IO;
 using System.Text;
 using System;
 
-public class SaveData
+public class Save
 {
     private static string fileName = Application.dataPath + "Data/PlayerData.txt";
     private static string key = "Beautiful Girls and Strong Men";
