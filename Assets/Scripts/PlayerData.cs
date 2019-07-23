@@ -12,11 +12,13 @@ public class PlayerData
 {
     private int gold;
     private List<int> levelStar;
+    private List<int> handbook;
     
     public PlayerData()
     {
         gold = 50;
         levelStar = new List<int>();
+        handbook = new List<int>();
     }
 
     public int GetGold() 
@@ -61,5 +63,21 @@ public class PlayerData
     {
         if(levelStar.Count < _level ||  _level < 1) Debug.Log("PlayerData_GetLevelStat: _level is invalid!");
         return levelStar[_level-1];
+    }
+
+    public int GetLevel()
+    {
+        return levelStar.Count;
+    }
+
+    public void AddHandbook(int _code)
+    {
+        if(handbook.Contains(_code)) return;
+        handbook.Add(_code);
+    }
+
+    public List<int> GetHandbook()
+    {
+        return handbook;
     }
 }

@@ -32,6 +32,7 @@ public class TrashCan : MonoBehaviour
                 if(garbage.type == type)
                 {
                     LevelManager.instance.OnBuff(garbage);
+                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
                 }
                 else
                 {
@@ -43,6 +44,10 @@ public class TrashCan : MonoBehaviour
                 if (garbage.type != type)
                 {
                     LevelManager.instance.gameObject.GetComponent<LevelInit>().SubStar();
+                }
+                else
+                {
+                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
                 }
                 levelManager.GetComponent<LevelManager>().RemoveGarbage(collision.gameObject);
             }
