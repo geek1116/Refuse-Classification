@@ -33,11 +33,10 @@ public class TrashCan : MonoBehaviour
                 {
                     isMatch = true;
                     levelManager.OnBuff(garbage);
-                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
                 }
                 else
                 {
-                    levelManager.RemoveButNotDestory(garbage.gameObject);
+                    levelManager.ThrowGarbage(garbage.gameObject);
                     Debug.Log(garbage.garbageData.name.ToString() + " is not a mysterious garbage.");
                 }
             }
@@ -46,13 +45,12 @@ public class TrashCan : MonoBehaviour
                 if (garbage.type == type)
                 {
                     isMatch = true;
-                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
                     levelManager.RemoveGarbage(garbage.gameObject);
                 }
                 else
                 {
                     levelManager.GetComponent<LevelInit>().SubStar();
-                    levelManager.RemoveButNotDestory(garbage.gameObject);
+                    levelManager.ThrowGarbage(garbage.gameObject);
                 }
             }
             if (!isMatch)
