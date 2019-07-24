@@ -24,7 +24,6 @@ public class TrashCan : MonoBehaviour
                 if(garbage.type == type)
                 {
                     LevelManager.instance.OnBuff(garbage);
-                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
                 }
                 else
                 {
@@ -39,11 +38,7 @@ public class TrashCan : MonoBehaviour
                     LevelManager.instance.RemoveButNotDestory(garbage.gameObject);
                     SpitGarbage(garbage);
                 }
-                else
-                {
-                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
-                    LevelManager.instance.GetComponent<LevelManager>().RemoveGarbage(collision.gameObject);
-                }
+                LevelManager.instance.GetComponent<LevelManager>().RemoveGarbage(collision.gameObject);
             }
         }
     }
