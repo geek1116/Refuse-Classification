@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     private Cat cat;
 
     // Level Config
+    private int level = 1;
     public float speed = 1.5f;//4
     private float speedCopy;
     private float intervalTime = 2.0f;//3
@@ -49,7 +50,7 @@ public class LevelManager : MonoBehaviour
         levelInit = GetComponent<LevelInit>();
         cat = catPrefab.GetComponent<Cat>();
         needGenerateGarbage = true;
-        SetLevelConfig(1);
+        SetLevelConfig(level);
         garbageManager = new GarbageManager();
         usedProp = 0;
         notes = new List<string>();
@@ -69,7 +70,9 @@ public class LevelManager : MonoBehaviour
         
         if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0 && countSum <= 0) // 通过关卡
         {
-            GameData.playerData.AddGold(map.GetRewardGold()); // 通过后获得金币奖励
+            int star = levelInit.GetGamingStar();
+            int gold = star * 50 + level * 10;
+            GameData.playerData.AddGold(gold); // 通过后获得金币奖励
             GameData.playerData.AddHandbook(map.GetGarbageCodes()); // 通过后将图鉴添加到玩家数据
             GameData.playerData.WriteData(); // 保存到本地
             levelInit.HasSuccess();

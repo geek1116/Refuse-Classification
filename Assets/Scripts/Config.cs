@@ -91,6 +91,7 @@ public class Config
         string backgroundUrl;
         List<Vector3> portalPoint = new List<Vector3>();
         List<Pipe> pipe = new List<Pipe>();
+        List<Vector3> blowtorch = new List<Vector3>();
 
         string mapFileName = "LevelMap" + level.ToString();
         string path = levelMapConfigPath + mapFileName;
@@ -173,7 +174,19 @@ public class Config
             }
         }
 
-        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundUrl, portalPoint, pipe);
+        line = lines[9];
+        if (!line.Contains("none"))
+        {
+            string[] blowtorchStrs = line.Split(',');
+            foreach (string blowtorchStr in blowtorchStrs)
+            {
+                if (string.IsNullOrEmpty(blowtorchStr)) break;
+                string[] pos = blowtorchStr.Split('|');
+                blowtorch.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
+            }
+        }
+
+        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundUrl, portalPoint, pipe, blowtorch);
 
         return map;
     }

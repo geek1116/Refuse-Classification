@@ -26,10 +26,10 @@ public class Map
     private string backgroundUrl;
     private List<Vector3> portalPoint = new List<Vector3>();
     private List<Pipe> pipe = new List<Pipe>();
-
+    private List<Vector3> blowtorch = new List<Vector3>();
 
     public void SetMap(int _star, List<int> _carType, List<int> _garbageCodes, List<Vector3> _arrPath, List<int> _count, 
-                       int _rewardGold, string _backgroundUrl, List<Vector3> _portalPoint, List<Pipe> _pipe)
+                       int _rewardGold, string _backgroundUrl, List<Vector3> _portalPoint, List<Pipe> _pipe, List<Vector3> _blowtorch)
     {
         star = _star;
         carType = _carType;
@@ -40,6 +40,7 @@ public class Map
         backgroundUrl = _backgroundUrl;
         portalPoint = _portalPoint;
         pipe = _pipe;
+        blowtorch = _blowtorch;
     }
 
     public List<string> GetMapTitle()
@@ -108,6 +109,17 @@ public class Map
     public List<Pipe> GetPipe()
     {
         return pipe;
+    }
+
+    public bool ExitBlowtorch()
+    {
+        if (blowtorch.Count > 0) return true;
+        return false;
+    }
+
+    public List<Vector3> GetBlowtorcht()
+    {
+        return blowtorch;
     }
 }
 
