@@ -109,12 +109,6 @@ public class GarbageManager
         RemoveGarbage(perniciousNode);
     }
 
-    public void EliminateLastRecyclableGarbage()
-    {
-        LinkedListNode<GameObject> recyclableNode = FindLastSpecificTypeNode(GarbageData.GarbageType.Recyclable);
-        RemoveGarbage(recyclableNode);
-    }
-
     public void CopyBeforeGarbage(GameObject _garbage)
     {
         LinkedListNode<GameObject> node = garbages.Find(_garbage);
@@ -125,10 +119,6 @@ public class GarbageManager
             Garbage garbage = node.Value.GetComponent<Garbage>();
             garbage.Reset(beforeNode.Value.GetComponent<Garbage>().garbageData);
             garbage.MoveToLogicPos();
-        }
-        else
-        {
-            // TODO: random genrate garbage.
         }
     }
 
