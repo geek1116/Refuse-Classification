@@ -106,30 +106,37 @@ public class GarbageManager
     public void EliminateLastPerniciousGarbage()
     {
         LinkedListNode<GameObject> perniciousNode = FindLastSpecificTypeNode(GarbageData.GarbageType.Pernicious);
-        RemoveGarbage(perniciousNode);
+        if(perniciousNode != null)
+        {
+            RemoveGarbage(perniciousNode);
+        }
     }
 
     public void EliminateLastRecyclableGarbage()
     {
         LinkedListNode<GameObject> recyclableNode = FindLastSpecificTypeNode(GarbageData.GarbageType.Recyclable);
-        RemoveGarbage(recyclableNode);
+        if(recyclableNode != null)
+        {
+            RemoveGarbage(recyclableNode);
+        }
     }
 
     public void CopyBeforeGarbage(GameObject _garbage)
     {
         LinkedListNode<GameObject> node = garbages.Find(_garbage);
-        if (node == null) { Debug.LogError("This garbage does not added to scene."); }
-        LinkedListNode<GameObject> beforeNode = node.Previous;
-        if(beforeNode != null)
+        if (node == null) { Debug.LogError("This garbage does not added to scene."); return; }
+        LinkedListNode<GameObject> previousNode = node.Previous;
+        Garbage garbage = node.Value.GetComponent<Garbage>();
+        if(previousNode != null)
         {
-            Garbage garbage = node.Value.GetComponent<Garbage>();
-            garbage.Reset(beforeNode.Value.GetComponent<Garbage>().garbageData);
-            garbage.MoveToLogicPos();
+            garbage.Reset(previousNode.Value.GetComponent<Garbage>().garbageData);
         }
         else
         {
             // TODO: random genrate garbage.
+            garbage.Reset(GameData.config.GetGarbageData(Random.Range(1, GameData.config.GetGarbageDataCount())));
         }
+        garbage.MoveToLogicPos();
     }
 
     private LinkedListNode<GameObject> FindLastNotMatchNode(List<int> carType)

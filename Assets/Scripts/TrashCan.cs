@@ -26,35 +26,30 @@ public class TrashCan : MonoBehaviour
         {
             bool isMatch = false;
             Garbage garbage = collision.gameObject.GetComponent<Garbage>();
-            // mysterious can might be use the garbage for buff effect
-            if (type == (int)GarbageData.GarbageType.Mysterious)
+
+            if(type == garbage.type)
             {
-                if(garbage.type == type)
+                isMatch = true;
+                if(type == (int)GarbageData.GarbageType.Mysterious)
                 {
-                    isMatch = true;
                     levelManager.OnBuff(garbage);
                 }
                 else
                 {
-                    levelManager.ThrowGarbage(garbage.gameObject);
-                    Debug.Log(garbage.garbageData.name.ToString() + " is not a mysterious garbage.");
-                }
-            }
-            else // normal trash can just compare type and destroy that garbage
-            {
-                if (garbage.type == type)
-                {
-                    isMatch = true;
                     levelManager.RemoveGarbage(garbage.gameObject);
                 }
-                else
-                {
-                    levelManager.GetComponent<LevelInit>().SubStar();
-                    levelManager.ThrowGarbage(garbage.gameObject);
-                }
             }
-            if (!isMatch)
+            else
             {
+                //if (type == (int)GarbageData.GarbageType.Mysterious)
+                //{
+                //    Debug.Log(garbage.garbageData.name.ToString() + " is not a mysterious garbage.");
+                //}
+                //else
+                //{
+                    levelManager.GetComponent<LevelInit>().SubStar();
+                //}
+                levelManager.ThrowGarbage(garbage.gameObject);
                 SpitGarbage(garbage);
             }
             levelManager.OnCollectingGarbage(isMatch);
