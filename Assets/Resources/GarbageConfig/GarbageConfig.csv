@@ -3,5 +3,7 @@ code name type imageUrl splitCode buff
 2,贝壳,2,shell,0,0
 3,葱,3,shallot,0,0
 4,电池,4,battery,0,0
-5,鼠标,5,mouse,0,0
-6,书包,6,school_bag,0,0
+5,鼠标,1,mouse,0,0
+6,书包,1,school_bag,0,0
+7,学术垃圾,6,academic_trash,0,3
+8,键盘侠,6,keyboard_man,0,4

@@ -36,6 +36,14 @@ public class Garbage : MonoBehaviour
         type = _garbageData.type;
         buff = _garbageData.buff;
         sr.sprite = GameData.config.GetImage(garbageData.code);
+        if(type == (int)GarbageData.GarbageType.Mysterious)
+        {
+            sr.material.color = Color.yellow;
+        }
+        else
+        {
+            sr.material.color = Color.white;
+        }
     }
 
     public void SetSpeed(float _speed)
@@ -56,6 +64,7 @@ public class Garbage : MonoBehaviour
     public void MoveToLogicPos()
     {
         rb.MovePosition(logicPos);
+        isDragingMove = false;
     }
 
     public void MoveForward(float distance)

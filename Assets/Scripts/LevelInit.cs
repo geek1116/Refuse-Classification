@@ -53,17 +53,18 @@ public class LevelInit : MonoBehaviour
         if(map == null) map = GameData.config.GetMapConfig(1);
         GamingStar = map.GetStar();
         
-        List<int> carType = map.GetCarType();
-        int[] temp = {1,1,1,1,1};
-        foreach (int item in carType) if(1<=item && item<=4) temp[item]=0;
+        List<int> carTypes = map.GetCarType();
+        int[] temp = { 0,1,1,1,1,1};
+        foreach (int carType in carTypes) if(1<=carType && carType<=6) temp[carType]=0;
 
         Config config = GameData.config;
-        for(int i=1;i<=4;i++)
+        for(int i=1;i<=5;i++)
         {
             if(temp[i]==1)
             {
                 GameObject trashcan = Instantiate(trashcanPrefab, new Vector3(x,y), Quaternion.identity);
                 trashcan.GetComponent<SpriteRenderer>().sprite = config.GetTrashCanImage(i);
+                if (i == 5) i = 6;         // magic!!!! because mixed Garbage does not have trash can!
                 trashcan.GetComponent<TrashCan>().SetType(i);
                 x += interval;
                 trashcans.Add(trashcan);

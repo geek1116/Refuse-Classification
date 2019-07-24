@@ -251,7 +251,8 @@ public class LevelManager : MonoBehaviour
 
     private void OnKeyboardMan(GameObject garbage)
     {
-        //TODO: implement in garbageManager
+        garbageManager.EliminateLastRecyclableGarbage();
+        garbageManager.RemoveGarbage(garbage);
     }
 
     #endregion
