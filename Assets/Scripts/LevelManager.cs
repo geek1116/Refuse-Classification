@@ -65,6 +65,7 @@ public class LevelManager : MonoBehaviour
         
         if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0) // 通过关卡
         {
+            GameData.playerData.AddGold(map.GetRewardGold()); // 通过后获得金币奖励
             GameData.playerData.AddHandbook(map.GetGarbageCodes()); // 通过后将图鉴添加到玩家数据
             GameData.playerData.WriteData(); // 保存到本地
             levelInit.HasSuccess();
