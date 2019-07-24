@@ -33,6 +33,8 @@ public class LevelManager : MonoBehaviour
 
     private bool needGenerateGarbage;
 
+    private int usedProp;
+
     void Awake() {
         if(instance == null)
         {
@@ -48,6 +50,7 @@ public class LevelManager : MonoBehaviour
         needGenerateGarbage = true;
         SetLevelConfig(1);
         garbageManager = new GarbageManager();
+        usedProp = 0;
     }
 
     public void SetNeedGenerateGarbage(bool need)
@@ -62,8 +65,11 @@ public class LevelManager : MonoBehaviour
         CalCountSum();
         if(countSum > 0) GenerateGarbage();
         
-        if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0)
+        if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0) // 通过关卡
         {
+            GameData.playerData.AddGold(map.GetRewardGold()); // 通过后获得金币奖励
+            GameData.playerData.AddHandbook(map.GetGarbageCodes()); // 通过后将图鉴添加到玩家数据
+            GameData.playerData.WriteData(); // 保存到本地
             levelInit.HasSuccess();
         }
     }
@@ -88,6 +94,12 @@ public class LevelManager : MonoBehaviour
             temp += item + " ";
         }
         titleText.text = temp;
+    }
+
+    public bool HadUsedProp()
+    {
+        if(usedProp > 0) return true;
+        return false;
     }
 
     public void OnGarbageArrailCar(GameObject garbage, bool isMatch)
@@ -156,6 +168,8 @@ public class LevelManager : MonoBehaviour
 
     public void OnSlowDown(float _duration, float _speed)
     {
+        usedProp++; // 记录是否使用过道具
+        
         float cycleUsed = timer / intervalTime;
         intervalTimeCopy = intervalTime;
         intervalTime = speed / _speed * intervalTime;
@@ -179,11 +193,13 @@ public class LevelManager : MonoBehaviour
     
     public void OnRemind()
     {
+        usedProp++; // 记录是否使用过道具
         garbageManager.RemindLastUnmatchGarbage(map.GetCarType());
     }
 
     public void OnEliminate()
     {
+        usedProp++; // 记录是否使用过道具
         garbageManager.EliminateLastUnmatchGarbage(map.GetCarType());
     }
 
@@ -238,10 +254,8 @@ public class LevelManager : MonoBehaviour
 
     public void OnCollectingGarbage(bool isPickedRight)
     {
-        cat.OnCollectGarbage(isPickedRight);
+        cat.CollectGarbage(isPickedRight);
     }
-
-
 
     #endregion
 

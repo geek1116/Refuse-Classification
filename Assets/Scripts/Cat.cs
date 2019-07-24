@@ -11,10 +11,10 @@ public class Cat : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void OnCollectGarbage(bool isPickedRight)
+    public void CollectGarbage(bool isPickedRight)
     {
+        animator.SetBool("PickedStatus", isPickedRight);
         animator.SetTrigger("Collect");
-        animator.SetBool("PickingStatus", isPickedRight);
     }
 
     public void OnSmashed()
