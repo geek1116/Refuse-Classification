@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TrashCan : MonoBehaviour
 {
+    private LevelManager levelManager;
     private string garbageTag = "Garbage";
 
     private int type;
@@ -13,17 +15,24 @@ public class TrashCan : MonoBehaviour
         this.type = type;
     }
 
+    private void Start()
+    {
+        levelManager = LevelManager.instance;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(garbageTag))
         {
+            bool isMatch = false;
             Garbage garbage = collision.gameObject.GetComponent<Garbage>();
             // mysterious can might be use the garbage for buff effect
             if (type == (int)GarbageData.GarbageType.Mysterious)
             {
                 if(garbage.type == type)
                 {
-                    LevelManager.instance.OnBuff(garbage);
+                    isMatch = true;
+                    levelManager.OnBuff(garbage);
                     GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
                 }
                 else
@@ -33,24 +42,29 @@ public class TrashCan : MonoBehaviour
             }
             else // normal trash can just compare type and destroy that garbage
             {
-                if (garbage.type != type)
+                if (garbage.type == type)
                 {
-                    LevelManager.instance.GetComponent<LevelInit>().SubStar();
-                    LevelManager.instance.RemoveButNotDestory(garbage.gameObject);
-                    SpitGarbage(garbage);
+                    isMatch = true;
+                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
+                    levelManager.GetComponent<LevelManager>().RemoveGarbage(collision.gameObject);
                 }
                 else
                 {
-                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
-                    LevelManager.instance.GetComponent<LevelManager>().RemoveGarbage(collision.gameObject);
+                    levelManager.GetComponent<LevelInit>().SubStar();
+                    levelManager.RemoveButNotDestory(garbage.gameObject);
+                    SpitGarbage(garbage);
                 }
+            }
+            if (isMatch)
+            {
+                levelManager.OnCollectingGarbage(isMatch);
             }
         }
     }
 
     private void SpitGarbage(Garbage garbage)
     {
-        garbage.OnSpitByTrashCan(transform);
+        garbage.SpitByTrashCan(transform);
     }
 
 }

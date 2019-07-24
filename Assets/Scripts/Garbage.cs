@@ -13,8 +13,10 @@ public class Garbage : MonoBehaviour
     public int type;
     public int buff;
 
+    // cache 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private LevelManager levelManager;
 
     private List<Vector3> arrPath;
     private int curIndex = 0;
@@ -88,10 +90,14 @@ public class Garbage : MonoBehaviour
         rb.MovePosition(logicPos);
     }
 
-    public void OnSpitByTrashCan(Transform transform)
+    public void SpitByTrashCan(Transform transform)
     {
-        SetRigibodyToDynamic();
+        SetRigibodyToThrow(new Vector2(4.0f, 8.0f));
+    }
 
+    public void RollAtEndPoint()
+    {
+        SetRigibodyToThrow(new Vector2(8.0f, 0.0f));
     }
 
     private void Awake()
@@ -102,8 +108,9 @@ public class Garbage : MonoBehaviour
 
     void Start()
     {
-        arrPath = LevelManager.instance.arrPath;
-        speed = LevelManager.instance.speed;
+        levelManager = LevelManager.instance;
+        arrPath = levelManager.arrPath;
+        speed = levelManager.speed;
         arrCount = arrPath.Count;
         logicPos = transform.position;
     }
@@ -198,28 +205,35 @@ public class Garbage : MonoBehaviour
 
     private void ArrivalEndPoint()
     {
-        JudgeCollectType();
-        LevelManager.instance.OnGarbageArrailCar(gameObject);
-    }
-
-    private void JudgeCollectType()
-    {
         Map map = GameData.config.GetMap();
-        List<int> carType = map.GetCarType();
-        bool flag = true;
-        foreach (int item in carType) if(item == type) flag = false;
-        if(flag) LevelManager.instance.GetComponent<LevelInit>().SubStar();
+        List<int> carTypes = map.GetCarType();
+        bool isMatch = false;
+        foreach(int cartype in carTypes)
+        {
+            if(cartype == type)
+            {
+                isMatch = true;
+                break;
+            }
+        }
+        if (!isMatch)
+        {
+            levelManager.GetComponent<LevelInit>().SubStar();
+        }
+        levelManager.OnGarbageArrailCar(gameObject, isMatch);
     }
 
-    private void SetRigibodyToDynamic()
+    private void SetRigibodyToThrow(Vector2 throwVelocity)
     {
         isThrown = true;
+        transform.localScale = new Vector3(0.15f, 0.15f, 0.0f);
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.mass = 0.5f;
         rb.gravityScale = 1.0f;
-        rb.velocity = new Vector2(4.0f, 8.0f);
+        rb.velocity = throwVelocity;
         GetComponent<BoxCollider2D>().isTrigger = false;
         rb.gameObject.layer = 9; // 9 = GameUI Layer
-        sr.color = Color.red;
+        sr.color = Color.gray;
     }
 
 }

@@ -9,12 +9,13 @@ public class LevelManager : MonoBehaviour
     public GameObject garbagePrefab;
     public GameObject background;
     public GameObject conveyor;
+    public GameObject catPrefab;
 
     public Text titleText;
 
-
     public static LevelManager instance;
     private GarbageManager garbageManager;
+    private Cat cat;
 
     // Level Config
     public float speed = 8f;//4
@@ -43,6 +44,7 @@ public class LevelManager : MonoBehaviour
     {
         timer = 0f;
         levelInit = GetComponent<LevelInit>();
+        cat = catPrefab.GetComponent<Cat>();
         needGenerateGarbage = true;
         SetLevelConfig(1);
         garbageManager = new GarbageManager();
@@ -88,9 +90,11 @@ public class LevelManager : MonoBehaviour
         titleText.text = temp;
     }
 
-    public void OnGarbageArrailCar(GameObject garbage)
+    public void OnGarbageArrailCar(GameObject garbage, bool isMatch)
     {
-        garbageManager.RemoveGarbage(garbage);
+        OnCollectingGarbage(isMatch);
+        RemoveButNotDestory(garbage);
+        garbage.GetComponent<Garbage>().RollAtEndPoint();
     }
 
     #region Garbage Generation
@@ -230,10 +234,16 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 
-    public void Pause()
+    #region CatMethod
+
+    public void OnCollectingGarbage(bool isPickedRight)
     {
-        Time.timeScale = 0;
+        cat.OnCollectGarbage(isPickedRight);
     }
+
+
+
+    #endregion
 
     public void ClearGarbages()
     {
