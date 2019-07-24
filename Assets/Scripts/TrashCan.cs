@@ -33,7 +33,6 @@ public class TrashCan : MonoBehaviour
                 {
                     isMatch = true;
                     levelManager.OnBuff(garbage);
-                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
                 }
                 else
                 {
@@ -46,7 +45,6 @@ public class TrashCan : MonoBehaviour
                 if (garbage.type == type)
                 {
                     isMatch = true;
-                    GameData.playerData.AddHandbook(garbage.garbageData.code);// 分类成功后添加到图鉴
                     levelManager.RemoveGarbage(garbage.gameObject);
                 }
                 else
