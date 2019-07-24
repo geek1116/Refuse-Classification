@@ -73,6 +73,7 @@ public class LevelManager : MonoBehaviour
             int star = levelInit.GetGamingStar();
             int gold = star * 50 + level * 10;
             GameData.playerData.AddGold(gold); // 通过后获得金币奖励
+            GameData.playerData.SetLevelStar(level, star); // 通过后设置星级
             GameData.playerData.AddHandbook(map.GetGarbageCodes()); // 通过后将图鉴添加到玩家数据
             GameData.playerData.WriteData(); // 保存到本地
             levelInit.HasSuccess();
