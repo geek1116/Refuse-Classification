@@ -18,9 +18,9 @@ public class LevelManager : MonoBehaviour
     private Cat cat;
 
     // Level Config
-    public float speed = 8f;//4
+    public float speed = 1.5f;//4
     private float speedCopy;
-    private float intervalTime = 1f;//3
+    private float intervalTime = 2.0f;//3
     private float intervalTimeCopy;
     private float timer = 0.0f;
     private Map map;
@@ -30,10 +30,11 @@ public class LevelManager : MonoBehaviour
     private int countSum;
 
     private LevelInit levelInit;
-
     private bool needGenerateGarbage;
 
     private int usedProp;
+
+    private List<string> notes; // 记录垃圾分类失败后的语句
 
     void Awake() {
         if(instance == null)
@@ -51,6 +52,7 @@ public class LevelManager : MonoBehaviour
         SetLevelConfig(1);
         garbageManager = new GarbageManager();
         usedProp = 0;
+        notes = new List<string>();
     }
 
     public void SetNeedGenerateGarbage(bool need)
@@ -100,6 +102,24 @@ public class LevelManager : MonoBehaviour
     {
         if(usedProp > 0) return true;
         return false;
+    }
+
+    public void AddNotes(GarbageData garbageData)
+    {
+        string note = garbageData.ToString();
+        if(!notes.Contains(note)) notes.Add(note);
+    }
+
+    public List<string> GetNotes()
+    {
+        return notes;
+    }
+
+    public void OnGarbageArrailCar(GameObject garbage, bool isMatch)
+    {
+        OnCollectingGarbage(isMatch);
+        RemoveButNotDestory(garbage);
+        garbage.GetComponent<Garbage>().RollAtEndPoint();
     }
 
     #region Garbage Generation
@@ -250,11 +270,6 @@ public class LevelManager : MonoBehaviour
         cat.CollectGarbage(isPickedRight);
     }
 
-    public void OnSmashCat()
-    {
-        cat.OnSmashed();
-    }
-
     #endregion
 
     public void ClearGarbages()
@@ -267,12 +282,8 @@ public class LevelManager : MonoBehaviour
         garbageManager.RemoveGarbage(garbage);
     }
 
-    /// <summary>
-    /// delete Node from garbages and add into throwGarbage List
-    /// </summary>
-    /// <param name="garbage"></param>
-    public void ThrowGarbage(GameObject garbage)
+    public void RemoveButNotDestory(GameObject garbage)
     {
-        garbageManager.ThrowGarbage(garbage);
+        garbageManager.RemoveButNotDestory(garbage);
     }
 }

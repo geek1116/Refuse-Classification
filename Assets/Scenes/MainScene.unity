@@ -1206,7 +1206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &366489287
 Transform:
   m_ObjectHideFlags: 0
@@ -2367,6 +2367,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005351519}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
+--- !u!114 &1005351523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005351519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504e4d06338856a40acc90763db1eee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainPanel: {fileID: 1992792813}
+  recyclableBtn: {fileID: 376180886}
+  harmfulBtn: {fileID: 509963718}
+  dryBtn: {fileID: 1447570017}
+  wetBtn: {fileID: 1053332992}
+  backButton: {fileID: 2012547988}
+  prefab: {fileID: 3954904350669484211, guid: 44fd91c89bf504f428c6e7f4b6027d99, type: 3}
+=======
+>>>>>>> 52c8bd8627ba7a95e33a25a2d2126eea138eafed
 --- !u!1 &1045445805
 GameObject:
   m_ObjectHideFlags: 0
