@@ -27,10 +27,10 @@ public class TrashCan : MonoBehaviour
             bool isMatch = false;
             Garbage garbage = collision.gameObject.GetComponent<Garbage>();
 
-            if(type == garbage.type)
+            if (type == garbage.type)
             {
                 isMatch = true;
-                if(type == (int)GarbageData.GarbageType.Mysterious)
+                if (type == (int)GarbageData.GarbageType.Mysterious)
                 {
                     levelManager.OnBuff(garbage);
                 }
@@ -41,14 +41,8 @@ public class TrashCan : MonoBehaviour
             }
             else
             {
-                //if (type == (int)GarbageData.GarbageType.Mysterious)
-                //{
-                //    Debug.Log(garbage.garbageData.name.ToString() + " is not a mysterious garbage.");
-                //}
-                //else
-                //{
-                    levelManager.GetComponent<LevelInit>().SubStar();
-                //}
+                levelManager.AddNotes(garbage.garbageData); // 添加分类失败后的语句
+                levelManager.GetComponent<LevelInit>().SubStar();
                 levelManager.ThrowGarbage(garbage.gameObject);
                 SpitGarbage(garbage);
             }
