@@ -20,6 +20,8 @@ public class BookManager : MonoBehaviour
 
     public GameObject prefab;
 
+    private List<GameObject> itemList = new List<GameObject>();
+
     void Awake()
     {
         recyclableBtn.onClick.AddListener(() => Recyclable());
@@ -31,6 +33,7 @@ public class BookManager : MonoBehaviour
 
     void OnEnable()
     {
+        Recyclable();
     }
 
     void Recyclable()
@@ -55,6 +58,8 @@ public class BookManager : MonoBehaviour
 
     void GenerateBookItemByType(int type)
     {
+        DestoryAllItem();
+
         int t = 0;
         float x = -350f, y = 450f;
         GarbageData temp;
@@ -71,6 +76,8 @@ public class BookManager : MonoBehaviour
                 Item.transform.SetParent(gameObject.transform);
                 Item.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
                 Item.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+
+                itemList.Add(Item);
 
                 t++;
                 if(t%3 == 0)
@@ -91,6 +98,15 @@ public class BookManager : MonoBehaviour
         gameObject.SetActive(false);
         MainPanel.SetActive(true);
         //MenuController.instance.ShowMainMenu();
+    }
+
+    void DestoryAllItem()
+    {
+        foreach(GameObject temp in itemList)
+        {
+            Destroy(temp);
+        }
+        itemList.Clear();
     }
 
 }

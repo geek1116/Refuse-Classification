@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
         CalCountSum();
         if(countSum > 0) GenerateGarbage();
         
-        if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0) // 通过关卡
+        if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0 && countSum <= 0) // 通过关卡
         {
             GameData.playerData.AddGold(map.GetRewardGold()); // 通过后获得金币奖励
             GameData.playerData.AddHandbook(map.GetGarbageCodes()); // 通过后将图鉴添加到玩家数据
