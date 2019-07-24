@@ -102,13 +102,6 @@ public class LevelManager : MonoBehaviour
         return false;
     }
 
-    public void OnGarbageArrailCar(GameObject garbage, bool isMatch)
-    {
-        OnCollectingGarbage(isMatch);
-        RemoveButNotDestory(garbage);
-        garbage.GetComponent<Garbage>().RollAtEndPoint();
-    }
-
     #region Garbage Generation
     private void GenerateGarbage()
     {
@@ -257,6 +250,11 @@ public class LevelManager : MonoBehaviour
         cat.CollectGarbage(isPickedRight);
     }
 
+    public void OnSmashCat()
+    {
+        cat.OnSmashed();
+    }
+
     #endregion
 
     public void ClearGarbages()
@@ -269,8 +267,12 @@ public class LevelManager : MonoBehaviour
         garbageManager.RemoveGarbage(garbage);
     }
 
-    public void RemoveButNotDestory(GameObject garbage)
+    /// <summary>
+    /// delete Node from garbages and add into throwGarbage List
+    /// </summary>
+    /// <param name="garbage"></param>
+    public void ThrowGarbage(GameObject garbage)
     {
-        garbageManager.RemoveButNotDestory(garbage);
+        garbageManager.ThrowGarbage(garbage);
     }
 }

@@ -37,7 +37,7 @@ public class TrashCan : MonoBehaviour
                 }
                 else
                 {
-                    levelManager.RemoveButNotDestory(garbage.gameObject);
+                    levelManager.ThrowGarbage(garbage.gameObject);
                     Debug.Log(garbage.garbageData.name.ToString() + " is not a mysterious garbage.");
                 }
             }
@@ -52,7 +52,7 @@ public class TrashCan : MonoBehaviour
                 else
                 {
                     levelManager.GetComponent<LevelInit>().SubStar();
-                    levelManager.RemoveButNotDestory(garbage.gameObject);
+                    levelManager.ThrowGarbage(garbage.gameObject);
                 }
             }
             if (!isMatch)

@@ -95,11 +95,6 @@ public class Garbage : MonoBehaviour
         SetRigibodyToThrow(new Vector2(4.0f, 8.0f));
     }
 
-    public void RollAtEndPoint()
-    {
-        SetRigibodyToThrow(new Vector2(8.0f, 0.0f));
-    }
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -216,11 +211,22 @@ public class Garbage : MonoBehaviour
                 break;
             }
         }
-        if (!isMatch)
+        if (isMatch)
         {
-            levelManager.GetComponent<LevelInit>().SubStar();
+            levelManager.RemoveGarbage(gameObject);
         }
-        levelManager.OnGarbageArrailCar(gameObject, isMatch);
+        else
+        {
+            levelManager.ThrowGarbage(gameObject);
+            levelManager.GetComponent<LevelInit>().SubStar();
+            RollAtEndPoint();
+        }
+        levelManager.OnCollectingGarbage(isMatch);
+    }
+
+    private void RollAtEndPoint()
+    {
+        SetRigibodyToThrow(new Vector2(8.0f, 0.0f));
     }
 
     private void SetRigibodyToThrow(Vector2 throwVelocity)
@@ -232,8 +238,22 @@ public class Garbage : MonoBehaviour
         rb.gravityScale = 1.0f;
         rb.velocity = throwVelocity;
         GetComponent<BoxCollider2D>().isTrigger = false;
-        rb.gameObject.layer = 9; // 9 = GameUI Layer
+        gameObject.layer = 10; // 10 = Cat Layer
         sr.color = Color.gray;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Cat"))
+        {
+            SmashCat();
+        }
+    }
+
+    private void SmashCat()
+    {
+        gameObject.layer = 9; // 9 = Garbage Heap Layer
+        levelManager.OnSmashCat();
     }
 
 }
