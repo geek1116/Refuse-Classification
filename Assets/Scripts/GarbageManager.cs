@@ -5,6 +5,7 @@ using UnityEngine;
 public class GarbageManager
 {
     public LinkedList<GameObject> garbages = new LinkedList<GameObject>();
+    public LinkedList<GameObject> thrownGarbages = new LinkedList<GameObject>();
 
     public void ChangeGarbagesSpeed(float _speed)
     {
@@ -29,9 +30,10 @@ public class GarbageManager
         garbage.GetComponent<Garbage>().Destroy();
     }
 
-    public void RemoveButNotDestory(GameObject garbage)
+    public void ThrowGarbage(GameObject garbage)
     {
         garbages.Remove(garbage);
+        thrownGarbages.AddLast(garbage);
     }
 
     private void RemoveGarbage(LinkedListNode<GameObject> node)
@@ -47,6 +49,12 @@ public class GarbageManager
             garbage.GetComponent<Garbage>().Destroy();
         }
         garbages.Clear();
+
+        foreach(GameObject garbage in thrownGarbages)
+        {
+            garbage.GetComponent<Garbage>().Destroy();
+        }
+        thrownGarbages.Clear();
     }
 
     public bool IsEmpty()
