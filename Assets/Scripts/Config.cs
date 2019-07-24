@@ -89,6 +89,8 @@ public class Config
         List<int> count = new List<int>();
         int rewardGold;
         string backgroundUrl;
+        List<Vector3> portalPoint = new List<Vector3>();
+        List<Pipe> pipe = new List<Pipe>();
 
         string mapFileName = "LevelMap" + level.ToString();
         string path = levelMapConfigPath + mapFileName;
@@ -147,7 +149,31 @@ public class Config
         string[] backgroundName = line.Split(',');
         backgroundUrl = backgroundPath + backgroundName[0];
 
-        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundUrl);
+        line = lines[7];
+        if(!line.Contains("none"))
+        {
+            string[] portalPoints = line.Split(',');
+            foreach (string point in portalPoints)
+            {
+                if(string.IsNullOrEmpty(point)) break;
+                string[] pos = point.Split('|');
+                portalPoint.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
+            }
+        }
+
+        line = lines[8];
+        if (!line.Contains("none"))
+        {
+            string[] pipes = line.Split(',');
+            foreach (string pipeStr in pipes)
+            {
+                if (string.IsNullOrEmpty(pipeStr)) break;
+                string[] pos = pipeStr.Split('|');
+                pipe.Add(new Pipe(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])), float.Parse(pos[2])));
+            }
+        }
+
+        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundUrl, portalPoint, pipe);
 
         return map;
     }
