@@ -110,6 +110,14 @@ public class PlayerData
         handbook.Add(_code);
     }
 
+    public void AddHandbook(List<int> _codes)
+    {
+        foreach (int code in _codes)
+        {
+            AddHandbook(code);
+        }
+    }
+
     public List<int> GetHandbook()
     {
         return handbook;

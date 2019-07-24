@@ -60,8 +60,10 @@ public class LevelManager : MonoBehaviour
         CalCountSum();
         if(countSum > 0) GenerateGarbage();
         
-        if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0)
+        if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0) // 通过关卡
         {
+            GameData.playerData.AddHandbook(map.GetGarbageCodes()); // 通过后将图鉴添加到玩家数据
+            GameData.playerData.WriteData(); // 保存到本地
             levelInit.HasSuccess();
         }
     }
