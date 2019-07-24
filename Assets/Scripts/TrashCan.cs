@@ -37,6 +37,7 @@ public class TrashCan : MonoBehaviour
                 else
                 {
                     levelManager.RemoveButNotDestory(garbage.gameObject);
+                    levelManager.AddNotes(garbage.garbageData); // 添加分类失败后的语句
                     Debug.Log(garbage.garbageData.name.ToString() + " is not a mysterious garbage.");
                 }
             }
@@ -51,6 +52,7 @@ public class TrashCan : MonoBehaviour
                 {
                     levelManager.GetComponent<LevelInit>().SubStar();
                     levelManager.RemoveButNotDestory(garbage.gameObject);
+                    levelManager.AddNotes(garbage.garbageData); // 添加分类失败后的语句
                 }
             }
             if (!isMatch)
