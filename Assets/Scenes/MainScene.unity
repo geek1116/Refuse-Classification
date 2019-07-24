@@ -2367,7 +2367,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005351519}
   m_CullTransparentMesh: 0
-<<<<<<< HEAD
 --- !u!114 &1005351523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2387,8 +2386,7 @@ MonoBehaviour:
   wetBtn: {fileID: 1053332992}
   backButton: {fileID: 2012547988}
   prefab: {fileID: 3954904350669484211, guid: 44fd91c89bf504f428c6e7f4b6027d99, type: 3}
-=======
->>>>>>> 52c8bd8627ba7a95e33a25a2d2126eea138eafed
+
 --- !u!1 &1045445805
 GameObject:
   m_ObjectHideFlags: 0
