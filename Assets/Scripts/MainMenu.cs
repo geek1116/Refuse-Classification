@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public Button shopButton;
     public Button garbageGuideButton;
     public Button quitButton;
+    public Button bookButton;
 
     [Header("Pop View on Main Page:")]
     public GameObject shopView;
@@ -21,7 +22,8 @@ public class MainMenu : MonoBehaviour
         playButton.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
         //shopButton.onClick.AddListener(OnClickShop);
         //garbageGuideButton.onClick.AddListener(OnClickGuide);
-        //quitButton.onClick.AddListener(OnClickQuit);
+        bookButton.onClick.AddListener(OnClickBook);
+        quitButton.onClick.AddListener(OnClickQuit);
     }
 
     private void OnEnable()
@@ -48,10 +50,15 @@ public class MainMenu : MonoBehaviour
         shopView.SetActive(true);
     }
 
+    public void OnClickBook()
+    {
+    }
+
     public void OnClickQuit()
     {
-        Debug.Log("OnQuit");
-        quitView.SetActive(true);
+        // Debug.Log("OnQuit");
+        // quitView.SetActive(true);
+        Application.Quit();
     }
 
     private void ResetView()
