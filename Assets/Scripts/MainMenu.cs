@@ -17,6 +17,11 @@ public class MainMenu : MonoBehaviour
     public GameObject guideView;
     public GameObject quitView;
 
+
+    public GameObject MainPanel;
+
+    public GameObject BookPanel;
+
     private void Awake()
     {
         playButton.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
@@ -52,6 +57,8 @@ public class MainMenu : MonoBehaviour
 
     public void OnClickBook()
     {
+        MainPanel.SetActive(false);
+        BookPanel.SetActive(true);
     }
 
     public void OnClickQuit()
@@ -66,5 +73,6 @@ public class MainMenu : MonoBehaviour
         guideView.SetActive(false);
         shopView.SetActive(false);
         quitView.SetActive(false);
+        BookPanel.SetActive(false);
     }
 }
