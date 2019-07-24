@@ -81,6 +81,8 @@ public class LevelInit : MonoBehaviour
         GamingStar--;
         if(GamingStar <= 0)
         {
+            if(level.GetComponent<LevelManager>().HadUsedProp()) GameData.playerData.WriteData(); // 若使用过道具则金币有变化, 则保存数据
+
             //DestoryAllTrashCan();
             level.GetComponent<LevelManager>().ClearGarbages();
             Defeat.SetActive(true);
