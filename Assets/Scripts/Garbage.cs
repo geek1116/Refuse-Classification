@@ -43,11 +43,6 @@ public class Garbage : MonoBehaviour
 
     public void SetTarget(int index)
     {
-        //levelManager = LevelManager.instance;
-        //arrPath = levelManager.arrPath;
-        //speed = levelManager.speed;
-        //arrCount = arrPath.Count;
-        //logicPos = transform.position;
         curIndex = index;
     }
 
@@ -215,6 +210,7 @@ public class Garbage : MonoBehaviour
                     // OverlapPoint() consume to much if we call it each frame, especially when multiple objects overlap (also cause jamming)
                     if (/*GetComponent<CircleCollider2D>() == Physics2D.OverlapPoint(touchPos) && */isDragingMove)
                     {
+                        sr.sortingOrder = 5; // over the pipe.
                         rb.MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
                         isClick = false;
                     }
@@ -225,6 +221,7 @@ public class Garbage : MonoBehaviour
                     // when touch is ended
                     isDragingMove = false;
                     rb.MovePosition(logicPos);
+                    sr.sortingOrder = 2; // behind th pipe, pipe = 3.
                     if (isClick)
                     {
                         Split();

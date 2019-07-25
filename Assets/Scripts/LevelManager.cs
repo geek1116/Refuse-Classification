@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public GameObject background;
     public GameObject conveyor;
     public GameObject catPrefab;
+    public GameObject mechanismGO;
 
     public Text titleText;
 
@@ -24,9 +25,10 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
     private GarbageManager garbageManager;
     private Cat cat;
+    private Mechanism mechanism;
 
     // Level Config
-    //private int level = 1;
+    //private int level = 4;
     public float speed = 1.5f;//4
     private float speedCopy;
     private float intervalTime = 2.0f;//3
@@ -61,8 +63,9 @@ public class LevelManager : MonoBehaviour
             instance = this;
         }
         levelInit = GetComponent<LevelInit>();
-        cat = catPrefab.GetComponent<Cat>();
         garbageManager = new GarbageManager();
+        cat = catPrefab.GetComponent<Cat>();
+        mechanism = mechanismGO.GetComponent<Mechanism>();
     }
 
     void OnEnable()
@@ -100,10 +103,7 @@ public class LevelManager : MonoBehaviour
                 isLevelStarting = false;
             }
             float tempTime = Time.time - startTime;
-            if (tempTime <= 1f)
-            {
-                countdownText.text = "3";
-            }
+            if (tempTime <= 1f) countdownText.text = "3";
             else if (tempTime <= 2f) countdownText.text = "2";
             else if (tempTime <= 3f) countdownText.text = "1";
             else
@@ -162,6 +162,7 @@ public class LevelManager : MonoBehaviour
         titleText.text = temp;
 
         backgroundSprites = map.GetBackgroundImage();
+        mechanism.Init(map.ExistPipe(), map.ExitBlowtorch(), map.ExistPortal());
     }
 
     public bool HadUsedProp()
