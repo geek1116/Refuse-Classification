@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
 
     private int usedProp;
 
-    private List<string> notes; // 记录垃圾分类失败后的语句
+    private List<GarbageData> notes; // 记录垃圾分类失败后的语句
     private List<int> handbookCodes; // 记录已生产垃圾的code
 
     void Awake() {
@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
         SetLevelConfig(level);
         garbageManager = new GarbageManager();
         usedProp = 0;
-        notes = new List<string>();
+        notes = new List<GarbageData>();
         handbookCodes = new List<int>();
     }
 
@@ -112,11 +112,10 @@ public class LevelManager : MonoBehaviour
 
     public void AddNotes(GarbageData garbageData)
     {
-        string note = garbageData.ToString();
-        if(!notes.Contains(note)) notes.Add(note);
+        if(!notes.Contains(garbageData)) notes.Add(garbageData);
     }
 
-    public List<string> GetNotes()
+    public List<GarbageData> GetNotes()
     {
         return notes;
     }
