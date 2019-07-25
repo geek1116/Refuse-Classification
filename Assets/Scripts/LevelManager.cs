@@ -116,14 +116,14 @@ public class LevelManager : MonoBehaviour
         if(!notes.Contains(note)) notes.Add(note);
     }
 
-    public void AddHandbookCodes(int code)
-    {
-        if (!handbookCodes.Contains(code)) handbookCodes.Add(code);
-    }
-
     public List<string> GetNotes()
     {
         return notes;
+    }
+
+    public void AddHandbookCodes(int code)
+    {
+        if (!handbookCodes.Contains(code)) handbookCodes.Add(code);
     }
 
     #region Garbage Generation
