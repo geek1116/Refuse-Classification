@@ -53,7 +53,7 @@ public class LevelManager : MonoBehaviour
     private float startTime;
 
     private bool isGuidance;
-
+    private bool isLevelStarting;
 
     void Awake() {
         if(instance == null)
@@ -80,6 +80,7 @@ public class LevelManager : MonoBehaviour
         isGuidance = true;
         dialog.SetActive(false);
         arrorw.SetActive(false);
+        isLevelStarting = true;
     }
 
     public void SetNeedGenerateGarbage(bool need)
@@ -92,15 +93,23 @@ public class LevelManager : MonoBehaviour
     {
         if(isCountDown)
         {
+            if (isLevelStarting)
+            {
+                cat.OnLevelStart();
+                isLevelStarting = false;
+            }
             float tempTime = Time.time - startTime;
-            if(tempTime <= 1f) countdownText.text = "3";
-            else if(tempTime <= 2f) countdownText.text = "2";
-            else if(tempTime <= 3f) countdownText.text = "1";
+            if (tempTime <= 1f)
+            {
+                countdownText.text = "3";
+            }
+            else if (tempTime <= 2f) countdownText.text = "2";
+            else if (tempTime <= 3f) countdownText.text = "1";
             else
             {
                 countdownText.text = "0";
                 isCountDown = false;
-                countdownText.rectTransform.localScale = new Vector3(0,0,0);
+                countdownText.rectTransform.localScale = new Vector3(0, 0, 0);
             }
             return;
         }
@@ -399,6 +408,7 @@ public class LevelManager : MonoBehaviour
     }
 
     #endregion
+
     void GuidanceOne()
     {
         float tempTime = Time.time - startTime;

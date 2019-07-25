@@ -32,7 +32,7 @@ public class LevelInit : MonoBehaviour
     //垃圾桶初始位置
     private float trashcanX = -4.5f;
 
-    private float trashcanY = -7.5f;
+    private float trashcanY = -8f;
 
     private float interval = 3f; // 垃圾桶间隔
 
@@ -107,6 +107,7 @@ public class LevelInit : MonoBehaviour
 
     public void HasSuccess()
     {
+        level.GetComponent<LevelManager>().ClearGarbages();
         Success.SetActive(true);
         level.GetComponent<LevelManager>().SetNeedGenerateGarbage(false);
     }

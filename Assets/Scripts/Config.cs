@@ -109,7 +109,7 @@ public class Config
 
         string res = Resources.Load(path).ToString();
         string[] lines = res.Split('\n');
-        
+
         string line;
         int index = 0;
         line = lines[index++]; //0
@@ -120,7 +120,7 @@ public class Config
         string[] carTypeStrs = line.Split(',');
         foreach (string carTypeStr in carTypeStrs)
         {
-            if(string.IsNullOrEmpty(carTypeStr)) break;
+            if (string.IsNullOrEmpty(carTypeStr)) break;
             carType.Add(int.Parse(carTypeStr));
         }
 
@@ -128,9 +128,9 @@ public class Config
         string[] garbageCodeRanges = line.Split(',');
         foreach (string garbageRange in garbageCodeRanges)
         {
-            if(string.IsNullOrEmpty(garbageRange)) break;
+            if (string.IsNullOrEmpty(garbageRange)) break;
             string[] code = garbageRange.Split('|');
-            for(int i = int.Parse(code[0]); i <= int.Parse(code[1]); i++)
+            for (int i = int.Parse(code[0]); i <= int.Parse(code[1]); i++)
             {
                 garbageCodes.Add(i);
             }
@@ -140,7 +140,7 @@ public class Config
         string[] points = line.Split(',');
         foreach (string point in points)
         {
-            if(string.IsNullOrEmpty(point)) break;
+            if (string.IsNullOrEmpty(point)) break;
             string[] pos = point.Split('|');
             arrPath.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
         }
@@ -160,12 +160,12 @@ public class Config
         line = lines[index++]; //6
         string[] backgroundName = line.Split(',');
         string backgroundUrl = backgroundPath + backgroundName[0];
-        UnityEngine.Object[] images =  Resources.LoadAll(backgroundUrl, typeof(Sprite));
-        foreach(Sprite image in images)
+        UnityEngine.Object[] images = Resources.LoadAll(backgroundUrl, typeof(Sprite));
+        for (int i = 0; i < images.Length; i++)
         {
+            Sprite image = Resources.Load<Sprite>($"{backgroundUrl}/{i+1}");
             backgroundImage.Add(image);
         }
-        Debug.Log("image: " + backgroundImage.Count);
 
         line = lines[index++]; //7
         if (!line.Contains("none"))

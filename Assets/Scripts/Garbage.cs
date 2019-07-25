@@ -59,7 +59,7 @@ public class Garbage : MonoBehaviour
         sr.sprite = GameData.config.GetImage(garbageData.code);
         if(type == (int)GarbageData.GarbageType.Mysterious)
         {
-            sr.material.color = Color.yellow;
+            sr.material.color = new Color(0.85f,0.95f,0.75f);
         }
         else
         {
@@ -84,7 +84,7 @@ public class Garbage : MonoBehaviour
 
     public void MoveToLogicPos()
     {
-        rb.MovePosition(logicPos);
+        transform.position = logicPos;
         isDragingMove = false;
     }
 
