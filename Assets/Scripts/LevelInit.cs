@@ -107,6 +107,7 @@ public class LevelInit : MonoBehaviour
 
     public void HasSuccess()
     {
+        level.GetComponent<LevelManager>().ClearGarbages();
         Success.SetActive(true);
         level.GetComponent<LevelManager>().SetNeedGenerateGarbage(false);
     }

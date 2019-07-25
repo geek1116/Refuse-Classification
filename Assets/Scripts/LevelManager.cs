@@ -399,6 +399,7 @@ public class LevelManager : MonoBehaviour
     }
 
     #endregion
+
     void GuidanceOne()
     {
         float tempTime = Time.time - startTime;

@@ -84,7 +84,7 @@ public class Garbage : MonoBehaviour
 
     public void MoveToLogicPos()
     {
-        rb.MovePosition(logicPos);
+        transform.position = logicPos;
         isDragingMove = false;
     }
 
