@@ -47,7 +47,7 @@ public class LevelInit : MonoBehaviour
         Exit.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
         TryAgain.onClick.AddListener(() => MenuController.instance.Restart());
         Confirm.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
-        //Next.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
+        Next.onClick.AddListener(() => NextLevel());
 
         SetButton.onClick.AddListener(() => ShowSet());
         SetBack.onClick.AddListener(() => BackGame());
@@ -141,6 +141,13 @@ public class LevelInit : MonoBehaviour
         MenuController.instance.ShowLevelMenu();
 
         Time.timeScale = 1f;
+    }
+
+    void NextLevel()
+    {
+        //GameObject.Find("LevelMenu").GetComponent<LevelMenu>().ClickLevel(GameData.level+1);
+        GameData.level++;
+        MenuController.instance.Restart();
     }
 
     void OnDisable()
