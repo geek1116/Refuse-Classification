@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
@@ -12,6 +13,8 @@ public class Garbage : MonoBehaviour
     public GarbageData garbageData;
     public int type;
     public int buff;
+
+    public Text title;
 
     // cache 
     private Rigidbody2D rb;
@@ -52,6 +55,7 @@ public class Garbage : MonoBehaviour
         type = _garbageData.type;
         buff = _garbageData.buff;
         sr.sprite = GameData.config.GetImage(garbageData.code);
+        title.text = garbageData.name;
         if(type == (int)GarbageData.GarbageType.Mysterious)
         {
             sr.material.color = new Color(0.85f,0.95f,0.75f);

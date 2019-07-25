@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+
 
 public class TrashCan : MonoBehaviour
 {
     private LevelManager levelManager;
     private string garbageTag = "Garbage";
+
+    public Text title;
 
     public AudioClip correctAudio;
 
@@ -19,6 +23,7 @@ public class TrashCan : MonoBehaviour
     public void SetType(int type)
     {
         this.type = type;
+        title.text = GarbageData.typeTitle[type];
     }
 
     private void Start()
