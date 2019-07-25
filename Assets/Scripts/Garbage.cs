@@ -30,6 +30,16 @@ public class Garbage : MonoBehaviour
 
     private bool isThrown = false;
 
+    public int GetCurPathIndex()
+    {
+        return curIndex;
+    }
+
+    public Vector2 GetPos()
+    {
+        return transform.position;
+    }
+
     public void Reset(GarbageData _garbageData)
     {
         garbageData = _garbageData;
@@ -67,6 +77,14 @@ public class Garbage : MonoBehaviour
         isDragingMove = false;
     }
 
+    public void TransferToNewPos(Vector2 newPos, int targetIndex)
+    {
+        logicPos = newPos;
+        curIndex = targetIndex;
+        transform.position = newPos;
+        //rb.MovePosition(newPos);
+    }
+
     public void MoveForward(float distance)
     {
         if (curIndex >= arrCount) return;
@@ -79,9 +97,10 @@ public class Garbage : MonoBehaviour
             {
                 remainDistance -= logicToNextPoint;
                 // Update logicPos when we havn't reach EndPoint.
-                if(++curIndex < arrCount)
+                if(curIndex < arrCount)
                 {
                     logicPos = arrPath[curIndex];
+                    curIndex++;
                 }
                 else // but if reached EndPoint we just move it to EndPoint AND let Update() method handle the OutOfRange Index.
                 {

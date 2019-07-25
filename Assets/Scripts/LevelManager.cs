@@ -282,13 +282,21 @@ public class LevelManager : MonoBehaviour
         garbageManager.ChangeGarbageTypeRandomly(garbage);
     }
 
-    public void OnPortalTrigger(GameObject garbage, Vector3 outDoorPos)
+    public void OnPortalTrigger(GameObject garbageToTransfer, Vector2 outdoorPos, int targetPathIndex)
     {
-        // todo: move garbage and push other node nearby.
+        Vector2 targetPathNode = arrPath[targetPathIndex];
+
+        garbageManager.PortalTransfer(garbageToTransfer, outdoorPos, targetPathIndex, targetPathNode);
+    }
+
+    public float GetGarbageDistance()
+    {
+        return intervalTime * speed;
     }
 
     #endregion
 
+    #region Controll Scene Garbages
     public void ClearGarbages()
     {
         garbageManager.ClearGarbages();
@@ -303,4 +311,5 @@ public class LevelManager : MonoBehaviour
     {
         garbageManager.ThrowGarbage(garbage);
     }
+    #endregion
 }

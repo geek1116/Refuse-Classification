@@ -139,6 +139,85 @@ public class GarbageManager
         garbage.MoveToLogicPos();
     }
 
+    public void PortalTransfer(GameObject garbageToTransfer, Vector2 point, int targetPathIndex, Vector2 targetNodePos)
+    {
+        LinkedListNode<GameObject> nodeToTransfer = garbages.Find(garbageToTransfer);
+        garbages.Remove(nodeToTransfer);
+
+        Garbage garbage = nodeToTransfer.Value.GetComponent<Garbage>();
+        garbage.TransferToNewPos(point, targetPathIndex);
+
+        LinkedListNode<GameObject> previousNode = FindPreviousNodeBeforePoint(point, targetPathIndex, targetNodePos);
+        if(previousNode == null)
+        {
+            garbages.AddLast(nodeToTransfer);
+        }
+        else
+        {
+            garbages.AddBefore(previousNode, nodeToTransfer);
+            PushPreviousNodes(previousNode);
+        }
+    }
+
+    private LinkedListNode<GameObject> FindPreviousNodeBeforePoint(Vector2 point, int targetPathIndex, Vector2 targetNodePos)
+    {
+        float sqrPointToTarget = (targetNodePos - point).sqrMagnitude;
+
+        // forward iteration
+        LinkedListNode<GameObject> node = garbages.First;
+        while (node != null)
+        {
+            Garbage garbage = node.Value.GetComponent<Garbage>();
+            int curIndex = garbage.GetCurPathIndex();
+            if(curIndex < targetPathIndex) // node < PathNode
+            {
+                return node;
+            }
+            else if(curIndex == targetPathIndex) // node == PathNode
+            {
+                float sqrNodeToPathNode = (targetNodePos - garbage.GetPos()).sqrMagnitude;
+                if (sqrNodeToPathNode > sqrPointToTarget)
+                {
+                    return node;
+                }
+            }
+            node = node.Next;
+        }
+        return node;
+    }
+
+    private void PushPreviousNodes(LinkedListNode<GameObject> node)
+    {
+        float garbageDistance = LevelManager.instance.GetGarbageDistance();
+
+        LinkedListNode<GameObject> curNode = node;
+        LinkedListNode<GameObject> previousNode = curNode.Previous;
+        while (previousNode != null)
+        {
+            Garbage curGarbage = curNode.Value.GetComponent<Garbage>();
+            Garbage nextGarbage = previousNode.Value.GetComponent<Garbage>();
+            Vector2 offset = (nextGarbage.GetPos() - curGarbage.GetPos());
+            float distance = offset.magnitude;
+            if (distance < garbageDistance)
+            {
+                //MoveNodeForward(nextNode, garbageDistance - distance);
+                nextGarbage.MoveForward(garbageDistance - distance);
+                curNode = curNode.Previous;
+                previousNode = previousNode.Previous;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    private void MoveNodeForward(LinkedListNode<GameObject> nodeToMove, float distance)
+    {
+        nodeToMove.Value.GetComponent<Garbage>().MoveForward(distance);
+    }
+
+
     private LinkedListNode<GameObject> FindLastNotMatchNode(List<int> carType)
     {
         LinkedListNode<GameObject> unmatchNode = null;
@@ -182,11 +261,6 @@ public class GarbageManager
             node = node.Next;
         }
         return buffNode;
-    }
-
-    private void MoveNodeForward(LinkedListNode<GameObject> nodeToMove, float distance)
-    {
-        nodeToMove.Value.GetComponent<Garbage>().MoveForward(distance);
     }
 
 }

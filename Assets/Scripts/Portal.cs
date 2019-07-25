@@ -11,6 +11,17 @@ public class Portal : MonoBehaviour
 
     private float timer = 0.0f;
     private bool trigger;
+    private int targetPathIndex = 4;
+
+    public void SetTargetIndex(int pathIndex)
+    {
+        targetPathIndex = pathIndex;
+    }
+
+    private void Awake()
+    {
+        GetComponent<BoxCollider2D>().offset = inDoor.transform.localPosition;
+    }
 
     private void FixedUpdate()
     {
@@ -37,7 +48,7 @@ public class Portal : MonoBehaviour
             trigger = false;
             if (collision.CompareTag("Garbage"))
             {
-                LevelManager.instance.OnPortalTrigger(collision.gameObject, outDoor.transform.position);
+                LevelManager.instance.OnPortalTrigger(collision.gameObject, outDoor.transform.position, targetPathIndex);
             }
 
         }
