@@ -15,6 +15,12 @@ public class LevelManager : MonoBehaviour
 
     public Text countdownText;
 
+    public GameObject dialog;
+
+    public Text dialogText;
+
+    public GameObject arrorw;
+
     public static LevelManager instance;
     private GarbageManager garbageManager;
     private Cat cat;
@@ -46,6 +52,9 @@ public class LevelManager : MonoBehaviour
     private bool isCountDown; // 每关开始时的倒计时
     private float startTime;
 
+    private bool isGuidance;
+
+
     void Awake() {
         if(instance == null)
         {
@@ -68,6 +77,9 @@ public class LevelManager : MonoBehaviour
         isCountDown = true;
         startTime = Time.time;
         countdownText.rectTransform.localScale = new Vector3(1,1,0);
+        isGuidance = true;
+        dialog.SetActive(false);
+        arrorw.SetActive(false);
     }
 
     public void SetNeedGenerateGarbage(bool need)
@@ -91,6 +103,15 @@ public class LevelManager : MonoBehaviour
                 countdownText.rectTransform.localScale = new Vector3(0,0,0);
             }
             return;
+        }
+        
+        if(isGuidance)
+        {
+            if(level == 1)
+            {
+                GuidanceOne();
+                return;
+            }
         }
 
         if(!needGenerateGarbage) return;
@@ -378,5 +399,20 @@ public class LevelManager : MonoBehaviour
     }
 
     #endregion
-
+    void GuidanceOne()
+    {
+        float tempTime = Time.time - startTime;
+        if(3f <= tempTime && tempTime <6f)
+        {
+            dialog.SetActive(true);
+            dialogText.text = "垃圾是在太多了，\n我只能处理<color=#FF0000>以上</color>垃圾";
+            arrorw.SetActive(true);
+        }
+        else if(6f <= tempTime)
+        {
+            dialog.SetActive(false);
+            arrorw.SetActive(false);
+            isGuidance = false;
+        }
+    }
 }
