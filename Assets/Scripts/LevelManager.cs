@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
 
     public Text titleText;
 
+    public Text countdownText;
+
     public static LevelManager instance;
     private GarbageManager garbageManager;
     private Cat cat;
@@ -38,6 +40,10 @@ public class LevelManager : MonoBehaviour
     private List<GarbageData> notes; // 记录垃圾分类失败后的语句
     private List<int> handbookCodes; // 记录已生产垃圾的code
 
+    private bool isCountDown; // 每关开始时的倒计时
+
+    private float startTime;
+
     void Awake() {
         if(instance == null)
         {
@@ -56,6 +62,10 @@ public class LevelManager : MonoBehaviour
         usedProp = 0;
         notes = new List<GarbageData>();
         handbookCodes = new List<int>();
+
+        isCountDown = true;
+        startTime = Time.time;
+        countdownText.rectTransform.localScale = new Vector3(1,1,0);
     }
 
     public void SetNeedGenerateGarbage(bool need)
@@ -66,6 +76,21 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isCountDown)
+        {
+            float tempTime = Time.time - startTime;
+            if(tempTime <= 1f) countdownText.text = "3";
+            else if(tempTime <= 2f) countdownText.text = "2";
+            else if(tempTime <= 3f) countdownText.text = "1";
+            else
+            {
+                countdownText.text = "0";
+                isCountDown = false;
+                countdownText.rectTransform.localScale = new Vector3(0,0,0);
+            }
+            return;
+        }
+
         if(!needGenerateGarbage) return;
         CalCountSum();
         if(countSum > 0) GenerateGarbage();
