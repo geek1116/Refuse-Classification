@@ -152,7 +152,11 @@ public class LevelManager : MonoBehaviour
             if(!garbageCodes.ContainsKey(type)) garbageCodes.Add(type, new List<int>());
             garbageCodes[type].Add(code);
         }
-        counts = map.GetCount();
+        counts.Clear();
+        foreach (int count in map.GetCount())
+        {
+            counts.Add(count);
+        }
         CalCountSum();
 
         List<string> carType = map.GetMapTitle();

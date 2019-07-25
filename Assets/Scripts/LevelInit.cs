@@ -27,6 +27,19 @@ public class LevelInit : MonoBehaviour
 
     public Button SetExit;
 
+    
+    public GameObject ClassfyWrong;
+
+    public Button successShowWrong;
+
+    public Button defeatShowWrong;
+
+    public Button classfyBack;
+
+    public Text[] wrongName;
+
+    public Text[] wrongType;
+
     private Map map;
 
     //垃圾桶初始位置
@@ -52,6 +65,10 @@ public class LevelInit : MonoBehaviour
         SetButton.onClick.AddListener(() => ShowSet());
         SetBack.onClick.AddListener(() => BackGame());
         SetExit.onClick.AddListener(() => ExitGame());
+
+        successShowWrong.onClick.AddListener(() => ShowWrong());
+        defeatShowWrong.onClick.AddListener(() => ShowWrong());
+        classfyBack.onClick.AddListener(() => CloseWrong());
     }
 
     void OnEnable()
@@ -60,6 +77,8 @@ public class LevelInit : MonoBehaviour
         Defeat.SetActive(false);
         Success.SetActive(false);
         Set.SetActive(false);
+
+        ClassfyWrong.SetActive(false);
 
         float x = trashcanX, y = trashcanY;
         map = GameData.config.GetMap();
@@ -150,6 +169,29 @@ public class LevelInit : MonoBehaviour
         GameData.config.GetMapConfig(GameData.level);
         //MenuController.instance.ShowLevel();
         MenuController.instance.Restart();
+    }
+
+    void ShowWrong()
+    {
+        ClassfyWrong.SetActive(true);
+        List<GarbageData> wrongData = level.GetComponent<LevelManager>().GetNotes();
+        int i = 0;
+        foreach(GarbageData gd in wrongData)
+        {
+            wrongName[i].text = gd.name;
+            wrongType[i].text = GarbageData.typeTitle[gd.type];
+            i++;
+        }
+    }
+
+    void CloseWrong()
+    {
+        for(int i=0;i<5;i++)
+        {
+            wrongName[i].text = "";
+            wrongType[i].text = "";
+        }
+        ClassfyWrong.SetActive(false);
     }
 
     void OnDisable()
