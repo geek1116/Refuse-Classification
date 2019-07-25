@@ -133,8 +133,8 @@ public class GarbageManager
         }
         else
         {
-            // TODO: random genrate garbage.
-            garbage.ResetGarbageData(GameData.config.GetGarbageData(Random.Range(1, GameData.config.GetGarbageDataCount())));
+            int code = GameData.config.GetRandomCode();
+            garbage.ResetGarbageData(GameData.config.GetGarbageData(code));
         }
         garbage.MoveToLogicPos();
     }

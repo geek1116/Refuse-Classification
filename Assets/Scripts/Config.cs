@@ -7,12 +7,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Random = UnityEngine.Random;
 
 public class Config
 {
     private Map map = null;
 
     private Dictionary<int, GarbageData> garbageData = new Dictionary<int, GarbageData>(); // 垃圾数据
+    private List<int> garbageDataCodes = new List<int>();
     private Dictionary<int, Sprite> image = new Dictionary<int, Sprite>();// 美术资源 垃圾code-object
 
     private static string resourcesPath = "Assets/Resources/";
@@ -49,6 +51,7 @@ public class Config
             int buff = int.Parse(attribute[5]);
 
             garbageData.Add(code, new GarbageData(code, name, type, imageUrl,splitCode,buff));
+            garbageDataCodes.Add(code);
             image.Add(code, Resources.Load<Sprite>(imageUrl));
         }
 
@@ -72,6 +75,12 @@ public class Config
     public int GetGarbageDataCount()
     {
         return garbageData.Count;
+    }
+
+    public int GetRandomCode()
+    {
+        int seed = Random.Range(0, GameData.config.GetGarbageDataCount());
+        return garbageDataCodes[seed];
     }
 
     public Sprite GetImage(int code)

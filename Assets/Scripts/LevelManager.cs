@@ -46,8 +46,10 @@ public class LevelManager : MonoBehaviour
     private List<GarbageData> notes; // 记录垃圾分类失败后的语句
     private List<int> handbookCodes; // 记录已生产垃圾的code
 
-    private bool isCountDown; // 每关开始时的倒计时
+    private int backgroundIndex;
+    private List<Sprite> backgroundSprites;
 
+    private bool isCountDown; // 每关开始时的倒计时
     private float startTime;
 
     private bool isGuidance;
@@ -58,20 +60,20 @@ public class LevelManager : MonoBehaviour
         {
             instance = this;
         }
+        levelInit = GetComponent<LevelInit>();
+        cat = catPrefab.GetComponent<Cat>();
+        garbageManager = new GarbageManager();
     }
 
     void OnEnable()
     {
         timer = 0f;
-        levelInit = GetComponent<LevelInit>();
-        cat = catPrefab.GetComponent<Cat>();
         needGenerateGarbage = true;
         SetLevelConfig(level);
-        garbageManager = new GarbageManager();
         usedProp = 0;
         notes = new List<GarbageData>();
         handbookCodes = new List<int>();
-
+        backgroundIndex = 0;
         isCountDown = true;
         startTime = Time.time;
         countdownText.rectTransform.localScale = new Vector3(1,1,0);
@@ -148,6 +150,8 @@ public class LevelManager : MonoBehaviour
             temp += item + " ";
         }
         titleText.text = temp;
+
+        backgroundSprites = map.GetBackgroundImage();
     }
 
     public bool HadUsedProp()
@@ -171,6 +175,8 @@ public class LevelManager : MonoBehaviour
         if (!handbookCodes.Contains(code)) handbookCodes.Add(code);
     }
 
+    #region Garbage Generation
+
     public GameObject CreateGarbageAtPos(int code, Vector3 pos)
     {
         GarbageData garbageData = GameData.config.GetGarbageData(code);
@@ -179,7 +185,6 @@ public class LevelManager : MonoBehaviour
         return garbage;
     }
 
-    #region Garbage Generation
     private void GenerateGarbage()
     {
         timer -= Time.deltaTime;
@@ -373,12 +378,27 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 
+    #region Mixed Garbage
+
     public void OnSplitMixedGarbage(GameObject mixedGarbage, List<int> splitcodes)
     {
         garbageManager.SplitMixedGarbage(mixedGarbage, splitcodes);
     }
 
+    #endregion
 
+    #region Background
+
+    public void OnCollectRightGarbage()
+    {
+        backgroundIndex++;
+        if(backgroundIndex < backgroundSprites.Count)
+        {
+            background.GetComponent<SpriteRenderer>().sprite = backgroundSprites[backgroundIndex];
+        }
+    }
+
+    #endregion
     void GuidanceOne()
     {
         float tempTime = Time.time - startTime;

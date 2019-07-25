@@ -43,6 +43,7 @@ public class TrashCan : MonoBehaviour
                 }
                 else
                 {
+                    levelManager.OnCollectRightGarbage();
                     levelManager.RemoveGarbage(garbage.gameObject);
                 }
                 levelManager.AddHandbookCodes(garbage.garbageData.code); // 记录分类成功后的垃圾code
@@ -54,7 +55,6 @@ public class TrashCan : MonoBehaviour
                 levelManager.GetComponent<LevelInit>().SubStar();
                 levelManager.ThrowGarbage(garbage.gameObject);
                 SpitGarbage(garbage);
-
                 audioSource.PlayOneShot(wrongAudio);
             }
             levelManager.OnCollectingGarbage(isMatch);
