@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Random = UnityEngine.Random;
+using UnityEditor;
 
 public class Config
 {
@@ -159,14 +160,10 @@ public class Config
         line = lines[index++]; //6
         string[] backgroundName = line.Split(',');
         string backgroundUrl = backgroundPath + backgroundName[0];
-        if (Directory.Exists(resourcesPath + backgroundUrl))
+        UnityEngine.Object[] images =  Resources.LoadAll(backgroundUrl, typeof(Sprite));
+        foreach(Sprite image in images)
         {
-            int len = new DirectoryInfo(resourcesPath + backgroundUrl).GetFiles("*.jpg").Length;
-            for (int i = 1; i <= len; i++)
-            {
-                string imageUrl = backgroundUrl + "/" + i.ToString();
-                backgroundImage.Add(Resources.Load<Sprite>(imageUrl));
-            }
+            backgroundImage.Add(image);
         }
         Debug.Log("image: " + backgroundImage.Count);
 
