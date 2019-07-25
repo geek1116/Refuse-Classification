@@ -89,7 +89,6 @@ public class PlayerData
             }
             levelStar[_level - 1] = _star;
         }
-        //WriteData();
         return true;
     }
 
