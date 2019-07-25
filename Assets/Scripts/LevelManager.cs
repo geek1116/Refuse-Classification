@@ -211,7 +211,7 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 
-    #region Buffer Method
+    #region Buff Method
 
     public void OnBuff(Garbage garbage)
     {
@@ -267,6 +267,20 @@ public class LevelManager : MonoBehaviour
     public void OnSmashCat()
     {
         cat.OnSmashed();
+    }
+
+    #endregion
+
+    #region mechanism method
+
+    public void OnSprayShoot(GameObject garbage)
+    {
+        garbageManager.ChangeGarbageTypeRandomly(garbage);
+    }
+
+    public void OnPortalTrigger(GameObject garbage, Vector3 outDoorPos)
+    {
+        // todo: move garbage and push other node nearby.
     }
 
     #endregion
