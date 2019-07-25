@@ -50,6 +50,7 @@ public class LevelManager : MonoBehaviour
 
     private int backgroundIndex;
     private List<Sprite> backgroundSprites;
+    private SpriteRenderer conveyorSR;
 
     private bool isCountDown; // 每关开始时的倒计时
     private float startTime;
@@ -66,6 +67,7 @@ public class LevelManager : MonoBehaviour
         garbageManager = new GarbageManager();
         cat = catPrefab.GetComponent<Cat>();
         mechanism = mechanismGO.GetComponent<Mechanism>();
+        conveyorSR = conveyor.GetComponent<SpriteRenderer>();
     }
 
     void OnEnable()
@@ -162,7 +164,9 @@ public class LevelManager : MonoBehaviour
         titleText.text = temp;
 
         backgroundSprites = map.GetBackgroundImage();
-        mechanism.Init(map.ExistPipe(), map.ExitBlowtorch(), map.ExistPortal());
+        backgroundIndex = 0;
+        //conveyorSR.sprite = map.GetConveyor();
+        mechanism.Init(map.ExistPipe(), map.ExistPortal(), map.ExitBlowtorch());
     }
 
     public bool HadUsedProp()

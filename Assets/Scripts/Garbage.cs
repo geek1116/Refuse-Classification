@@ -151,6 +151,10 @@ public class Garbage : MonoBehaviour
         {
             HandleInputMove();
         }
+        else
+        {
+            ArrivalEndPoint();
+        }
 
     }
 
@@ -170,7 +174,6 @@ public class Garbage : MonoBehaviour
         }
         else
         {
-            ArrivalEndPoint();
             return false;
         }
         return true;

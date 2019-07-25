@@ -37,7 +37,9 @@ public class LevelMenu : MonoBehaviour
     
     void ClickLevel(int level)
     {
-        if(GameData.playerData.GetLevelCount()+1 >= level)
+        int i = GameData.playerData.GetLevelCount();
+        i += 1;
+        if (i >= level)
         {
             GameData.level = level;
             MenuController.instance.ShowLevel();
