@@ -147,6 +147,8 @@ public class LevelInit : MonoBehaviour
     {
         //GameObject.Find("LevelMenu").GetComponent<LevelMenu>().ClickLevel(GameData.level+1);
         GameData.level++;
+        GameData.config.GetMapConfig(GameData.level);
+        //MenuController.instance.ShowLevel();
         MenuController.instance.Restart();
     }
 
