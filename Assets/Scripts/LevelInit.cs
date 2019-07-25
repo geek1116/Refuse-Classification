@@ -178,7 +178,7 @@ public class LevelInit : MonoBehaviour
         int i = 0;
         foreach(GarbageData gd in wrongData)
         {
-            wrongName[i].text = gd.name;
+            wrongName[i].text = gd.name + " ：";
             wrongType[i].text = GarbageData.typeTitle[gd.type];
             i++;
         }

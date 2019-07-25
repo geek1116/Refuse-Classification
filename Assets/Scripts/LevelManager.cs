@@ -22,6 +22,12 @@ public class LevelManager : MonoBehaviour
 
     public GameObject arrorw;
 
+    public GameObject arrorw2;
+
+    public GameObject arrorw3;
+
+    public GameObject arrorw4;
+
     public static LevelManager instance;
     private GarbageManager garbageManager;
     private Cat cat;
@@ -83,8 +89,7 @@ public class LevelManager : MonoBehaviour
         startTime = Time.time;
         countdownText.rectTransform.localScale = new Vector3(1,1,0);
         if(GameData.playerData.GetLevelCount() < GameData.level ) isGuidance = true;
-        dialog.SetActive(false);
-        arrorw.SetActive(false);
+        SetAllThingFalse();
         isLevelStarting = true;
     }
 
@@ -119,10 +124,22 @@ public class LevelManager : MonoBehaviour
         
         if(isGuidance)
         {
-            if(GameData.level == 1)
+            switch(GameData.level)
             {
-                GuidanceOne();
-                return;
+                case 1:
+                    GuidanceOne();
+                    return;
+                case 2:
+                    GuidanceTwo();
+                    return;
+                case 3:
+                    GuidanceThree();
+                    return;
+                case 4:
+                    GuidanceFour();
+                    return;
+                default:
+                    break;
             }
         }
 
@@ -420,23 +437,100 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 
+
+    void SetAllThingFalse()
+    {
+        dialog.SetActive(false);
+        arrorw.SetActive(false);
+        arrorw2.SetActive(false);
+        arrorw3.SetActive(false);
+        arrorw4.SetActive(false);
+    }
+
     void GuidanceOne()
     {
         float tempTime = Time.time - startTime;
-        if(3f <= tempTime && tempTime <6f)
+        if(3f <= tempTime && tempTime <7f)
         {
             dialog.SetActive(true);
-            dialogText.text = "垃圾实在太多了，\n我只能处理<color=#FF0000>以上</color>垃圾";
+            dialogText.text = "垃圾实在太多了，\n我只能处理<color=#FF0000>上面指示区</color>的垃圾";
             arrorw.SetActive(true);
         }
-        else if(6f <= tempTime && tempTime <= 9f)
+        else if(7f <= tempTime && tempTime <= 11f)
         {
-            dialogText.text = "你能把其他垃圾都放置到下方\n正确的垃圾桶里吗？就像这样";
+            dialogText.text = "你能把其他垃圾拖动到下方\n正确的垃圾桶里吗？";
+        }
+        else if(11f <= tempTime && tempTime <= 14f)
+        {
+            dialogText.text = "注意哦，你只有4次错误机会";
         }
         else
         {
             dialog.SetActive(false);
             arrorw.SetActive(false);
+            isGuidance = false;
+        }
+    }
+
+    void GuidanceTwo()
+    {
+        float tempTime = Time.time - startTime;
+        if(3f <= tempTime && tempTime <7f)
+        {
+            dialog.SetActive(true);
+            dialogText.text = "呀，是可恶的管道呢，不能看到经过那里的垃圾了";
+            arrorw2.SetActive(true);
+        }
+        else if(7f <= tempTime && tempTime <= 11f)
+        {
+            dialogText.text = "对了，不知道你有没有注意到下方的道具栏呢";
+        }
+        else if(11f <= tempTime && tempTime <= 14f)
+        {
+            dialogText.text = "你可以使用金币来购买这些道具并立即使用哦";
+        }
+        else if(14f <= tempTime && tempTime <= 17f)
+        {
+            dialogText.text = "但要注意的是，它们都是有冷却时间的，一定要看准时间哟";
+        }
+        else
+        {
+            dialog.SetActive(false);
+            arrorw2.SetActive(false);
+            isGuidance = false;
+        }
+    }
+
+    void GuidanceThree()
+    {
+        float tempTime = Time.time - startTime;
+        if(3f <= tempTime && tempTime <7f)
+        {
+            dialog.SetActive(true);
+            dialogText.text = "喷灯能把垃圾随机变成其他垃圾哦";
+            arrorw3.SetActive(true);
+        }
+        else
+        {
+            dialog.SetActive(false);
+            arrorw3.SetActive(false);
+            isGuidance = false;
+        }
+    }
+
+    void GuidanceFour()
+    {
+        float tempTime = Time.time - startTime;
+        if(3f <= tempTime && tempTime <7f)
+        {
+            dialog.SetActive(true);
+            dialogText.text = "传送门能把垃圾传送到另一处传送门，要注意进出方向哦";
+            arrorw4.SetActive(true);
+        }
+        else
+        {
+            dialog.SetActive(false);
+            arrorw4.SetActive(false);
             isGuidance = false;
         }
     }
