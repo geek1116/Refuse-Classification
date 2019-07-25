@@ -11,6 +11,10 @@ public class LevelInit : MonoBehaviour
 
     public GameObject Success;
 
+    public Button SetButton;
+
+    public GameObject Set;
+
     public Button Exit;
 
     public Button TryAgain;
@@ -18,6 +22,10 @@ public class LevelInit : MonoBehaviour
     public Button Confirm;
 
     public Button Next;
+
+    public Button SetBack;
+
+    public Button SetExit;
 
     private Map map;
 
@@ -40,6 +48,10 @@ public class LevelInit : MonoBehaviour
         TryAgain.onClick.AddListener(() => MenuController.instance.Restart());
         Confirm.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
         //Next.onClick.AddListener(() => MenuController.instance.ShowLevelMenu());
+
+        SetButton.onClick.AddListener(() => ShowSet());
+        SetBack.onClick.AddListener(() => BackGame());
+        SetExit.onClick.AddListener(() => ExitGame());
     }
 
     void OnEnable()
@@ -47,6 +59,7 @@ public class LevelInit : MonoBehaviour
         level = GameObject.Find("Level");
         Defeat.SetActive(false);
         Success.SetActive(false);
+        Set.SetActive(false);
 
         float x = trashcanX, y = trashcanY;
         map = GameData.config.GetMap();
@@ -104,6 +117,29 @@ public class LevelInit : MonoBehaviour
         {
             Destroy(item);
         }
+    }
+
+    void ShowSet()
+    {
+        Time.timeScale = 0f;
+        Set.SetActive(true);
+    }
+
+    void BackGame()
+    {
+        Set.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    void ExitGame()
+    {
+        // clear relevant data of this level
+        if(level.GetComponent<LevelManager>().HadUsedProp()) GameData.playerData.WriteData(); // 若使用过道具则金币有变化, 则保存数据
+        level.GetComponent<LevelManager>().ClearGarbages();
+        level.GetComponent<LevelManager>().SetNeedGenerateGarbage(false);
+        MenuController.instance.ShowLevelMenu();
+
+        Time.timeScale = 1f;
     }
 
     void OnDisable()
