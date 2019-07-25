@@ -74,6 +74,12 @@ public class PlayerData
     
     public bool SetLevelStar(int _level, int _star)
     {
+        if(!levelStar.ContainsKey(_level))
+        {
+            levelStar.Add(_level, _star);
+            return true;
+        }
+
         if (levelStar[_level] >= _star) return false;
         levelStar[_level] = _star;
         return true;
