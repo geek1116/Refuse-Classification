@@ -168,6 +168,7 @@ public class Config
                 backgroundImage.Add(Resources.Load<Sprite>(imageUrl));
             }
         }
+        Debug.Log("image: " + backgroundImage.Count);
 
         line = lines[index++]; //7
         if (!line.Contains("none"))
