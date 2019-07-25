@@ -24,12 +24,12 @@ public class Map
     private List<int> count =  new List<int>();
     private int rewardGold;
     private List<Sprite> backgroundImage;
-    private List<Vector3> portalPoint = new List<Vector3>();
-    private List<Pipe> pipe = new List<Pipe>();
-    private List<Vector3> blowtorch = new List<Vector3>();
+    private bool portal;
+    private bool pipe;
+    private bool blowtorch;
 
     public void SetMap(int _star, List<int> _carType, List<int> _garbageCodes, List<Vector3> _arrPath, List<int> _count, 
-                       int _rewardGold, List<Sprite> _backgroundImage, List<Vector3> _portalPoint, List<Pipe> _pipe, List<Vector3> _blowtorch)
+                       int _rewardGold, List<Sprite> _backgroundImage, bool _portal, bool _pipe, bool _blowtorch)
     {
         star = _star;
         carType = _carType;
@@ -38,7 +38,7 @@ public class Map
         count = _count;
         rewardGold = _rewardGold;
         backgroundImage = _backgroundImage;
-        portalPoint = _portalPoint;
+        portal = _portal;
         pipe = _pipe;
         blowtorch = _blowtorch;
     }
@@ -89,35 +89,17 @@ public class Map
         return backgroundImage;
     }
 
-    public bool ExistPortalPoint()
+    public bool ExistPortal()
     {
-        if (portalPoint.Count > 0) return true;
-        return false;
-    }
-
-    public List<Vector3> GetPortalPoint()
-    {
-        return portalPoint;
+        return portal;
     }
 
     public bool ExistPipe()
-    {
-        if (pipe.Count > 0) return true;
-        return false;
-    }
-
-    public List<Pipe> GetPipe()
     {
         return pipe;
     }
 
     public bool ExitBlowtorch()
-    {
-        if (blowtorch.Count > 0) return true;
-        return false;
-    }
-
-    public List<Vector3> GetBlowtorcht()
     {
         return blowtorch;
     }
