@@ -2006,6 +2006,8 @@ MonoBehaviour:
   levelThreeButton: {fileID: 251399836}
   levelFourButton: {fileID: 405709005}
   backButton: {fileID: 9357908}
+  dialog: {fileID: 97600469}
+  dialogButton: {fileID: 1642129444}
 --- !u!222 &366489289
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8159,6 +8161,7 @@ MonoBehaviour:
   background: {fileID: 438732058}
   conveyor: {fileID: 483351371}
   catPrefab: {fileID: 1621641304}
+  mechanismGO: {fileID: 0}
   titleText: {fileID: 540617980}
   countdownText: {fileID: 1238264727}
   dialog: {fileID: 1934411962}
