@@ -405,10 +405,14 @@ public class LevelManager : MonoBehaviour
         if(3f <= tempTime && tempTime <6f)
         {
             dialog.SetActive(true);
-            dialogText.text = "垃圾是在太多了，\n我只能处理<color=#FF0000>以上</color>垃圾";
+            dialogText.text = "垃圾实在太多了，\n我只能处理<color=#FF0000>以上</color>垃圾";
             arrorw.SetActive(true);
         }
-        else if(6f <= tempTime)
+        else if(6f <= tempTime && tempTime <= 9f)
+        {
+            dialogText.text = "你能把其他垃圾都放置到下方\n正确的垃圾桶里吗？就像这样";
+        }
+        else
         {
             dialog.SetActive(false);
             arrorw.SetActive(false);
