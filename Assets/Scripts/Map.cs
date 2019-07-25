@@ -23,13 +23,13 @@ public class Map
     private List<int> garbageCodes = new List<int>();
     private List<int> count =  new List<int>();
     private int rewardGold;
-    private string backgroundUrl;
+    private List<Sprite> backgroundImage;
     private List<Vector3> portalPoint = new List<Vector3>();
     private List<Pipe> pipe = new List<Pipe>();
     private List<Vector3> blowtorch = new List<Vector3>();
 
     public void SetMap(int _star, List<int> _carType, List<int> _garbageCodes, List<Vector3> _arrPath, List<int> _count, 
-                       int _rewardGold, string _backgroundUrl, List<Vector3> _portalPoint, List<Pipe> _pipe, List<Vector3> _blowtorch)
+                       int _rewardGold, List<Sprite> _backgroundImage, List<Vector3> _portalPoint, List<Pipe> _pipe, List<Vector3> _blowtorch)
     {
         star = _star;
         carType = _carType;
@@ -37,7 +37,7 @@ public class Map
         arrPath = _arrPath;
         count = _count;
         rewardGold = _rewardGold;
-        backgroundUrl = _backgroundUrl;
+        backgroundImage = _backgroundImage;
         portalPoint = _portalPoint;
         pipe = _pipe;
         blowtorch = _blowtorch;
@@ -84,9 +84,9 @@ public class Map
         return rewardGold;
     }
 
-    public string GetBackgroundUrl()
+    public List<Sprite> GetBackgroundImage()
     {
-        return backgroundUrl;
+        return backgroundImage;
     }
 
     public bool ExistPortalPoint()

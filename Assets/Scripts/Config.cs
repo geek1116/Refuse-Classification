@@ -88,7 +88,7 @@ public class Config
         List<Vector3> arrPath = new List<Vector3>();
         List<int> count = new List<int>();
         int rewardGold;
-        string backgroundUrl;
+        List<Sprite> backgroundImage = new List<Sprite>();
         List<Vector3> portalPoint = new List<Vector3>();
         List<Pipe> pipe = new List<Pipe>();
         List<Vector3> blowtorch = new List<Vector3>();
@@ -148,7 +148,16 @@ public class Config
 
         line = lines[index++]; //6
         string[] backgroundName = line.Split(',');
-        backgroundUrl = backgroundPath + backgroundName[0];
+        string backgroundUrl = backgroundPath + backgroundName[0];
+        if(Directory.Exists(backgroundUrl))
+        {
+            int len = new DirectoryInfo(backgroundUrl).GetFiles().Length;
+            for(int i = 1; i <= len; i++)
+            {
+                string imageUrl = backgroundUrl + "/" + i.ToString();
+                backgroundImage.Add(Resources.Load<Sprite>(imageUrl));
+            }
+        }
 
         line = lines[index++]; //7
         if (!line.Contains("none"))
@@ -186,7 +195,7 @@ public class Config
             }
         }
 
-        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundUrl, portalPoint, pipe, blowtorch);
+        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundImage, portalPoint, pipe, blowtorch);
 
         return map;
     }

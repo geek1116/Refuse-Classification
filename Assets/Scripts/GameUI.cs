@@ -24,11 +24,15 @@ public class GameUI : MonoBehaviour
     [Header("Top UI Refs:")]
     public Text goldText;
 
-    public Text starText;
+    public GameObject star;
+
+    public GameObject[] starIcon;
 
     private BaseProp slowDownProp;
     private BaseProp remindProp;
     private BaseProp eliminateProp;
+
+    private GameObject level;
 
     private void Awake()
     {
@@ -41,16 +45,26 @@ public class GameUI : MonoBehaviour
         eliminateProp = new EliminateProp(eliminateCD, eliminatePrice);
         eliminateBtn.GetComponent<PropButton>().SetProp(eliminateProp);
 
+        level = GameObject.Find("Level");
+    }
 
+    void OnEnable()
+    {
+        //Debug.Log("GameUI!!!!!!!");
+        for(int i=0;i<5;i++) starIcon[i].SetActive(true);
     }
 
     public void Update()
     {
         goldText.text = string.Format("${0}", GameData.playerData.GetGold());
-        string temp = "";
-        int starCount = GameObject.Find("Level").GetComponent<LevelInit>().GetGamingStar();
-        for(int i=0;i<starCount;i++) temp += "★";
-        starText.text = temp;
+        int starCount = level.GetComponent<LevelInit>().GetGamingStar();
+        for(int i=1;i<=5;i++)
+        {
+            if(i>starCount)
+            {
+                starIcon[i-1].SetActive(false);
+            }
+        }
     }
 
 }
