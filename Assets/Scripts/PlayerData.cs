@@ -21,7 +21,7 @@ public class PlayerData
     public void WriteData()
     {
         if (this == null) return;
-        SortHandbook();
+        
         SaveData saveData = new SaveData();
         saveData.gold = gold;
         saveData.levelStar = levelStar;
@@ -44,6 +44,7 @@ public class PlayerData
         gold = saveData.gold;
         levelStar = saveData.levelStar;
         handbook = saveData.handbook;
+        handbook.Sort();
     }
 
     public PlayerData()
@@ -115,16 +116,12 @@ public class PlayerData
         {
             AddHandbook(code);
         }
+        handbook.Sort();
     }
 
     public List<int> GetHandbook()
     {
         return handbook;
-    }
-
-    public void SortHandbook()
-    {
-        handbook.Sort();
     }
 }
 

@@ -100,20 +100,20 @@ public class Config
         string[] lines = res.Split('\n');
         
         string line;
-        line = lines[0];
+        int index = 0;
+        line = lines[index++]; //0
         string[] starStr = line.Split(',');
         star = int.Parse(starStr[0]);
 
-        line = lines[1];
+        line = lines[index++]; //1
         string[] carTypeStrs = line.Split(',');
         foreach (string carTypeStr in carTypeStrs)
         {
             if(string.IsNullOrEmpty(carTypeStr)) break;
             carType.Add(int.Parse(carTypeStr));
         }
-    
 
-        line = lines[2];
+        line = lines[index++]; //2
         string[] garbageCodeRanges = line.Split(',');
         foreach (string garbageRange in garbageCodeRanges)
         {
@@ -124,8 +124,8 @@ public class Config
                 garbageCodes.Add(i);
             }
         }
-        
-        line = lines[3];
+
+        line = lines[index++]; //3
         string[] points = line.Split(',');
         foreach (string point in points)
         {
@@ -134,7 +134,7 @@ public class Config
             arrPath.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
         }
 
-        line = lines[4];
+        line = lines[index++]; //4
         count.Add(0);
         string[] countStrs = line.Split(',');
         foreach (string countStr in countStrs)
@@ -142,16 +142,16 @@ public class Config
             count.Add(int.Parse(countStr));
         }
 
-        line = lines[5];
+        line = lines[index++]; //5
         string[] rewardGoldStr = line.Split(',');
         rewardGold = int.Parse(rewardGoldStr[0]);
 
-        line = lines[6];
+        line = lines[index++]; //6
         string[] backgroundName = line.Split(',');
         backgroundUrl = backgroundPath + backgroundName[0];
 
-        line = lines[7];
-        if(!line.Contains("none"))
+        line = lines[index++]; //7
+        if (!line.Contains("none"))
         {
             string[] portalPoints = line.Split(',');
             foreach (string point in portalPoints)
@@ -162,7 +162,7 @@ public class Config
             }
         }
 
-        line = lines[8];
+        line = lines[index++]; //8
         if (!line.Contains("none"))
         {
             string[] pipes = line.Split(',');
@@ -174,7 +174,7 @@ public class Config
             }
         }
 
-        line = lines[9];
+        line = lines[index++]; //9
         if (!line.Contains("none"))
         {
             string[] blowtorchStrs = line.Split(',');

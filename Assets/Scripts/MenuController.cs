@@ -11,6 +11,8 @@ public class MenuController : MonoBehaviour
     public GameObject levelMenu;
     public GameObject level;
 
+    private AudioSource audioSource;
+
     private void Awake()
     {
         if(instance == null)
@@ -21,6 +23,7 @@ public class MenuController : MonoBehaviour
         mainMenu.SetActive(true);
         levelMenu.SetActive(false);
         level.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -45,6 +48,7 @@ public class MenuController : MonoBehaviour
         level.SetActive(false);
 
         mainMenu.SetActive(true);
+        if(!audioSource.isPlaying) audioSource.Play();
     }
 
     public void ShowLevelMenu()
@@ -53,6 +57,7 @@ public class MenuController : MonoBehaviour
         level.SetActive(false);
 
         levelMenu.SetActive(true);
+        if(!audioSource.isPlaying) audioSource.Play();
     }
 
     public void ShowLevel()
@@ -61,6 +66,7 @@ public class MenuController : MonoBehaviour
         levelMenu.SetActive(false);
 
         level.SetActive(true);
+        audioSource.Stop();
     }
 
     public void Restart()
