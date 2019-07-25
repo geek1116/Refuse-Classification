@@ -8,6 +8,12 @@ public class TrashCan : MonoBehaviour
     private LevelManager levelManager;
     private string garbageTag = "Garbage";
 
+    public AudioClip correctAudio;
+
+    public AudioClip wrongAudio;
+
+    private AudioSource audioSource;
+
     private int type;
 
     public void SetType(int type)
@@ -18,6 +24,7 @@ public class TrashCan : MonoBehaviour
     private void Start()
     {
         levelManager = LevelManager.instance;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,6 +45,8 @@ public class TrashCan : MonoBehaviour
                 {
                     levelManager.RemoveGarbage(garbage.gameObject);
                 }
+
+                audioSource.PlayOneShot(correctAudio);
             }
             else
             {
@@ -45,6 +54,8 @@ public class TrashCan : MonoBehaviour
                 levelManager.GetComponent<LevelInit>().SubStar();
                 levelManager.ThrowGarbage(garbage.gameObject);
                 SpitGarbage(garbage);
+
+                audioSource.PlayOneShot(wrongAudio);
             }
             levelManager.OnCollectingGarbage(isMatch);
         }
