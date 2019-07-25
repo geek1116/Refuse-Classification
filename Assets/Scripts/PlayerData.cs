@@ -13,7 +13,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class PlayerData
 {
     private int gold;
-    private List<int> levelStar;
+    private Dictionary<int, int> levelStar;
     private List<int> handbook;
     
     private string fileName = Application.persistentDataPath + "/playerData.txt";
@@ -50,9 +50,9 @@ public class PlayerData
     public PlayerData()
     {
         gold = 50;
-        levelStar = new List<int>();
+        levelStar = new Dictionary<int, int>();
         handbook = new List<int>();
-        //ReadData();
+        ReadData();
     }
 
     public int GetGold() 
@@ -74,29 +74,14 @@ public class PlayerData
     
     public bool SetLevelStar(int _level, int _star)
     {
-        int level = levelStar.Count;
-        if(level + 1 < _level || _level < 1 )
-        {
-            Debug.Log("PlayerData_SetLevelStat: _level is invalid!");
-            return false;
-        }
-        if(level < _level) levelStar.Add(_star);
-        else 
-        {
-            if(levelStar[_level - 1] >= _star ) 
-            {
-                Debug.Log("PlayerData_SetLevelStat: _star is invalid!");
-                return false;
-            }
-            levelStar[_level - 1] = _star;
-        }
+        if (levelStar[_level] >= _star) return false;
+        levelStar[_level] = _star;
         return true;
     }
 
     public int GetLevelStar(int _level)
     {
-        if(levelStar.Count < _level ||  _level < 1) Debug.Log("PlayerData_GetLevelStat: _level is invalid!");
-        return levelStar[_level - 1];
+        return levelStar[_level];
     }
 
     public int GetLevelCount()
@@ -128,6 +113,6 @@ public class PlayerData
 [System.Serializable]
 public class SaveData{
     public int gold;
-    public List<int> levelStar;
+    public Dictionary<int, int> levelStar;
     public List<int> handbook;
 }
