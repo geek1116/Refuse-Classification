@@ -61,6 +61,7 @@ public class MenuController : MonoBehaviour
         levelMenu.SetActive(false);
 
         level.SetActive(true);
+        GetComponent<AudioSource>().Stop();
     }
 
     public void Restart()
