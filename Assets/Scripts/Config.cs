@@ -7,14 +7,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Random = UnityEngine.Random;
 
 public class Config
 {
     private Map map = null;
 
     private Dictionary<int, GarbageData> garbageData = new Dictionary<int, GarbageData>(); // 垃圾数据
+    private List<int> garbageDataCodes = new List<int>();
     private Dictionary<int, Sprite> image = new Dictionary<int, Sprite>();// 美术资源 垃圾code-object
 
+    private static string resourcesPath = "Assets/Resources/";
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
     private static string backgroundPath = "Sprites/Background/";
@@ -48,6 +51,7 @@ public class Config
             int buff = int.Parse(attribute[5]);
 
             garbageData.Add(code, new GarbageData(code, name, type, imageUrl,splitCode,buff));
+            garbageDataCodes.Add(code);
             image.Add(code, Resources.Load<Sprite>(imageUrl));
         }
 
@@ -71,6 +75,12 @@ public class Config
     public int GetGarbageDataCount()
     {
         return garbageData.Count;
+    }
+
+    public int GetRandomCode()
+    {
+        int seed = Random.Range(0, GameData.config.GetGarbageDataCount());
+        return garbageDataCodes[seed];
     }
 
     public Sprite GetImage(int code)
@@ -149,10 +159,10 @@ public class Config
         line = lines[index++]; //6
         string[] backgroundName = line.Split(',');
         string backgroundUrl = backgroundPath + backgroundName[0];
-        if(Directory.Exists(backgroundUrl))
+        if (Directory.Exists(resourcesPath + backgroundUrl))
         {
-            int len = new DirectoryInfo(backgroundUrl).GetFiles().Length;
-            for(int i = 1; i <= len; i++)
+            int len = new DirectoryInfo(resourcesPath + backgroundUrl).GetFiles("*.jpg").Length;
+            for (int i = 1; i <= len; i++)
             {
                 string imageUrl = backgroundUrl + "/" + i.ToString();
                 backgroundImage.Add(Resources.Load<Sprite>(imageUrl));
