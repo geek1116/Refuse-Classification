@@ -52,7 +52,7 @@ public class PlayerData
         gold = 50;
         levelStar = new List<int>();
         handbook = new List<int>();
-        ReadData();
+        //ReadData();
     }
 
     public int GetGold() 

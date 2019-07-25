@@ -18,7 +18,7 @@ public class Config
     private List<int> garbageDataCodes = new List<int>();
     private Dictionary<int, Sprite> image = new Dictionary<int, Sprite>();// 美术资源 垃圾code-object
 
-    private static string resourcesPath = "Assets/Resources/";
+    // private static string resourcesPath = "Assets/Resources/";
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
     private static string backgroundPath = "Sprites/Background/";
