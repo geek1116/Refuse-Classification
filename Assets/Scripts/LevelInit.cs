@@ -144,6 +144,7 @@ public class LevelInit : MonoBehaviour
 
     void NextLevel()
     {
+        if(GameData.level >=4) return;
         //GameObject.Find("LevelMenu").GetComponent<LevelMenu>().ClickLevel(GameData.level+1);
         GameData.level++;
         GameData.config.GetMapConfig(GameData.level);

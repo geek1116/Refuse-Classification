@@ -165,6 +165,7 @@ public class LevelManager : MonoBehaviour
 
         backgroundSprites = map.GetBackgroundImage();
         backgroundIndex = 0;
+        background.GetComponent<SpriteRenderer>().sprite = backgroundSprites[0];
         conveyorSR.sprite = map.GetConveyorImage();
         mechanism.Init(map.ExistPipe(), map.ExitBlowtorch(), map.ExistPortal());
     }
