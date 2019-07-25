@@ -45,7 +45,7 @@ public class TrashCan : MonoBehaviour
                 {
                     levelManager.RemoveGarbage(garbage.gameObject);
                 }
-
+                levelManager.AddHandbookCodes(garbage.garbageData.code); // 记录分类成功后的垃圾code
                 audioSource.PlayOneShot(correctAudio);
             }
             else

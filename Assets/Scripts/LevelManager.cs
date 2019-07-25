@@ -36,6 +36,7 @@ public class LevelManager : MonoBehaviour
     private int usedProp;
 
     private List<string> notes; // 记录垃圾分类失败后的语句
+    private List<int> handbookCodes; // 记录已生产垃圾的code
 
     void Awake() {
         if(instance == null)
@@ -54,6 +55,7 @@ public class LevelManager : MonoBehaviour
         garbageManager = new GarbageManager();
         usedProp = 0;
         notes = new List<string>();
+        handbookCodes = new List<int>();
     }
 
     public void SetNeedGenerateGarbage(bool need)
@@ -74,7 +76,7 @@ public class LevelManager : MonoBehaviour
             int gold = star * 50 + level * 10;
             GameData.playerData.AddGold(gold); // 通过后获得金币奖励
             GameData.playerData.SetLevelStar(level, star); // 通过后设置星级
-            GameData.playerData.AddHandbook(map.GetGarbageCodes()); // 通过后将图鉴添加到玩家数据
+            GameData.playerData.AddHandbook(handbookCodes); // 通过后将图鉴添加到玩家数据
             GameData.playerData.WriteData(); // 保存到本地
             levelInit.HasSuccess();
         }
@@ -112,6 +114,11 @@ public class LevelManager : MonoBehaviour
     {
         string note = garbageData.ToString();
         if(!notes.Contains(note)) notes.Add(note);
+    }
+
+    public void AddHandbookCodes(int code)
+    {
+        if (!handbookCodes.Contains(code)) handbookCodes.Add(code);
     }
 
     public List<string> GetNotes()
