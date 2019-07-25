@@ -11,7 +11,7 @@ public class Cat : MonoBehaviour
 
     public Transform Start;
     public Transform End;
-    private bool isWalking = true;
+    private bool isWalking = false;
     private float speed;
     private Vector3 dir;
 
@@ -52,6 +52,7 @@ public class Cat : MonoBehaviour
 
     public void OnLevelStart()
     {
+        transform.position = Start.position;
         isWalking = true;
         animator.SetBool("Walking", isWalking);
         Invoke("StopWalking", 3.0f);
