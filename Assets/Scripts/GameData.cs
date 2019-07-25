@@ -11,5 +11,4 @@ public class GameData
     public static Config config = new Config();
 
     public static int level;
-
 }

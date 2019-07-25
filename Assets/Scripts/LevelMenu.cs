@@ -42,6 +42,7 @@ public class LevelMenu : MonoBehaviour
         if (i >= level)
         {
             GameData.level = level;
+            GameData.config.GetMapConfig(level);
             MenuController.instance.ShowLevel();
         }
         else

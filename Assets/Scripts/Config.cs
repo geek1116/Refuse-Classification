@@ -22,6 +22,7 @@ public class Config
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
     private static string backgroundPath = "Sprites/Background/";
+    private static string conveyorPath = "Sprites/Conveyor/";
 
     private static string[] garbageImagePath = {"", "Sprites/Recyclable/", "Sprites/Dry/", "Sprites/Wet/", "Sprites/Pernicious/", "Sprites/Mixed/", "Sprites/Mysterious/"};
 
@@ -103,6 +104,7 @@ public class Config
         bool portal = false;
         bool pipe = false;
         bool blowtorch = false;
+        Sprite conveyorImage;
 
         string mapFileName = "LevelMap" + level.ToString();
         string path = levelMapConfigPath + mapFileName;
@@ -176,7 +178,13 @@ public class Config
         line = lines[index++]; //9
         if (!line.Contains("yes")) blowtorch = true;
 
-        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundImage, portal, pipe, blowtorch);
+        line = lines[index++]; //10
+        string[] conveyorName = line.Split(',');
+        string conveyorUrl = conveyorPath + conveyorName[0];
+        conveyorImage = Resources.Load<Sprite>(conveyorUrl);
+        Debug.Log(conveyorImage);
+
+        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundImage, portal, pipe, blowtorch, conveyorImage);
 
         return map;
     }

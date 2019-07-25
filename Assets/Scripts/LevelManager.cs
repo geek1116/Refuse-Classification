@@ -74,7 +74,7 @@ public class LevelManager : MonoBehaviour
     {
         timer = 0f;
         needGenerateGarbage = true;
-        SetLevelConfig(GameData.level);
+        SetLevelConfig();
         usedProp = 0;
         notes = new List<GarbageData>();
         handbookCodes = new List<int>();
@@ -142,9 +142,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void SetLevelConfig(int level)
+    private void SetLevelConfig()
     {
-        map = GameData.config.GetMapConfig(level);
+        map = GameData.config.GetMap();
         arrPath = map.GetArrPath();
         foreach (int code in map.GetGarbageCodes())
         {

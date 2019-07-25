@@ -27,9 +27,10 @@ public class Map
     private bool portal;
     private bool pipe;
     private bool blowtorch;
+    private Sprite conveyorImage;
 
     public void SetMap(int _star, List<int> _carType, List<int> _garbageCodes, List<Vector3> _arrPath, List<int> _count, 
-                       int _rewardGold, List<Sprite> _backgroundImage, bool _portal, bool _pipe, bool _blowtorch)
+                       int _rewardGold, List<Sprite> _backgroundImage, bool _portal, bool _pipe, bool _blowtorch, Sprite _conveyorImage)
     {
         star = _star;
         carType = _carType;
@@ -41,6 +42,7 @@ public class Map
         portal = _portal;
         pipe = _pipe;
         blowtorch = _blowtorch;
+        conveyorImage = _conveyorImage;
     }
 
     public List<string> GetMapTitle()
@@ -102,6 +104,11 @@ public class Map
     public bool ExitBlowtorch()
     {
         return blowtorch;
+    }
+
+    public Sprite GetConveyorImage()
+    {
+        return conveyorImage;
     }
 }
 
