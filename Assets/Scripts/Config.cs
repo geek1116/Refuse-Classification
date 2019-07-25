@@ -170,13 +170,13 @@ public class Config
         }
 
         line = lines[index++]; //7
-        if (!line.Contains("yes")) portal = true;
+        if (line.Contains("yes")) portal = true;
 
         line = lines[index++]; //8
-        if (!line.Contains("yes")) pipe = true;
+        if (line.Contains("yes")) pipe = true;
 
         line = lines[index++]; //9
-        if (!line.Contains("yes")) blowtorch = true;
+        if (line.Contains("yes")) blowtorch = true;
 
         line = lines[index++]; //10
         string[] conveyorName = line.Split(',');
