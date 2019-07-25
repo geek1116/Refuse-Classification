@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
     private Mechanism mechanism;
 
     // Level Config
-    private int level = 4;
+    //private int level = 4;
     public float speed = 1.5f;//4
     private float speedCopy;
     private float intervalTime = 2.0f;//3
@@ -72,7 +72,7 @@ public class LevelManager : MonoBehaviour
     {
         timer = 0f;
         needGenerateGarbage = true;
-        SetLevelConfig(level);
+        SetLevelConfig(GameData.level);
         usedProp = 0;
         notes = new List<GarbageData>();
         handbookCodes = new List<int>();
@@ -80,7 +80,7 @@ public class LevelManager : MonoBehaviour
         isCountDown = true;
         startTime = Time.time;
         countdownText.rectTransform.localScale = new Vector3(1,1,0);
-        isGuidance = true;
+        if(GameData.playerData.GetLevelCount() < GameData.level ) isGuidance = true;
         dialog.SetActive(false);
         arrorw.SetActive(false);
         isLevelStarting = true;
@@ -90,6 +90,7 @@ public class LevelManager : MonoBehaviour
     {
         needGenerateGarbage = need;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -116,7 +117,7 @@ public class LevelManager : MonoBehaviour
         
         if(isGuidance)
         {
-            if(level == 1)
+            if(GameData.level == 1)
             {
                 GuidanceOne();
                 return;
@@ -130,9 +131,9 @@ public class LevelManager : MonoBehaviour
         if(garbageManager.IsEmpty() && levelInit.GetGamingStar() > 0 && countSum <= 0) // 通过关卡
         {
             int star = levelInit.GetGamingStar();
-            int gold = star * 50 + level * 10;
+            int gold = star * 50 + GameData.level * 10;
             GameData.playerData.AddGold(gold); // 通过后获得金币奖励
-            GameData.playerData.SetLevelStar(level, star); // 通过后设置星级
+            GameData.playerData.SetLevelStar(GameData.level, star); // 通过后设置星级
             GameData.playerData.AddHandbook(handbookCodes); // 通过后将图鉴添加到玩家数据
             GameData.playerData.WriteData(); // 保存到本地
             levelInit.HasSuccess();
@@ -161,7 +162,7 @@ public class LevelManager : MonoBehaviour
         titleText.text = temp;
 
         backgroundSprites = map.GetBackgroundImage();
-        mechanism.Init(map.ExistPipe(), map.ExitBlowtorch(), map.ExistPortalPoint());
+        mechanism.Init(map.ExistPipe(), map.ExitBlowtorch(), map.ExistPortal());
     }
 
     public bool HadUsedProp()

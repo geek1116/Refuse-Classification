@@ -9,7 +9,7 @@ public class Mechanism : MonoBehaviour
     public GameObject spray;
     public GameObject protal;
 
-    public void Awake()
+    public void Start()
     {
         Init(false, false, false);
     }

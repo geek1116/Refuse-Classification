@@ -18,7 +18,7 @@ public class Config
     private List<int> garbageDataCodes = new List<int>();
     private Dictionary<int, Sprite> image = new Dictionary<int, Sprite>();// 美术资源 垃圾code-object
 
-    private static string resourcesPath = "Assets/Resources/";
+    // private static string resourcesPath = "Assets/Resources/";
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
     private static string backgroundPath = "Sprites/Background/";
@@ -100,9 +100,9 @@ public class Config
         List<int> count = new List<int>();
         int rewardGold;
         List<Sprite> backgroundImage = new List<Sprite>();
-        List<Vector3> portalPoint = new List<Vector3>();
-        List<Pipe> pipe = new List<Pipe>();
-        List<Vector3> blowtorch = new List<Vector3>();
+        bool portal = false;
+        bool pipe = false;
+        bool blowtorch = false;
 
         string mapFileName = "LevelMap" + level.ToString();
         string path = levelMapConfigPath + mapFileName;
@@ -168,42 +168,15 @@ public class Config
         }
 
         line = lines[index++]; //7
-        if (!line.Contains("none"))
-        {
-            string[] portalPoints = line.Split(',');
-            foreach (string point in portalPoints)
-            {
-                if(string.IsNullOrEmpty(point)) break;
-                string[] pos = point.Split('|');
-                portalPoint.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
-            }
-        }
+        if (!line.Contains("yes")) portal = true;
 
         line = lines[index++]; //8
-        if (!line.Contains("none"))
-        {
-            string[] pipes = line.Split(',');
-            foreach (string pipeStr in pipes)
-            {
-                if (string.IsNullOrEmpty(pipeStr)) break;
-                string[] pos = pipeStr.Split('|');
-                pipe.Add(new Pipe(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])), float.Parse(pos[2])));
-            }
-        }
+        if (!line.Contains("yes")) pipe = true;
 
         line = lines[index++]; //9
-        if (!line.Contains("none"))
-        {
-            string[] blowtorchStrs = line.Split(',');
-            foreach (string blowtorchStr in blowtorchStrs)
-            {
-                if (string.IsNullOrEmpty(blowtorchStr)) break;
-                string[] pos = blowtorchStr.Split('|');
-                blowtorch.Add(new Vector3(float.Parse(pos[0]), float.Parse(pos[1])));
-            }
-        }
+        if (!line.Contains("yes")) blowtorch = true;
 
-        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundImage, portalPoint, pipe, blowtorch);
+        map.SetMap(star, carType, garbageCodes, arrPath, count, rewardGold, backgroundImage, portal, pipe, blowtorch);
 
         return map;
     }
