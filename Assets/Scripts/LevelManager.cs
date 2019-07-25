@@ -166,7 +166,7 @@ public class LevelManager : MonoBehaviour
         backgroundSprites = map.GetBackgroundImage();
         backgroundIndex = 0;
         conveyorSR.sprite = map.GetConveyorImage();
-        mechanism.Init(map.ExistPipe(), map.ExistPortal(), map.ExitBlowtorch());
+        mechanism.Init(map.ExistPipe(), map.ExitBlowtorch(), map.ExistPortal());
     }
 
     public bool HadUsedProp()

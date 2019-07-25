@@ -33,6 +33,11 @@ public class Cat : MonoBehaviour
         if (isWalking)
         {
             transform.Translate(dir * speed * Time.deltaTime, Space.World);
+            if((transform.position - End.transform.position).magnitude < 0.1f)
+            {
+                isWalking = false;
+                animator.SetBool("Walking", isWalking);
+            }
         }
     }
 
@@ -55,7 +60,7 @@ public class Cat : MonoBehaviour
         transform.position = Start.position;
         isWalking = true;
         animator.SetBool("Walking", isWalking);
-        Invoke("StopWalking", 3.0f);
+        //Invoke("StopWalking", 3.0f);
     }
 
     private void StopWalking()

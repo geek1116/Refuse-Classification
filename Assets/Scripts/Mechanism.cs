@@ -9,11 +9,6 @@ public class Mechanism : MonoBehaviour
     public GameObject spray;
     public GameObject protal;
 
-    public void Start()
-    {
-        Init(false, false, false);
-    }
-
     public void Init(bool havePipe, bool haveSpray, bool haveProtal)
     {
         pipe.SetActive(havePipe);

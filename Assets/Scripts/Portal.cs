@@ -11,7 +11,7 @@ public class Portal : MonoBehaviour
 
     private float timer = 0.0f;
     private bool trigger;
-    private int targetPathIndex = 4;
+    private int targetPathIndex = 3;
 
     public void SetTargetIndex(int pathIndex)
     {

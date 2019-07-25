@@ -64,7 +64,8 @@ public class GarbageManager
 
     public void ChangeGarbageTypeRandomly(GameObject garbage)
     {
-        garbage.GetComponent<Garbage>().ResetGarbageData(GameData.config.GetGarbageData(Random.Range(1, GameData.config.GetGarbageDataCount())));
+        int code = GameData.config.GetRandomCode();
+        garbage.GetComponent<Garbage>().ResetGarbageData(GameData.config.GetGarbageData(code));
     }
 
     public void TransferNodeTo(Vector2 target)
