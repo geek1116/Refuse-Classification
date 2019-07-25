@@ -126,6 +126,14 @@ public class LevelManager : MonoBehaviour
         if (!handbookCodes.Contains(code)) handbookCodes.Add(code);
     }
 
+    public GameObject CreateGarbageAtPos(int code, Vector3 pos)
+    {
+        GarbageData garbageData = GameData.config.GetGarbageData(code);
+        GameObject garbage = Instantiate(garbagePrefab, pos, Quaternion.identity);
+        garbage.GetComponent<Garbage>().ResetGarbageData(garbageData);
+        return garbage;
+    }
+
     #region Garbage Generation
     private void GenerateGarbage()
     {
@@ -135,7 +143,7 @@ public class LevelManager : MonoBehaviour
             int code = GetRandGarbageCode();
             GarbageData garbageData = GameData.config.GetGarbageData(code);
             GameObject garbage = Instantiate(garbagePrefab, arrPath[0], Quaternion.identity);
-            garbage.GetComponent<Garbage>().Reset(garbageData);
+            garbage.GetComponent<Garbage>().ResetGarbageData(garbageData);
 
             garbageManager.AddGarbage(garbage);
 
@@ -319,4 +327,9 @@ public class LevelManager : MonoBehaviour
         garbageManager.ThrowGarbage(garbage);
     }
     #endregion
+
+    public void OnSplitMixedGarbage(GameObject mixedGarbage, List<int> splitcodes)
+    {
+        garbageManager.SplitMixedGarbage(mixedGarbage, splitcodes);
+    }
 }

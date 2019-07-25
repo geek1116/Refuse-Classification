@@ -27,6 +27,7 @@ public class Garbage : MonoBehaviour
     float deltaX, deltaY;
     private Vector2 logicPos;
     private bool isDragingMove = false;
+    private bool isClick = false;
 
     private bool isThrown = false;
 
@@ -40,7 +41,17 @@ public class Garbage : MonoBehaviour
         return transform.position;
     }
 
-    public void Reset(GarbageData _garbageData)
+    public void SetTarget(int index)
+    {
+        //levelManager = LevelManager.instance;
+        //arrPath = levelManager.arrPath;
+        //speed = levelManager.speed;
+        //arrCount = arrPath.Count;
+        //logicPos = transform.position;
+        curIndex = index;
+    }
+
+    public void ResetGarbageData(GarbageData _garbageData)
     {
         garbageData = _garbageData;
         type = _garbageData.type;
@@ -82,7 +93,6 @@ public class Garbage : MonoBehaviour
         logicPos = newPos;
         curIndex = targetIndex;
         transform.position = newPos;
-        //rb.MovePosition(newPos);
     }
 
     public void MoveForward(float distance)
@@ -102,9 +112,9 @@ public class Garbage : MonoBehaviour
                     logicPos = arrPath[curIndex];
                     curIndex++;
                 }
-                else // but if reached EndPoint we just move it to EndPoint AND let Update() method handle the OutOfRange Index.
+                if(curIndex >= arrCount) // but if reached EndPoint we just move it to EndPoint AND let Update() method handle the OutOfRange Index.
                 {
-                    rb.MovePosition(arrPath[arrCount - 1]);
+                    transform.position = arrPath[arrCount - 1];
                     return;
                 }
             }
@@ -115,7 +125,7 @@ public class Garbage : MonoBehaviour
         }
         Vector2 dir = (Vector2)arrPath[curIndex] - logicPos;
         logicPos += dir.normalized * remainDistance;
-        rb.MovePosition(logicPos);
+        transform.position = logicPos;
     }
 
     public void SpitByTrashCan(Transform transform)
@@ -127,10 +137,6 @@ public class Garbage : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-    }
-
-    void Start()
-    {
         levelManager = LevelManager.instance;
         arrPath = levelManager.arrPath;
         speed = levelManager.speed;
@@ -193,6 +199,7 @@ public class Garbage : MonoBehaviour
                     // if you touch the ball
                     if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos))
                     {
+                        isClick = true;
                         // get the offset between position you touches
                         // and the center of the game object
                         deltaX = touchPos.x - transform.position.x;
@@ -207,7 +214,10 @@ public class Garbage : MonoBehaviour
                     // if you touches the ball and movement is allowed then move
                     // OverlapPoint() consume to much if we call it each frame, especially when multiple objects overlap (also cause jamming)
                     if (/*GetComponent<CircleCollider2D>() == Physics2D.OverlapPoint(touchPos) && */isDragingMove)
+                    {
                         rb.MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
+                        isClick = false;
+                    }
                     break;
                 // you release your finger
                 case TouchPhase.Ended:
@@ -215,7 +225,10 @@ public class Garbage : MonoBehaviour
                     // when touch is ended
                     isDragingMove = false;
                     rb.MovePosition(logicPos);
-
+                    if (isClick)
+                    {
+                        Split();
+                    }
                     break;
             }
         }
@@ -223,6 +236,14 @@ public class Garbage : MonoBehaviour
         if (!isDragingMove)
         {
             rb.MovePosition(logicPos);
+        }
+    }
+
+    private void Split()
+    {
+        if(type == (int)GarbageData.GarbageType.Mixed)
+        {
+            levelManager.OnSplitMixedGarbage(gameObject, garbageData.OnSplitCode());
         }
     }
 
