@@ -17,6 +17,8 @@ public class LevelMenu : MonoBehaviour
 
     public GameObject dialog;
 
+    public Button dialogButton;
+
     void OnEnable()
     {
         dialog.SetActive(false);
@@ -29,6 +31,8 @@ public class LevelMenu : MonoBehaviour
         levelThreeButton.onClick.AddListener(() => ClickLevel(3));
         levelFourButton.onClick.AddListener(() => ClickLevel(4));
         backButton.onClick.AddListener(() => MenuController.instance.ShowMainMenu());
+
+        dialogButton.onClick.AddListener(() => dialog.SetActive(false));
     }
     
     void ClickLevel(int level)
@@ -40,12 +44,8 @@ public class LevelMenu : MonoBehaviour
         }
         else
         {
+            dialog.SetActive(true);
         }
-    }
-
-    private void OnEnable()
-    {
-        Debug.Log("Level Menu Enable!");
     }
 
     private void OnDisable()
