@@ -32,7 +32,7 @@ public class LevelInit : MonoBehaviour
     //垃圾桶初始位置
     private float trashcanX = -4.5f;
 
-    private float trashcanY = -7.5f;
+    private float trashcanY = -8f;
 
     private float interval = 3f; // 垃圾桶间隔
 

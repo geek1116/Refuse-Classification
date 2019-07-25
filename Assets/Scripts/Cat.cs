@@ -9,6 +9,12 @@ public class Cat : MonoBehaviour
 
     public AudioClip pickWrong;
 
+    public Transform Start;
+    public Transform End;
+    private bool isWalking = true;
+    private float speed;
+    private Vector3 dir;
+
     private AudioSource audioSource;
 
     private Animator animator;
@@ -17,6 +23,17 @@ public class Cat : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        speed = (Start.position - End.position).magnitude / 3.0f;
+        dir = (End.position - Start.position).normalized;
+        transform.position = Start.position;
+    }
+
+    private void Update()
+    {
+        if (isWalking)
+        {
+            transform.Translate(dir * speed * Time.deltaTime, Space.World);
+        }
     }
 
     public void CollectGarbage(bool isPickedRight)
@@ -31,6 +48,19 @@ public class Cat : MonoBehaviour
     public void OnSmashed()
     {
         animator.SetTrigger("Smashed");
+    }
+
+    public void OnLevelStart()
+    {
+        isWalking = true;
+        animator.SetBool("Walking", isWalking);
+        Invoke("StopWalking", 3.0f);
+    }
+
+    private void StopWalking()
+    {
+        isWalking = false;
+        animator.SetBool("Walking", isWalking);
     }
 
 }

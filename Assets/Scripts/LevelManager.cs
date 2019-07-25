@@ -93,14 +93,18 @@ public class LevelManager : MonoBehaviour
         if(isCountDown)
         {
             float tempTime = Time.time - startTime;
-            if(tempTime <= 1f) countdownText.text = "3";
-            else if(tempTime <= 2f) countdownText.text = "2";
-            else if(tempTime <= 3f) countdownText.text = "1";
+            if (tempTime <= 1f)
+            {
+                countdownText.text = "3";
+                cat.OnLevelStart();
+            }
+            else if (tempTime <= 2f) countdownText.text = "2";
+            else if (tempTime <= 3f) countdownText.text = "1";
             else
             {
                 countdownText.text = "0";
                 isCountDown = false;
-                countdownText.rectTransform.localScale = new Vector3(0,0,0);
+                countdownText.rectTransform.localScale = new Vector3(0, 0, 0);
             }
             return;
         }
