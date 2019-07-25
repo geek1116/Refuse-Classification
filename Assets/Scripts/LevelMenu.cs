@@ -15,6 +15,13 @@ public class LevelMenu : MonoBehaviour
 
     public Button backButton;
 
+    public GameObject dialog;
+
+    void OnEnable()
+    {
+        dialog.SetActive(false);
+    }
+
     private void Awake()
     {
         levelOneButton.onClick.AddListener(() => ClickLevel(1));
@@ -26,11 +33,14 @@ public class LevelMenu : MonoBehaviour
     
     void ClickLevel(int level)
     {
-        if(GameData.playerData.GetLevelCount()+1 > level)
+        if(GameData.playerData.GetLevelCount()+1 >= level)
+        {
+            GameData.level = level;
+            MenuController.instance.ShowLevel();
+        }
+        else
         {
         }
-        GameData.level = level;
-        MenuController.instance.ShowLevel();
     }
 
     private void OnEnable()
