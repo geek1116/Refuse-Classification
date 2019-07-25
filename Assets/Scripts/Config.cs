@@ -15,6 +15,7 @@ public class Config
     private Dictionary<int, GarbageData> garbageData = new Dictionary<int, GarbageData>(); // 垃圾数据
     private Dictionary<int, Sprite> image = new Dictionary<int, Sprite>();// 美术资源 垃圾code-object
 
+    private static string resourcesPath = "Assets/Resources/";
     private static string levelMapConfigPath = "LevelMapConfig/";
     private static string garbageConfigPath = "GarbageConfig/";
     private static string backgroundPath = "Sprites/Background/";
@@ -149,10 +150,10 @@ public class Config
         line = lines[index++]; //6
         string[] backgroundName = line.Split(',');
         string backgroundUrl = backgroundPath + backgroundName[0];
-        if(Directory.Exists(backgroundUrl))
+        if (Directory.Exists(resourcesPath + backgroundUrl))
         {
-            int len = new DirectoryInfo(backgroundUrl).GetFiles().Length;
-            for(int i = 1; i <= len; i++)
+            int len = new DirectoryInfo(resourcesPath + backgroundUrl).GetFiles("*.jpg").Length;
+            for (int i = 1; i <= len; i++)
             {
                 string imageUrl = backgroundUrl + "/" + i.ToString();
                 backgroundImage.Add(Resources.Load<Sprite>(imageUrl));
