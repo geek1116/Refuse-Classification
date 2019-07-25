@@ -63,7 +63,6 @@ public class LevelInit : MonoBehaviour
 
         float x = trashcanX, y = trashcanY;
         map = GameData.config.GetMap();
-        if(map == null) map = GameData.config.GetMapConfig(GameData.level);
         GamingStar = map.GetStar();
         
         List<int> carTypes = map.GetCarType();
