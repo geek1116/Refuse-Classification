@@ -43,17 +43,17 @@ public class BookManager : MonoBehaviour
 
     void Harmful()
     {
-        GenerateBookItemByType(2);
+        GenerateBookItemByType(4);
     }
 
     void Dry()
     {
-        GenerateBookItemByType(3);
+        GenerateBookItemByType(2);
     }
 
     void Wet()
     {
-        GenerateBookItemByType(4);
+        GenerateBookItemByType(3);
     }
 
     void GenerateBookItemByType(int type)
