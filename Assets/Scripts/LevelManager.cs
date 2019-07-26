@@ -91,6 +91,8 @@ public class LevelManager : MonoBehaviour
         isGuidance = true;
         SetAllThingFalse();
         isLevelStarting = true;
+
+        MenuController.instance.ChangeAudio();
     }
 
     public void SetNeedGenerateGarbage(bool need)
@@ -463,15 +465,15 @@ public class LevelManager : MonoBehaviour
         }
         else if(8f <= tempTime && tempTime <= 13f)
         {
-            dialogText.text = "你能把其他垃圾拖动到\n下方正确的垃圾桶里吗？";
+            dialogText.text = "球球你帮我把<color=#FF0000>指示区以外</color>\n的垃圾丢进垃圾桶吧";
         }
         else if(13f <= tempTime && tempTime <= 18f)
         {
-            dialogText.text = "其中绿色的混合垃圾\n需要手动点击它们拆分!";
+            dialogText.text = "其中绿色的是混合垃圾\n需要手动点击它们拆分!";
         }
         else if(18f <= tempTime && tempTime <= 22f)
         {
-            dialogText.text = "注意哦，你只有4次错误机会!";
+            dialogText.text = "分错4次垃圾我会被垃圾埋呢o(╥﹏╥)o";
         }
         else
         {
