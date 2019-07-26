@@ -463,11 +463,15 @@ public class LevelManager : MonoBehaviour
         }
         else if(7f <= tempTime && tempTime <= 11f)
         {
-            dialogText.text = "你能把其他垃圾拖动到下方\n正确的垃圾桶里吗？";
+            dialogText.text = "你能把其他垃圾拖动到\n下方正确的垃圾桶里吗？";
         }
         else if(11f <= tempTime && tempTime <= 14f)
         {
-            dialogText.text = "注意哦，你只有4次错误机会";
+            dialogText.text = "其中绿色的混合垃圾\n需要手动点击它们拆分!";
+        }
+        else if(14f <= tempTime && tempTime <= 17f)
+        {
+            dialogText.text = "注意哦，你只有4次错误机会!";
         }
         else
         {
