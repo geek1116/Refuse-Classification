@@ -457,21 +457,21 @@ public class LevelManager : MonoBehaviour
     void GuidanceOne()
     {
         float tempTime = Time.time - startTime;
-        if(3f <= tempTime && tempTime <8f)
+        if(3f <= tempTime && tempTime <7f)
         {
             dialog.SetActive(true);
             dialogText.text = "垃圾实在太多了，\n我只能处理<color=#FF0000>上面指示区</color>的垃圾";
             arrorw.SetActive(true);
         }
-        else if(8f <= tempTime && tempTime <= 13f)
+        else if(7f <= tempTime && tempTime <= 10f)
         {
             dialogText.text = "球球你帮我把<color=#FF0000>指示区以外</color>\n的垃圾丢进垃圾桶吧";
         }
-        else if(13f <= tempTime && tempTime <= 18f)
+        else if(10f <= tempTime && tempTime <= 14f)
         {
             dialogText.text = "其中绿色的是混合垃圾\n需要手动点击它们拆分!";
         }
-        else if(18f <= tempTime && tempTime <= 22f)
+        else if(14f <= tempTime && tempTime <= 17f)
         {
             dialogText.text = "分错4次垃圾我会被垃圾埋呢o(╥﹏╥)o";
         }
@@ -486,21 +486,21 @@ public class LevelManager : MonoBehaviour
     void GuidanceTwo()
     {
         float tempTime = Time.time - startTime;
-        if(3f <= tempTime && tempTime <8f)
+        if(3f <= tempTime && tempTime <7f)
         {
             dialog.SetActive(true);
             dialogText.text = "呀，是可恶的管道呢，不能看到经过那里的垃圾了";
             arrorw2.SetActive(true);
         }
-        else if(8f <= tempTime && tempTime <= 13f)
+        else if(7f <= tempTime && tempTime <= 10f)
         {
             dialogText.text = "对了，不知道你有没有注意到下方的道具栏呢";
         }
-        else if(13f <= tempTime && tempTime <= 18f)
+        else if(10f <= tempTime && tempTime <= 13f)
         {
             dialogText.text = "你可以使用金币来购买这些道具并立即使用哦";
         }
-        else if(18f <= tempTime && tempTime <= 22f)
+        else if(13f <= tempTime && tempTime <= 16f)
         {
             dialogText.text = "但要注意的是，它们都是有冷却时间的，一定要看准时间哟";
         }
@@ -515,7 +515,7 @@ public class LevelManager : MonoBehaviour
     void GuidanceThree()
     {
         float tempTime = Time.time - startTime;
-        if(3f <= tempTime && tempTime <8f)
+        if(3f <= tempTime && tempTime <7f)
         {
             dialog.SetActive(true);
             dialogText.text = "喷灯能把垃圾随机变成其他垃圾哦";
@@ -532,7 +532,7 @@ public class LevelManager : MonoBehaviour
     void GuidanceFour()
     {
         float tempTime = Time.time - startTime;
-        if(3f <= tempTime && tempTime <8f)
+        if(3f <= tempTime && tempTime <7f)
         {
             dialog.SetActive(true);
             dialogText.text = "传送门能把垃圾传送到另一处传送门，要注意进出方向哦";
