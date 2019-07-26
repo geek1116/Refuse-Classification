@@ -55,6 +55,7 @@ public class Garbage : MonoBehaviour
         type = _garbageData.type;
         buff = _garbageData.buff;
         sr.sprite = GameData.config.GetImage(garbageData.code);
+        title.enabled = true;
         title.text = garbageData.name;
         if(type == (int)GarbageData.GarbageType.Mysterious)
         {
@@ -292,6 +293,7 @@ public class Garbage : MonoBehaviour
         GetComponent<BoxCollider2D>().isTrigger = false;
         gameObject.layer = 10; // 10 = Cat Layer
         sr.color = Color.gray;
+        title.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
