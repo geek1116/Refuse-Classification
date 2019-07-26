@@ -7080,8 +7080,8 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 54fe518213a029044ba60578641ccc06, type: 3}
   - {fileID: 8300000, guid: 54fe518213a029044ba60578641ccc06, type: 3}
-  - {fileID: 8300000, guid: 8c77b52c3cda0f145bf7bbadecf7c02c, type: 3}
   - {fileID: 8300000, guid: fca1d1f7da7fc8b479e5c499a914d9d8, type: 3}
+  - {fileID: 8300000, guid: 8c77b52c3cda0f145bf7bbadecf7c02c, type: 3}
   MainPage: {fileID: 8300000, guid: 85b9f4a94f7721047b3d336118af638f, type: 3}
 --- !u!4 &1499818707
 Transform:
