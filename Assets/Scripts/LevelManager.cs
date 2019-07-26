@@ -391,9 +391,9 @@ public class LevelManager : MonoBehaviour
 
     public void OnPortalTrigger(GameObject garbageToTransfer, Vector2 outdoorPos, int targetPathIndex)
     {
-        Vector2 targetPathNode = arrPath[targetPathIndex];
+        Vector2 targetPathPos = arrPath[targetPathIndex];
 
-        garbageManager.PortalTransfer(garbageToTransfer, outdoorPos, targetPathIndex, targetPathNode);
+        garbageManager.PortalTransfer(garbageToTransfer, outdoorPos, targetPathIndex, targetPathPos);
     }
 
     public float GetGarbageDistance()

@@ -15,6 +15,9 @@ public class Garbage : MonoBehaviour
     public int buff;
 
     public Text title;
+    public Color mysteriousColor;
+    public Color mixedColor;
+    public Color defaultColor;
 
     // cache 
     private Rigidbody2D rb;
@@ -57,13 +60,18 @@ public class Garbage : MonoBehaviour
         sr.sprite = GameData.config.GetImage(garbageData.code);
         title.enabled = true;
         title.text = garbageData.name;
-        if(type == (int)GarbageData.GarbageType.Mysterious)
+
+        switch ((GarbageData.GarbageType)type)
         {
-            sr.material.color = new Color(0.85f,0.95f,0.75f);
-        }
-        else
-        {
-            sr.material.color = Color.white;
+            case GarbageData.GarbageType.Mysterious:
+                sr.material.color = mysteriousColor;
+                break;
+            case GarbageData.GarbageType.Mixed:
+                sr.material.color = mixedColor;
+                break;
+            default:
+                sr.material.color = defaultColor;
+                break;
         }
     }
 

@@ -157,6 +157,7 @@ public class GarbageManager
         {
             garbages.AddBefore(previousNode, nodeToTransfer);
             PushPreviousNodes(previousNode);
+            PushPreviousNodes(nodeToTransfer); // if the previousNode is Far away with next node, we need to confirm the node after transfer node.
         }
     }
 
@@ -178,7 +179,7 @@ public class GarbageManager
 
     private LinkedListNode<GameObject> FindPreviousNodeBeforePoint(Vector2 point, int targetPathIndex, Vector2 targetNodePos)
     {
-        float sqrPointToTarget = (targetNodePos - point).sqrMagnitude;
+        float pointToTarget = (targetNodePos - point).magnitude;
 
         // forward iteration
         LinkedListNode<GameObject> node = garbages.First;
@@ -192,8 +193,8 @@ public class GarbageManager
             }
             else if(curIndex == targetPathIndex) // node == PathNode
             {
-                float sqrNodeToPathNode = (targetNodePos - garbage.GetPos()).sqrMagnitude;
-                if (sqrNodeToPathNode > sqrPointToTarget)
+                float nodeToPathNode = (targetNodePos - garbage.GetPos()).magnitude;
+                if (nodeToPathNode > pointToTarget)
                 {
                     return node;
                 }
