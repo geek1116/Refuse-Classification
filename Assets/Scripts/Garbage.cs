@@ -268,9 +268,9 @@ public class Garbage : MonoBehaviour
         }
         else
         {
+            levelManager.AddNotes(garbageData); // 添加分类失败后的语句
             levelManager.ThrowGarbage(gameObject);
             levelManager.GetComponent<LevelInit>().SubStar();
-            levelManager.AddNotes(garbageData); // 添加分类失败后的语句
             RollAtEndPoint();
         }
         levelManager.OnCollectingGarbage(isMatch);
