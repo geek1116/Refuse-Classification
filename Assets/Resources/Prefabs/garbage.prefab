@@ -145,6 +145,9 @@ MonoBehaviour:
   type: 0
   buff: 0
   title: {fileID: 8269095994345632860}
+  mysteriousColor: {r: 0.85190886, g: 0.7092827, b: 0.9339623, a: 1}
+  mixedColor: {r: 0.7078058, g: 0.9150943, b: 0.4963955, a: 1}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6791817016849638800
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +246,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!1 &6966887604743061265
 GameObject:
   m_ObjectHideFlags: 0
