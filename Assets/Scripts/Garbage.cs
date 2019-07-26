@@ -101,6 +101,9 @@ public class Garbage : MonoBehaviour
             case GarbageData.GarbageType.Wet:
                 sr.material.color = wetColor;
                 break;
+            default:
+                sr.material.color = defaultColor;
+                break;
         }
 
     }
