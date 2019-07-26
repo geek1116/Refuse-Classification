@@ -88,7 +88,7 @@ public class LevelManager : MonoBehaviour
         isCountDown = true;
         startTime = Time.time;
         countdownText.rectTransform.localScale = new Vector3(1,1,0);
-        if(GameData.playerData.GetLevelCount() < GameData.level ) isGuidance = true;
+        isGuidance = true;
         SetAllThingFalse();
         isLevelStarting = true;
     }
