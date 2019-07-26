@@ -15,9 +15,14 @@ public class Garbage : MonoBehaviour
     public int buff;
 
     public Text title;
+    public Color defaultColor;
     public Color mysteriousColor;
     public Color mixedColor;
-    public Color defaultColor;
+    public Color recyclableColor;
+    public Color perniciousColor;
+    public Color dryColor;
+    public Color wetColor;
+
 
     // cache 
     private Rigidbody2D rb;
@@ -82,7 +87,22 @@ public class Garbage : MonoBehaviour
 
     public void Remind()
     {
-        sr.color = Color.red;
+        switch ((GarbageData.GarbageType)type)
+        {
+            case GarbageData.GarbageType.Pernicious:
+                sr.material.color = perniciousColor;
+                break;
+            case GarbageData.GarbageType.Dry:
+                sr.material.color = dryColor;
+                break;
+            case GarbageData.GarbageType.Recyclable:
+                sr.material.color = recyclableColor;
+                break;
+            case GarbageData.GarbageType.Wet:
+                sr.material.color = wetColor;
+                break;
+        }
+
     }
 
     public void Destroy()

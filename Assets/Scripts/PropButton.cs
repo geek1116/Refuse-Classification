@@ -8,10 +8,12 @@ public class PropButton : MonoBehaviour
     private BaseProp prop;
     private Button btn;
     private Image image;
+    public Text price;
 
     public void SetProp(BaseProp _prop)
     {
         prop = _prop;
+        price.text = $"${_prop.price}";
     }
 
     void Start()
