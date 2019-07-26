@@ -279,7 +279,10 @@ public class Garbage : MonoBehaviour
 
     private void RollAtEndPoint()
     {
-        SetRigibodyToThrow(new Vector2(8.0f, 0.0f));
+        Vector2 catPos = levelManager.GetCatPos();
+        Vector2 dir = (catPos - (Vector2)transform.position).normalized;
+        dir.x += 1.0f;
+        SetRigibodyToThrow(dir * 4.0f);
     }
 
     private void SetRigibodyToThrow(Vector2 throwVelocity)
