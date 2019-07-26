@@ -55,6 +55,7 @@ public class Garbage : MonoBehaviour
         type = _garbageData.type;
         buff = _garbageData.buff;
         sr.sprite = GameData.config.GetImage(garbageData.code);
+        title.enabled = true;
         title.text = garbageData.name;
         if(type == (int)GarbageData.GarbageType.Mysterious)
         {
@@ -278,7 +279,10 @@ public class Garbage : MonoBehaviour
 
     private void RollAtEndPoint()
     {
-        SetRigibodyToThrow(new Vector2(8.0f, 0.0f));
+        Vector2 catPos = levelManager.GetCatPos();
+        Vector2 dir = (catPos - (Vector2)transform.position).normalized;
+        dir.x += 1.0f;
+        SetRigibodyToThrow(dir * 4.0f);
     }
 
     private void SetRigibodyToThrow(Vector2 throwVelocity)
@@ -292,6 +296,7 @@ public class Garbage : MonoBehaviour
         GetComponent<BoxCollider2D>().isTrigger = false;
         gameObject.layer = 10; // 10 = Cat Layer
         sr.color = Color.gray;
+        title.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

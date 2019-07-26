@@ -375,6 +375,11 @@ public class LevelManager : MonoBehaviour
         cat.OnSmashed();
     }
 
+    public Vector2 GetCatPos()
+    {
+        return cat.transform.position;
+    }
+
     #endregion
 
     #region mechanism method
