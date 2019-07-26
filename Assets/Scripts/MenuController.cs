@@ -13,6 +13,10 @@ public class MenuController : MonoBehaviour
 
     private AudioSource audioSource;
 
+    public AudioClip[] audioClips;
+
+    public AudioClip MainPage;
+
     private void Awake()
     {
         if(instance == null)
@@ -57,6 +61,12 @@ public class MenuController : MonoBehaviour
         level.SetActive(false);
 
         levelMenu.SetActive(true);
+
+        if(audioSource.clip != MainPage)
+        {
+            audioSource.clip = MainPage;
+            audioSource.Stop();
+        }
         if(!audioSource.isPlaying) audioSource.Play();
     }
 
@@ -66,7 +76,13 @@ public class MenuController : MonoBehaviour
         levelMenu.SetActive(false);
 
         level.SetActive(true);
+    }
+
+    public void ChangeAudio()
+    {
         audioSource.Stop();
+        audioSource.clip = audioClips[GameData.level-1];
+        audioSource.Play();
     }
 
     public void Restart()
