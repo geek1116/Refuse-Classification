@@ -270,6 +270,7 @@ public class Garbage : MonoBehaviour
         {
             levelManager.ThrowGarbage(gameObject);
             levelManager.GetComponent<LevelInit>().SubStar();
+            levelManager.AddNotes(garbageData); // 添加分类失败后的语句
             RollAtEndPoint();
         }
         levelManager.OnCollectingGarbage(isMatch);
